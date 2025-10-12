@@ -17,8 +17,9 @@ const _sourceSerif_4 = V0_Font_Source_Serif_4({
 })
 
 export const metadata: Metadata = {
-	title: 'Kioskopago',
-	description: '',
+	title: 'Es más - Paga todo en un solo lugar',
+	description:
+		'Paga todos tus servicios desde un solo lugar. Recarga tiempo aire, paga luz y agua. Rápido, seguro y sin complicaciones.',
 }
 
 export default function RootLayout({
@@ -28,7 +29,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="es">
-			<body className={`font-sans`}>{children}</body>
+			<body className={`font-sans overflow-x-hidden`}>{children}</body>
 		</html>
 	)
 }
