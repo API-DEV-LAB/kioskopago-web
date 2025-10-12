@@ -21,9 +21,9 @@ export default function Header() {
 							key={item.href}
 							href={item.href}
 							className={cn(
-								'text-sm font-medium transition-colors hover:text-primary',
+								'flex items-center justify-center px-6 text-base font-medium transition-colors h-16 hover:text-primary',
 								pathname === item.href
-									? 'text-primary'
+									? 'text-primary font-semibold'
 									: 'text-muted-foreground',
 							)}
 						>

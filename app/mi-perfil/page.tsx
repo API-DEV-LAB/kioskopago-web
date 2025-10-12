@@ -13,7 +13,7 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import { RiEditLine } from '@remixicon/react'
-import Header from '@/components/header'
+import Header from '@/src/features/home/components/Header'
 
 export default function ProfilePage() {
 	const [isEditing, setIsEditing] = useState(false)
