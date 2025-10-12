@@ -1,5 +1,4 @@
 'use client'
-
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -13,7 +12,8 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { RiCheckLine } from '@remixicon/react'
+import { RiArrowRightLine, RiCheckLine } from '@remixicon/react'
+import { PHONE_MAX } from '@/src/_shared/utils/constants'
 
 interface Package {
 	id: string
@@ -106,55 +106,11 @@ export function RechargeStepper({ serviceName }: RechargeStepperProps) {
 	const total = subtotal + commission
 
 	return (
-		<div className="w-full max-w-2xl mx-auto p-6 space-y-8">
-			<div className="space-y-2">
-				<h2 className="text-2xl font-bold">Completa tu recarga</h2>
-				<p className="text-muted-foreground">
-					Sigue los pasos para realizar tu recarga
-				</p>
-			</div>
-			<div className="relative">
-				<div className="flex items-center justify-between">
-					{[1, 2, 3].map((step, index) => (
-						<div key={step} className="flex items-center flex-1">
-							<div className="flex flex-col items-center relative z-10">
-								<div
-									className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${
-										step < currentStep
-											? 'bg-primary border-primary text-primary-foreground'
-											: step === currentStep
-												? 'bg-primary border-primary text-primary-foreground'
-												: 'bg-background border-muted-foreground/30 text-muted-foreground'
-									}`}
-								>
-									{step < currentStep ? (
-										<RiCheckLine className="h-5 w-5" />
-									) : (
-										step
-									)}
-								</div>
-								<span className="text-xs mt-2 text-center font-medium">
-									{step === 1
-										? 'Paquete'
-										: step === 2
-											? 'Teléfono'
-											: 'Resumen'}
-								</span>
-							</div>
-							{index < 2 && (
-								<div
-									className={`flex-1 h-0.5 mx-2 transition-all ${
-										step < currentStep
-											? 'bg-primary'
-											: 'bg-muted-foreground/30'
-									}`}
-								/>
-							)}
-						</div>
-					))}
-				</div>
-			</div>
-
+		<div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 mt-8">
+			<h2 className="text-2xl font-bold mb-1">Completa tu recarga</h2>
+			<p className="text-muted-foreground mb-4">
+				Sigue los pasos para realizar tu recarga
+			</p>
 			<div className="min-h-[400px]">
 				{currentStep === 1 && (
 					<div className="space-y-4">
@@ -165,6 +121,7 @@ export function RechargeStepper({ serviceName }: RechargeStepperProps) {
 							<RadioGroup
 								value={selectedPackage?.id}
 								onValueChange={handlePackageSelect}
+								className="max-h-[350px] overflow-x-auto"
 							>
 								<div className="space-y-3">
 									{packages.map((pkg) => (
@@ -205,79 +162,69 @@ export function RechargeStepper({ serviceName }: RechargeStepperProps) {
 								disabled={!selectedPackage}
 							>
 								Continuar
+								<RiArrowRightLine />
 							</Button>
 						</div>
 					</div>
 				)}
 				{currentStep === 2 && (
 					<div className="space-y-4">
-						<div>
-							<h3 className="text-lg font-semibold mb-4">
-								Ingresa el número de celular
-							</h3>
-							<div className="space-y-4">
-								<div className="space-y-2">
-									<Label htmlFor="phone">
-										Número de celular
-									</Label>
-									<Input
-										id="phone"
-										type="tel"
-										placeholder="(123) 456 7890"
-										value={phoneNumber}
-										onChange={(e) =>
-											setPhoneNumber(
-												e.target.value
-													.replace(/\D/g, '')
-													.slice(0, 10),
-											)
-										}
-										maxLength={10}
-									/>
-									<p className="text-xs text-muted-foreground">
-										Ingresa el número a 10 dígitos sin
-										espacios
-									</p>
-								</div>
-
-								{selectedPackage && (
-									<Card>
-										<CardHeader>
-											<CardTitle className="text-base">
-												Paquete seleccionado
-											</CardTitle>
-										</CardHeader>
-										<CardContent className="space-y-2">
-											<div className="flex justify-between">
-												<span className="text-sm text-muted-foreground">
-													Paquete:
-												</span>
-												<span className="text-sm font-medium">
-													{selectedPackage.name}
-												</span>
-											</div>
-											<div className="flex justify-between">
-												<span className="text-sm text-muted-foreground">
-													Descripción:
-												</span>
-												<span className="text-sm font-medium">
-													{
-														selectedPackage.description
-													}
-												</span>
-											</div>
-											<div className="flex justify-between">
-												<span className="text-sm text-muted-foreground">
-													Total:
-												</span>
-												<span className="text-sm font-bold">
-													${selectedPackage.total}
-												</span>
-											</div>
-										</CardContent>
-									</Card>
-								)}
+						<div className="space-y-4">
+							<div className="space-y-2">
+								<Label htmlFor="phone">
+									Ingresa el número celular
+								</Label>
+								<Input
+									id="phone"
+									type="tel"
+									placeholder="(123) 456 7890"
+									value={phoneNumber}
+									onChange={(e) =>
+										setPhoneNumber(
+											e.target.value
+												.replace(/\D/g, '')
+												.slice(0, 10),
+										)
+									}
+									maxLength={PHONE_MAX}
+								/>
 							</div>
+
+							{selectedPackage && (
+								<Card>
+									<CardHeader>
+										<CardTitle className="text-base">
+											Paquete seleccionado
+										</CardTitle>
+									</CardHeader>
+									<CardContent className="space-y-2">
+										<div className="flex justify-between">
+											<span className="text-sm text-muted-foreground">
+												Paquete:
+											</span>
+											<span className="text-sm font-medium">
+												{selectedPackage.name}
+											</span>
+										</div>
+										<div className="flex justify-between">
+											<span className="text-sm text-muted-foreground">
+												Descripción:
+											</span>
+											<span className="text-sm font-medium">
+												{selectedPackage.description}
+											</span>
+										</div>
+										<div className="flex justify-between">
+											<span className="text-sm text-muted-foreground">
+												Total:
+											</span>
+											<span className="text-sm font-bold text-primary">
+												${selectedPackage.total}
+											</span>
+										</div>
+									</CardContent>
+								</Card>
+							)}
 						</div>
 						<div className="flex justify-between pt-4">
 							<Button
@@ -291,6 +238,7 @@ export function RechargeStepper({ serviceName }: RechargeStepperProps) {
 								disabled={phoneNumber.length !== 10}
 							>
 								Continuar
+								<RiArrowRightLine />
 							</Button>
 						</div>
 					</div>

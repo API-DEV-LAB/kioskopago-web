@@ -7,7 +7,6 @@ import { RiSearchLine } from '@remixicon/react'
 import Image from 'next/image'
 import { RechargeStepper } from '@/components/recharge-stepper'
 
-// Mock services data
 const services = [
 	{
 		id: 1,
@@ -64,58 +63,59 @@ export default function HomePage() {
 			<Header />
 			<div className="container mx-auto flex-1 flex">
 				<div className="w-1/2 border-r p-6 overflow-y-auto">
-					<div className="max-w-2xl mx-auto space-y-6">
-						<div className="relative">
-							<RiSearchLine className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-							<Input
-								type="text"
-								placeholder="Telcel, AT&T, CFE, CEA"
-								value={searchQuery}
-								onChange={(e) => setSearchQuery(e.target.value)}
-								className="pl-10"
-							/>
-						</div>
-
-						<div className="grid grid-cols-2 gap-4">
-							{filteredServices.map((service) => (
-								<div
-									key={service.id}
-									onClick={() =>
-										setSelectedService(service.name)
+					<div className="bg-white rounded-lg shadow-sm border border-slate-200 p-4 mb-8 mt-8">
+						<div className="flex flex-col md:flex-row gap-4">
+							<div className="flex-1 relative">
+								<RiSearchLine className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+								<Input
+									type="text"
+									placeholder="Telcel, AT&T, CFE, CEA"
+									value={searchQuery}
+									onChange={(e) =>
+										setSearchQuery(e.target.value)
 									}
-									className={`group cursor-pointer transition-all hover:shadow-md ${
-										selectedService === service.name
-											? 'ring-2 ring-primary'
-											: ''
-									}`}
-								>
-									<div className="aspect-square relative mb-3 overflow-hidden rounded-md">
-										<Image
-											src={
-												service.image ||
-												'/placeholder.svg'
-											}
-											alt={service.name}
-											fill
-											className="object-cover transition-transform group-hover:scale-105"
-										/>
-									</div>
-									<h3 className="text-center text-sm font-bold uppercase">
-										{service.name}
-									</h3>
-								</div>
-							))}
-						</div>
-
-						{filteredServices.length === 0 && (
-							<div className="text-center py-12 text-muted-foreground">
-								No se encontraron servicios
+									className="pl-10"
+								/>
 							</div>
-						)}
+						</div>
 					</div>
+
+					<div className="grid grid-cols-4 gap-4">
+						{filteredServices.map((service) => (
+							<div
+								key={service.id}
+								onClick={() => setSelectedService(service.name)}
+								className={`group cursor-pointer transition-all hover:shadow-md ${
+									selectedService === service.name
+										? 'ring-2 ring-primary'
+										: ''
+								}`}
+							>
+								<div className="aspect-square relative mb-3 overflow-hidden rounded-md">
+									<Image
+										src={
+											service.image || '/placeholder.svg'
+										}
+										alt={service.name}
+										fill
+										className="object-cover transition-transform group-hover:scale-105"
+									/>
+								</div>
+								<h3 className="text-center text-sm font-bold uppercase">
+									{service.name}
+								</h3>
+							</div>
+						))}
+					</div>
+
+					{filteredServices.length === 0 && (
+						<div className="text-center py-12 text-muted-foreground">
+							No se encontraron servicios
+						</div>
+					)}
 				</div>
 
-				<div className="w-1/2 bg-muted/20 overflow-y-auto">
+				<div className="w-1/2 p-6 overflow-y-auto">
 					{selectedService ? (
 						<RechargeStepper serviceName={selectedService} />
 					) : (

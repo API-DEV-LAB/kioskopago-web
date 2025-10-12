@@ -231,7 +231,7 @@ export default function HistorialPage() {
 								<p className="text-sm text-slate-600 mb-1">
 									Saldo restante
 								</p>
-								<p className="text-2xl font-bold text-blue-600">
+								<p className="text-2xl font-bold text-primary">
 									{formatCurrency(
 										filteredSales.reduce(
 											(sum, sale) =>
@@ -291,7 +291,7 @@ export default function HistorialPage() {
 											key={sale.id}
 											className="hover:bg-slate-50"
 										>
-											<TableCell className="font-medium text-slate-900">
+											<TableCell className="text-slate-600">
 												{sale.id}
 											</TableCell>
 											<TableCell className="text-slate-600">
@@ -327,7 +327,7 @@ export default function HistorialPage() {
 													sale.commission,
 												)}
 											</TableCell>
-											<TableCell className="text-right text-blue-600 font-semibold">
+											<TableCell className="text-right text-primary font-semibold">
 												{formatCurrency(sale.total)}
 											</TableCell>
 										</TableRow>

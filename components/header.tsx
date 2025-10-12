@@ -9,7 +9,7 @@ export default function Header() {
 	const menuItems = [
 		{ name: ROUTES_APP.HOME.name, href: ROUTES_APP.HOME.path },
 		{ name: ROUTES_APP.HISTORIAL.name, href: ROUTES_APP.HISTORIAL.path },
-		{ name: ROUTES_APP.PROFILE.path, href: ROUTES_APP.PROFILE.path },
+		{ name: ROUTES_APP.PROFILE.name, href: ROUTES_APP.PROFILE.path },
 	]
 
 	return (
