@@ -60,14 +60,11 @@ export default function HomePage() {
 	)
 
 	return (
-		<div className="min-h-screen flex flex-col">
+		<div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col">
 			<Header />
-
-			<div className="flex-1 flex">
-				{/* Left side - Services list */}
-				<div className="w-1/2 border-r bg-background p-6 overflow-y-auto">
+			<div className="container mx-auto flex-1 flex">
+				<div className="w-1/2 border-r p-6 overflow-y-auto">
 					<div className="max-w-2xl mx-auto space-y-6">
-						{/* Search input */}
 						<div className="relative">
 							<RiSearchLine className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
 							<Input
@@ -79,7 +76,6 @@ export default function HomePage() {
 							/>
 						</div>
 
-						{/* Services list */}
 						<div className="grid grid-cols-2 gap-4">
 							{filteredServices.map((service) => (
 								<div
@@ -119,7 +115,6 @@ export default function HomePage() {
 					</div>
 				</div>
 
-				{/* Right side - Stepper */}
 				<div className="w-1/2 bg-muted/20 overflow-y-auto">
 					{selectedService ? (
 						<RechargeStepper serviceName={selectedService} />

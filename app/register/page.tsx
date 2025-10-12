@@ -69,7 +69,7 @@ export default function RegisterPage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5 flex items-center justify-center p-4">
+		<div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
 			<Card className="w-full max-w-2xl shadow-lg rounded-lg">
 				<CardHeader className="space-y-1 text-center">
 					<CardTitle className="text-2xl font-bold">
@@ -103,7 +103,6 @@ export default function RegisterPage() {
 							/>
 						</div>
 
-						{/* Store Address */}
 						<div className="space-y-2">
 							<Label
 								htmlFor="storeAddress"
@@ -125,7 +124,6 @@ export default function RegisterPage() {
 							/>
 						</div>
 
-						{/* Geolocation */}
 						<div className="space-y-2">
 							<Label
 								htmlFor="storeLocation"
@@ -157,7 +155,6 @@ export default function RegisterPage() {
 							</div>
 						</div>
 
-						{/* Owner Name */}
 						<div className="space-y-2">
 							<Label
 								htmlFor="ownerName"
@@ -179,7 +176,6 @@ export default function RegisterPage() {
 							/>
 						</div>
 
-						{/* Phone Number */}
 						<div className="space-y-2">
 							<Label
 								htmlFor="phoneNumber"
@@ -202,7 +198,6 @@ export default function RegisterPage() {
 							/>
 						</div>
 
-						{/* RFC (Optional) */}
 						<div className="space-y-2">
 							<Label
 								htmlFor="rfc"
@@ -223,7 +218,6 @@ export default function RegisterPage() {
 							/>
 						</div>
 
-						{/* Email (Optional) */}
 						<div className="space-y-2">
 							<Label
 								htmlFor="email"
@@ -245,7 +239,6 @@ export default function RegisterPage() {
 							/>
 						</div>
 
-						{/* Terms and Conditions */}
 						<div className="flex items-start space-x-2 pt-2">
 							<Checkbox
 								id="terms"

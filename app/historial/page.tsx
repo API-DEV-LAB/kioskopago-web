@@ -165,8 +165,6 @@ export default function HistorialPage() {
 						Gestiona y revisa todas las compras realizadas
 					</p>
 				</div>
-
-				{/* Filters */}
 				<div className="bg-white rounded-lg shadow-sm border border-slate-200 p-4 mb-6">
 					<div className="flex flex-col md:flex-row gap-4">
 						<div className="flex-1 relative">
@@ -205,8 +203,6 @@ export default function HistorialPage() {
 						</div>
 					</div>
 				</div>
-
-				{/* Summary */}
 				{filteredSales.length > 0 && (
 					<div className="mt-6 bg-white rounded-lg shadow-sm border border-slate-200 p-6">
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -248,8 +244,6 @@ export default function HistorialPage() {
 						</div>
 					</div>
 				)}
-
-				{/* Sales Table */}
 				<div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden mt-6">
 					<div className="overflow-x-auto">
 						<Table>

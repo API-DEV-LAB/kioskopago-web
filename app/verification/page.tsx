@@ -27,7 +27,6 @@ export default function VerificationPage() {
 	const [canResend, setCanResend] = useState(false)
 
 	useEffect(() => {
-		// Get phone number from session storage
 		const storedPhone = sessionStorage.getItem('phoneNumber')
 		if (!storedPhone) {
 			router.push('/login')
@@ -35,7 +34,6 @@ export default function VerificationPage() {
 		}
 		setPhoneNumber(storedPhone)
 
-		// Countdown timer for resend
 		const timer = setInterval(() => {
 			setCountdown((prev) => {
 				if (prev <= 1) {
@@ -52,39 +50,25 @@ export default function VerificationPage() {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-
 		if (code.length !== 6) {
 			alert('Por favor ingresa el código completo')
 			return
 		}
-
 		setIsLoading(true)
-
-		// Simulate API call to verify code
 		await new Promise((resolve) => setTimeout(resolve, 1000))
-
-		// Clear session storage
 		sessionStorage.removeItem('phoneNumber')
-
 		setIsLoading(false)
-
-		// Redirect to dashboard or home
-		router.push('/dashboard')
+		router.push('/')
 	}
 
 	const handleResend = async () => {
 		if (!canResend) return
-
 		setIsLoading(true)
-
-		// Simulate API call to resend code
 		await new Promise((resolve) => setTimeout(resolve, 1000))
-
 		setIsLoading(false)
 		setCanResend(false)
 		setCountdown(60)
 
-		// Restart countdown
 		const timer = setInterval(() => {
 			setCountdown((prev) => {
 				if (prev <= 1) {
@@ -98,7 +82,7 @@ export default function VerificationPage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5 flex items-center justify-center p-4">
+		<div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
 			<Card className="w-full max-w-md shadow-lg rounded-lg">
 				<CardHeader className="space-y-1 text-center">
 					<CardTitle className="text-2xl font-bold">

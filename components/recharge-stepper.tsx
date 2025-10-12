@@ -101,22 +101,18 @@ export function RechargeStepper({ serviceName }: RechargeStepperProps) {
 		setPhoneNumber('')
 	}
 
-	// Calculate commission (10% of total)
 	const commission = selectedPackage ? selectedPackage.total * 0.1 : 0
 	const subtotal = selectedPackage ? selectedPackage.total : 0
 	const total = subtotal + commission
 
 	return (
 		<div className="w-full max-w-2xl mx-auto p-6 space-y-8">
-			{/* Header */}
 			<div className="space-y-2">
 				<h2 className="text-2xl font-bold">Completa tu recarga</h2>
 				<p className="text-muted-foreground">
 					Sigue los pasos para realizar tu recarga
 				</p>
 			</div>
-
-			{/* Stepper */}
 			<div className="relative">
 				<div className="flex items-center justify-between">
 					{[1, 2, 3].map((step, index) => (
@@ -159,9 +155,7 @@ export function RechargeStepper({ serviceName }: RechargeStepperProps) {
 				</div>
 			</div>
 
-			{/* Step Content */}
 			<div className="min-h-[400px]">
-				{/* Step 1: Package Selection */}
 				{currentStep === 1 && (
 					<div className="space-y-4">
 						<div>
@@ -205,7 +199,6 @@ export function RechargeStepper({ serviceName }: RechargeStepperProps) {
 								</div>
 							</RadioGroup>
 						</div>
-
 						<div className="flex justify-end pt-4">
 							<Button
 								onClick={handleNextStep}
@@ -216,8 +209,6 @@ export function RechargeStepper({ serviceName }: RechargeStepperProps) {
 						</div>
 					</div>
 				)}
-
-				{/* Step 2: Phone Number */}
 				{currentStep === 2 && (
 					<div className="space-y-4">
 						<div>
@@ -288,7 +279,6 @@ export function RechargeStepper({ serviceName }: RechargeStepperProps) {
 								)}
 							</div>
 						</div>
-
 						<div className="flex justify-between pt-4">
 							<Button
 								variant="outline"
@@ -305,8 +295,6 @@ export function RechargeStepper({ serviceName }: RechargeStepperProps) {
 						</div>
 					</div>
 				)}
-
-				{/* Step 3: Summary */}
 				{currentStep === 3 && (
 					<div className="space-y-4">
 						<div>

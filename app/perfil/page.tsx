@@ -82,9 +82,8 @@ export default function ProfilePage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5">
+		<div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
 			<Header />
-
 			<div className="container mx-auto px-4 py-8">
 				<Card className="max-w-3xl mx-auto shadow-lg rounded-lg">
 					<CardHeader className="space-y-1">
@@ -111,13 +110,10 @@ export default function ProfilePage() {
 					</CardHeader>
 					<CardContent>
 						<form onSubmit={handleSubmit} className="space-y-6">
-							{/* Store Information Section */}
 							<div className="space-y-4">
 								<h3 className="text-lg font-semibold flex items-center gap-2">
 									Información de la tienda
 								</h3>
-
-								{/* Store Name */}
 								<div className="space-y-2">
 									<Label
 										htmlFor="storeName"
@@ -140,8 +136,6 @@ export default function ProfilePage() {
 										className={!isEditing ? 'bg-muted' : ''}
 									/>
 								</div>
-
-								{/* Store Address */}
 								<div className="space-y-2">
 									<Label
 										htmlFor="storeAddress"
@@ -164,8 +158,6 @@ export default function ProfilePage() {
 										className={!isEditing ? 'bg-muted' : ''}
 									/>
 								</div>
-
-								{/* Geolocation */}
 								<div className="space-y-2">
 									<Label
 										htmlFor="storeLocation"
@@ -178,7 +170,7 @@ export default function ProfilePage() {
 											id="storeLocation"
 											placeholder="Latitud, Longitud"
 											required
-											disabled={!isEditing}
+											disabled
 											value={formData.storeLocation}
 											onChange={(e) =>
 												setFormData({
@@ -203,14 +195,10 @@ export default function ProfilePage() {
 									</div>
 								</div>
 							</div>
-
-							{/* Owner Information Section */}
 							<div className="space-y-4 pt-4 border-t">
 								<h3 className="text-lg font-semibold flex items-center gap-2">
 									Información del dueño
 								</h3>
-
-								{/* Owner Name */}
 								<div className="space-y-2">
 									<Label
 										htmlFor="ownerName"
@@ -233,8 +221,6 @@ export default function ProfilePage() {
 										className={!isEditing ? 'bg-muted' : ''}
 									/>
 								</div>
-
-								{/* Phone Number */}
 								<div className="space-y-2">
 									<Label
 										htmlFor="phoneNumber"
@@ -259,14 +245,10 @@ export default function ProfilePage() {
 									/>
 								</div>
 							</div>
-
-							{/* Optional Information Section */}
 							<div className="space-y-4 pt-4 border-t">
 								<h3 className="text-lg font-semibold">
 									Información adicional (Opcional)
 								</h3>
-
-								{/* RFC */}
 								<div className="space-y-2">
 									<Label
 										htmlFor="rfc"
@@ -288,8 +270,6 @@ export default function ProfilePage() {
 										className={!isEditing ? 'bg-muted' : ''}
 									/>
 								</div>
-
-								{/* Email */}
 								<div className="space-y-2">
 									<Label
 										htmlFor="email"
@@ -313,8 +293,6 @@ export default function ProfilePage() {
 									/>
 								</div>
 							</div>
-
-							{/* Action Buttons */}
 							{isEditing && (
 								<div className="flex gap-3 pt-4">
 									<Button
