@@ -15,6 +15,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
+import { ROUTES_APP } from '@/src/_shared/utils/constants'
 
 export default function RegisterPage() {
 	const router = useRouter()
@@ -81,7 +82,6 @@ export default function RegisterPage() {
 				</CardHeader>
 				<CardContent>
 					<form onSubmit={handleSubmit} className="space-y-4">
-						{/* Store Name */}
 						<div className="space-y-2">
 							<Label
 								htmlFor="storeName"
@@ -102,7 +102,6 @@ export default function RegisterPage() {
 								}
 							/>
 						</div>
-
 						<div className="space-y-2">
 							<Label
 								htmlFor="storeAddress"
@@ -123,7 +122,6 @@ export default function RegisterPage() {
 								}
 							/>
 						</div>
-
 						<div className="space-y-2">
 							<Label
 								htmlFor="storeLocation"
@@ -154,7 +152,6 @@ export default function RegisterPage() {
 								</Button>
 							</div>
 						</div>
-
 						<div className="space-y-2">
 							<Label
 								htmlFor="ownerName"
@@ -175,7 +172,6 @@ export default function RegisterPage() {
 								}
 							/>
 						</div>
-
 						<div className="space-y-2">
 							<Label
 								htmlFor="phoneNumber"
@@ -197,7 +193,6 @@ export default function RegisterPage() {
 								}
 							/>
 						</div>
-
 						<div className="space-y-2">
 							<Label
 								htmlFor="rfc"
@@ -217,7 +212,6 @@ export default function RegisterPage() {
 								}
 							/>
 						</div>
-
 						<div className="space-y-2">
 							<Label
 								htmlFor="email"
@@ -238,7 +232,6 @@ export default function RegisterPage() {
 								}
 							/>
 						</div>
-
 						<div className="flex items-start space-x-2 pt-2">
 							<Checkbox
 								id="terms"
@@ -256,14 +249,13 @@ export default function RegisterPage() {
 							>
 								He leido y acepto los{' '}
 								<a
-									href="/terms"
+									href={ROUTES_APP.TERMSANDCONDITIONS.path}
 									className="text-primary hover:underline"
 								>
 									términos y condiciones
 								</a>
 							</label>
 						</div>
-
 						<Button
 							type="submit"
 							className="w-full"
@@ -272,11 +264,10 @@ export default function RegisterPage() {
 						>
 							{isLoading ? 'Registrando...' : 'Registrar Tienda'}
 						</Button>
-
 						<p className="text-center text-sm text-muted-foreground">
 							¿Ya tienes una cuenta?{' '}
 							<a
-								href="/login"
+								href={ROUTES_APP.LOGIN.path}
 								className="text-primary hover:underline font-medium"
 							>
 								Inicia sesión

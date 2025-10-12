@@ -1,7 +1,5 @@
 'use client'
-
 import type React from 'react'
-
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
@@ -14,6 +12,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
+import { PHONE_MAX, ROUTES_APP } from '@/src/_shared/utils/constants'
 
 export default function LoginPage() {
 	const router = useRouter()
@@ -23,15 +22,10 @@ export default function LoginPage() {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 		setIsLoading(true)
-
-		// Simulate API call to send verification code
 		await new Promise((resolve) => setTimeout(resolve, 1000))
-
-		// Store phone number for verification
 		sessionStorage.setItem('phoneNumber', phoneNumber)
-
 		setIsLoading(false)
-		router.push('/verification')
+		router.push(ROUTES_APP.VERIFICATION.path)
 	}
 
 	return (
@@ -63,9 +57,9 @@ export default function LoginPage() {
 								value={phoneNumber}
 								onChange={(e) => setPhoneNumber(e.target.value)}
 								className="text-lg"
+								maxLength={PHONE_MAX}
 							/>
 						</div>
-
 						<Button
 							type="submit"
 							className="w-full"
@@ -74,11 +68,10 @@ export default function LoginPage() {
 						>
 							{isLoading ? 'Enviando código...' : 'Continuar'}
 						</Button>
-
 						<p className="text-center text-sm text-muted-foreground mx-0 my-0 mb-4">
 							¿No tienes una cuenta?{' '}
 							<a
-								href="/register"
+								href={ROUTES_APP.REGISTER.path}
 								className="text-primary hover:underline font-medium"
 							>
 								Regístrate aquí

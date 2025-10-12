@@ -17,6 +17,7 @@ import {
 	InputOTPGroup,
 	InputOTPSlot,
 } from '@/components/ui/input-otp'
+import { ROUTES_APP } from '@/src/_shared/utils/constants'
 
 export default function VerificationPage() {
 	const router = useRouter()
@@ -140,7 +141,7 @@ export default function VerificationPage() {
 
 						<p className="text-center text-sm text-muted-foreground">
 							<a
-								href="/login"
+								href={ROUTES_APP.LOGIN.path}
 								className="text-primary hover:underline font-medium"
 							>
 								Cambiar número de teléfono
