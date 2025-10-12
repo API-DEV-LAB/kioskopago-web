@@ -1,7 +1,5 @@
 'use client'
-
 import type React from 'react'
-
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
@@ -17,20 +15,24 @@ import {
 	InputOTPGroup,
 	InputOTPSlot,
 } from '@/components/ui/input-otp'
-import { ROUTES_APP } from '@/src/_shared/utils/constants'
+import {
+	CODE_VERIFICATION_MAX,
+	ROUTES_APP,
+} from '@/src/_shared/utils/constants'
+import { formatPhoneNumber } from '@/src/_shared/utils/formats'
 
 export default function VerificationPage() {
 	const router = useRouter()
 	const [code, setCode] = useState('')
 	const [phoneNumber, setPhoneNumber] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
-	const [countdown, setCountdown] = useState(60)
+	const [countdown, setCountdown] = useState(20)
 	const [canResend, setCanResend] = useState(false)
 
 	useEffect(() => {
 		const storedPhone = sessionStorage.getItem('phoneNumber')
 		if (!storedPhone) {
-			router.push('/login')
+			router.push(ROUTES_APP.LOGIN.path)
 			return
 		}
 		setPhoneNumber(storedPhone)
@@ -51,15 +53,15 @@ export default function VerificationPage() {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		if (code.length !== 6) {
-			alert('Por favor ingresa el código completo')
+		if (code.length !== CODE_VERIFICATION_MAX) {
+			alert('Por favor ingresa el código de verificación')
 			return
 		}
 		setIsLoading(true)
 		await new Promise((resolve) => setTimeout(resolve, 1000))
 		sessionStorage.removeItem('phoneNumber')
 		setIsLoading(false)
-		router.push('/')
+		router.push(ROUTES_APP.HOME.path)
 	}
 
 	const handleResend = async () => {
@@ -87,20 +89,20 @@ export default function VerificationPage() {
 			<Card className="w-full max-w-md shadow-lg rounded-lg">
 				<CardHeader className="space-y-1 text-center">
 					<CardTitle className="text-2xl font-bold">
-						Verificación
+						Verificación de número celular
 					</CardTitle>
 					<CardDescription>
 						Ingresa el código de 6 dígitos enviado a
 					</CardDescription>
-					<div className="flex items-center justify-center gap-2 text-sm font-medium text-foreground pt-1">
-						{phoneNumber}
+					<div className="flex items-center justify-center gap-2 text-md font-medium text-foreground pt-1">
+						{formatPhoneNumber(phoneNumber)}
 					</div>
 				</CardHeader>
 				<CardContent>
 					<form onSubmit={handleSubmit} className="space-y-6">
 						<div className="flex flex-col items-center space-y-4">
 							<InputOTP
-								maxLength={6}
+								maxLength={CODE_VERIFICATION_MAX}
 								value={code}
 								onChange={(value) => setCode(value)}
 							>
@@ -144,7 +146,7 @@ export default function VerificationPage() {
 								href={ROUTES_APP.LOGIN.path}
 								className="text-primary hover:underline font-medium"
 							>
-								Cambiar número de teléfono
+								Cambiar tu número celular
 							</a>
 						</p>
 					</form>

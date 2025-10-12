@@ -36,7 +36,7 @@ export default function LoginPage() {
 						Inicia sesión
 					</CardTitle>
 					<CardDescription>
-						Ingresa tu número de celular. Recibirás un código de
+						Ingresa tu número celular, recibirás un código de
 						verificación por SMS.
 					</CardDescription>
 				</CardHeader>

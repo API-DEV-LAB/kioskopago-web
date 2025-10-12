@@ -12,3 +12,4 @@ export const ROUTES_APP = {
 } as const
 
 export const PHONE_MAX = 10
+export const CODE_VERIFICATION_MAX = 6
