@@ -13,3 +13,4 @@ export const ROUTES_APP = {
 
 export const PHONE_MAX = 10
 export const CODE_VERIFICATION_MAX = 6
+export const FIELD_REQUIRED = 'Campo requerido'
