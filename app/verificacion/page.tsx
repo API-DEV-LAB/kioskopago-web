@@ -15,10 +15,7 @@ import {
 	InputOTPGroup,
 	InputOTPSlot,
 } from '@/components/ui/input-otp'
-import {
-	CODE_VERIFICATION_MAX,
-	ROUTES_APP,
-} from '@/shared/utils/constants'
+import { CODE_VERIFICATION_MAX, ROUTES_APP } from '@/shared/utils/constants'
 import { formatPhoneNumber } from '@/shared/utils/formats'
 
 export default function VerificationPage() {

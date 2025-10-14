@@ -30,35 +30,35 @@ export default function HeaderMenu() {
 		return (
 			<>
 				<Button variant="ghost" asChild>
-						<Link href={ROUTES_APP.REGISTER.path}>
-							{ROUTES_APP.REGISTER.name}
-						</Link>
-					</Button>
-                    <Button  asChild>
-						<Link href={ROUTES_APP.LOGIN.path}>
-							{ROUTES_APP.LOGIN.name}
-						</Link>
-					</Button>
+					<Link href={ROUTES_APP.REGISTER.path}>
+						{ROUTES_APP.REGISTER.name}
+					</Link>
+				</Button>
+				<Button asChild>
+					<Link href={ROUTES_APP.LOGIN.path}>
+						{ROUTES_APP.LOGIN.name}
+					</Link>
+				</Button>
 			</>
 		)
 	} else {
-        return (
-            <>
-                {menuLoggedIn.map((item) => (
-                    <Link
-                        key={item.href}
-                        href={item.href}
-                        className={cn(
-                            'flex items-center justify-center px-6 text-base font-medium transition-colors h-16 hover:text-primary',
-                            pathname === item.href
-                                ? 'text-primary font-semibold'
-                                : 'text-muted-foreground',
-                        )}
-                    >
-                        {item.name}
-                    </Link>
-                ))}
-            </>
-        )
-    }
+		return (
+			<>
+				{menuLoggedIn.map((item) => (
+					<Link
+						key={item.href}
+						href={item.href}
+						className={cn(
+							'flex items-center justify-center px-6 text-base font-medium transition-colors h-16 hover:text-primary',
+							pathname === item.href
+								? 'text-primary font-semibold'
+								: 'text-muted-foreground',
+						)}
+					>
+						{item.name}
+					</Link>
+				))}
+			</>
+		)
+	}
 }

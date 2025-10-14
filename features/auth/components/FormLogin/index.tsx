@@ -17,11 +17,11 @@ export default function FormLogin() {
 		e.preventDefault()
 		setIsLoading(true)
 
-		if(!phoneNumber) {
+		if (!phoneNumber) {
 			alert(FIELD_REQUIRED)
 			return
 		}
-		if(phoneNumber.length !== PHONE_MAX) {
+		if (phoneNumber.length !== PHONE_MAX) {
 			alert('El número celular debe tener 10 dígitos')
 			return
 		}

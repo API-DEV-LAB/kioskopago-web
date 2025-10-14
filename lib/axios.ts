@@ -12,21 +12,22 @@ const API = axios.create({
 
 API.interceptors.request.use((config) => {
 	if (typeof window !== 'undefined') {
-	  const token = localStorage.getItem('token');
-	  if (token) config.headers.Authorization = `Bearer ${token}`;
+		const token = localStorage.getItem('token')
+		if (token) config.headers.Authorization = `Bearer ${token}`
 	}
-	return config;
-  });
+	return config
+})
 
 API.interceptors.response.use(
 	(res) => res,
 	(error) => {
-	  const err = error as AxiosError<{ message?: string }>;
-	  if (err.response?.status === 401) {
-		console.warn('Unauthorized, redirecting...');
-	  }
-	  console.error(err.response?.data?.message || err.message);
-	  return Promise.reject(err);
-	}
-  );
+		const err = error as AxiosError<{ message?: string }>
+		if (err.response?.status === 401) {
+			console.warn('Unauthorized, redirecting...')
+		}
+		console.error(err.response?.data?.message || err.message)
+		return Promise.reject(err)
+	},
+)
+
 export default API
