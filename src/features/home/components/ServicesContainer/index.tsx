@@ -51,6 +51,7 @@ export default function ServicesContainer() {
 		<div className="grid grid-cols-4 gap-4">
 			{services.map(({ id, name, image }) => (
 				<ServicesItem
+					key={id}
 					id={id.toString()}
 					name={name}
 					image={image}
