@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { RiArrowRightLine, RiCheckLine } from '@remixicon/react'
-import { PHONE_MAX } from '@/src/_shared/utils/constants'
+import { PHONE_MAX } from '@/shared/utils/constants'
 
 interface Package {
 	id: string

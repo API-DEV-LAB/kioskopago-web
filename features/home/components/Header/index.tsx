@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { ROUTES_APP } from '@/src/_shared/utils/constants'
+import { ROUTES_APP } from '@/shared/utils/constants'
 
 export default function Header() {
 	const pathname = usePathname()

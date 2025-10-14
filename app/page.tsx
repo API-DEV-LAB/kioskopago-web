@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Header } from '@/src/features/home/components/Header'
+import { Header } from '@/features/home/components/Header'
 import { Input } from '@/components/ui/input'
 import { RiSearchLine } from '@remixicon/react'
 import Image from 'next/image'

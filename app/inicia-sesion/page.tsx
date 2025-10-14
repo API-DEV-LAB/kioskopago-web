@@ -12,7 +12,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { PHONE_MAX, ROUTES_APP } from '@/src/_shared/utils/constants'
+import { PHONE_MAX, ROUTES_APP } from '@/shared/utils/constants'
 
 export default function LoginPage() {
 	const router = useRouter()

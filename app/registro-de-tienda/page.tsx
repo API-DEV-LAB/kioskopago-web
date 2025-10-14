@@ -15,7 +15,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { ROUTES_APP } from '@/src/_shared/utils/constants'
+import { ROUTES_APP } from '@/shared/utils/constants'
 
 export default function RegisterPage() {
 	const router = useRouter()

@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { ServicesItem } from '@/src/features/home/components/ServicesItem'
+import { ServicesItem } from '@/features/home/components/ServicesItem'
 
 const services = [
 	{
