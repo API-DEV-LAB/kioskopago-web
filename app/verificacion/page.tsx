@@ -6,8 +6,8 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { formatPhoneNumber } from '@/shared/utils/formats'
 import FormVerification from '@/features/auth/components/FormVerification'
+import TitlePhone from '@/features/auth/components/TitlePhone'
 
 export default function VerificationPage() {
 	return (
@@ -20,9 +20,7 @@ export default function VerificationPage() {
 					<CardDescription>
 						Ingresa el código de 6 dígitos enviado a
 					</CardDescription>
-					<div className="flex items-center justify-center gap-2 text-md font-medium text-foreground pt-1">
-						{formatPhoneNumber('4427560874')}
-					</div>
+					<TitlePhone />
 				</CardHeader>
 				<CardContent>
 					<FormVerification />
