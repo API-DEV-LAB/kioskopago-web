@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { PHONE_MAX, ROUTES_APP } from '@/shared/utils/constants'
 import { AuthLoginPost } from '@/features/auth/api/login'
-import { FIELD_REQUIRED } from '@/shared/utils/constants'
+import { validatePhone } from '@/shared/utils/validations'
 
 export default function FormLogin() {
 	const router = useRouter()
@@ -15,17 +15,13 @@ export default function FormLogin() {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
+		const error = validatePhone(phoneNumber)
+		if (error) {
+			alert(error)
+			return
+		}
+
 		setIsLoading(true)
-
-		if (!phoneNumber) {
-			alert(FIELD_REQUIRED)
-			return
-		}
-		if (phoneNumber.length !== PHONE_MAX) {
-			alert('El número celular debe tener 10 dígitos')
-			return
-		}
-
 		try {
 			const response = await AuthLoginPost(phoneNumber)
 			if (response.status === 200) {
