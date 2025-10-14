@@ -1,0 +1,64 @@
+'use client'
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { cn } from '@/lib/utils'
+import { ROUTES_APP } from '@/shared/utils/constants'
+import { Button } from '@/components/ui/button'
+
+export default function HeaderMenu() {
+	const pathname = usePathname()
+	const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+
+	useEffect(() => {
+		const allCookies = document.cookie
+		const hasToken = allCookies.includes('token=')
+		if (hasToken) {
+			setIsLoggedIn(false)
+		} else {
+			setIsLoggedIn(true)
+		}
+	}, [])
+
+	const menuLoggedIn = [
+		{ name: ROUTES_APP.HOME.name, href: ROUTES_APP.HOME.path },
+		{ name: ROUTES_APP.HISTORIAL.name, href: ROUTES_APP.HISTORIAL.path },
+		{ name: ROUTES_APP.PROFILE.name, href: ROUTES_APP.PROFILE.path },
+	]
+
+	if (isLoggedIn) {
+		return (
+			<>
+				<Button variant="ghost" asChild>
+						<Link href={ROUTES_APP.REGISTER.path}>
+							{ROUTES_APP.REGISTER.name}
+						</Link>
+					</Button>
+                    <Button  asChild>
+						<Link href={ROUTES_APP.LOGIN.path}>
+							{ROUTES_APP.LOGIN.name}
+						</Link>
+					</Button>
+			</>
+		)
+	} else {
+        return (
+            <>
+                {menuLoggedIn.map((item) => (
+                    <Link
+                        key={item.href}
+                        href={item.href}
+                        className={cn(
+                            'flex items-center justify-center px-6 text-base font-medium transition-colors h-16 hover:text-primary',
+                            pathname === item.href
+                                ? 'text-primary font-semibold'
+                                : 'text-muted-foreground',
+                        )}
+                    >
+                        {item.name}
+                    </Link>
+                ))}
+            </>
+        )
+    }
+}
