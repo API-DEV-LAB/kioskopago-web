@@ -18,7 +18,6 @@ export default function StepCategories() {
 			try {
 				setIsLoading(true)
 				const response = await CartCategoriesGet()
-                console.log(response)
 				// @ts-ignore
 				setCategories(response)
 			} catch (error) {
