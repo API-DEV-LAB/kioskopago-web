@@ -1,4 +1,4 @@
-# Kioskopago
+# Frontend para el sistema Kioskopago
 
 ## 1. Objetivo
 
