@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-
-type LoginProps = {
-	phoneNumber: string
-}
+import { LoginProps } from '@/features/auth/types/types'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
 	try {

@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-
-type VerifyProps = {
-	code: string
-}
+import { VerificationProps } from '@/features/auth/types/types'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
 	try {
-		const body: VerifyProps = await request.json()
+		const body: VerificationProps = await request.json()
 		const { code } = body
 		return NextResponse.json(
 			{
