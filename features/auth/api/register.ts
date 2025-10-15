@@ -8,7 +8,7 @@ export async function AuthRegisterPost(registerData: RegisterProps): Promise<Axi
 		storeAddress: registerData.storeAddress,
 		storeLocation: registerData.storeLocation,
 		ownerName: registerData.ownerName,
-		phoneNumber: registerData.phoneNumber,
+		phone: registerData.phone,
 		rfc: registerData.rfc,
 		email: registerData.email,
 		acceptTerms: registerData.acceptTerms

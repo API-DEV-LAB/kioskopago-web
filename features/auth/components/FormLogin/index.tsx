@@ -4,18 +4,19 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { PHONE_MAX, ROUTES_APP } from '@/shared/utils/constants'
+import { PHONE_MAX, PHONE_PLACEHOLDER, ROUTES_APP } from '@/shared/utils/constants'
 import { AuthLoginPost } from '@/features/auth/api/login'
 import { validatePhone } from '@/shared/utils/validations'
+import { useAuthLoginStore } from '@/features/auth/store/login'
 
 export default function FormLogin() {
 	const router = useRouter()
-	const [phoneNumber, setPhoneNumber] = useState<string>('')
+	const { phone, setPhone } = useAuthLoginStore()
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		const error = validatePhone(phoneNumber)
+		const error = validatePhone(phone)
 		if (error) {
 			alert(error)
 			return
@@ -23,7 +24,7 @@ export default function FormLogin() {
 
 		setIsLoading(true)
 		try {
-			const response = await AuthLoginPost(phoneNumber)
+			const response = await AuthLoginPost(phone)
 			// @ts-ignore
 			if (response?.success === true) {
 				router.push(ROUTES_APP.VERIFICATION.path)
@@ -48,10 +49,10 @@ export default function FormLogin() {
 					<Input
 						id="phoneNumber"
 						type="tel"
-						placeholder="(442) 233 5462"
+						placeholder={PHONE_PLACEHOLDER}
 						required
-						value={phoneNumber}
-						onChange={(e) => setPhoneNumber(e.target.value)}
+						value={phone}
+						onChange={(e) => setPhone(e.target.value)}
 						maxLength={PHONE_MAX}
 					/>
 				</div>

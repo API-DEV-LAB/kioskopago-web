@@ -1,4 +1,3 @@
-import type React from 'react'
 import {
 	Card,
 	CardContent,
@@ -8,6 +7,7 @@ import {
 } from '@/components/ui/card'
 import FormVerification from '@/features/auth/components/FormVerification'
 import TitlePhone from '@/features/auth/components/TitlePhone'
+import { CODE_VERIFICATION_MAX } from '@/shared/utils/constants'
 
 export default function VerificationPage() {
 	return (
@@ -18,7 +18,7 @@ export default function VerificationPage() {
 						Verificación de número celular
 					</CardTitle>
 					<CardDescription>
-						Ingresa el código de 6 dígitos enviado a
+						{`Ingresa el código de ${CODE_VERIFICATION_MAX} dígitos enviado a`}
 					</CardDescription>
 					<TitlePhone />
 				</CardHeader>

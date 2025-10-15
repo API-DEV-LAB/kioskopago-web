@@ -5,21 +5,23 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
-import { ROUTES_APP, PHONE_MAX } from '@/shared/utils/constants'
+import { ROUTES_APP, PHONE_MAX, PHONE_PLACEHOLDER } from '@/shared/utils/constants'
 import { AuthRegisterPost } from '@/features/auth/api/register'
+import { useAuthRegisterStore } from '@/features/auth/store/register'
 
 export default function FormRegister() {
 	const router = useRouter()
-	const [formData, setFormData] = useState({
-		storeName: '',
-		storeAddress: '',
-		storeLocation: '',
-		ownerName: '',
-		phoneNumber: '',
-		rfc: '',
-		email: '',
-		acceptTerms: false,
-	})
+	const {
+		formData,
+		setStoreName,
+		setStoreAddress,
+		setStoreLocation,
+		setOwnerName,
+		setPhone,
+		setRFC,
+		setEmail,
+		setAcceptTerms,
+	} = useAuthRegisterStore()
 	const [isLoading, setIsLoading] = useState(false)
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -30,7 +32,7 @@ export default function FormRegister() {
 			return
 		}
 
-        setIsLoading(true)
+		setIsLoading(true)
 		try {
 			const response = await AuthRegisterPost(formData)
 			// @ts-ignore
@@ -49,7 +51,7 @@ export default function FormRegister() {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
 					const location = `${position.coords.latitude}, ${position.coords.longitude}`
-					setFormData({ ...formData, storeLocation: location })
+					setStoreLocation(location)
 				},
 				(error) => {
 					alert(
@@ -72,12 +74,7 @@ export default function FormRegister() {
 					placeholder="Mi Tienda"
 					required
 					value={formData.storeName}
-					onChange={(e) =>
-						setFormData({
-							...formData,
-							storeName: e.target.value,
-						})
-					}
+					onChange={(e) => setStoreName(e.target.value)}
 				/>
 			</div>
 			<div className="space-y-2">
@@ -93,10 +90,7 @@ export default function FormRegister() {
 					required
 					value={formData.storeAddress}
 					onChange={(e) =>
-						setFormData({
-							...formData,
-							storeAddress: e.target.value,
-						})
+						setStoreAddress(e.target.value)
 					}
 				/>
 			</div>
@@ -105,7 +99,7 @@ export default function FormRegister() {
 					htmlFor="storeLocation"
 					className="flex items-center gap-2"
 				>
-					Geolocalización*
+					Geolocalización
 				</Label>
 				<div className="flex gap-2">
 					<Input
@@ -115,10 +109,7 @@ export default function FormRegister() {
 						disabled
 						value={formData.storeLocation}
 						onChange={(e) =>
-							setFormData({
-								...formData,
-								storeLocation: e.target.value,
-							})
+							setStoreLocation(e.target.value)
 						}
 					/>
 					<Button
@@ -140,10 +131,7 @@ export default function FormRegister() {
 					required
 					value={formData.ownerName}
 					onChange={(e) =>
-						setFormData({
-							...formData,
-							ownerName: e.target.value,
-						})
+						setOwnerName(e.target.value)
 					}
 				/>
 			</div>
@@ -157,15 +145,12 @@ export default function FormRegister() {
 				<Input
 					id="phoneNumber"
 					type="tel"
-					placeholder="(123) 456 7890"
+					placeholder={PHONE_PLACEHOLDER}
 					required
-					value={formData.phoneNumber}
-                    maxLength={PHONE_MAX}
+					value={formData.phone}
+					maxLength={PHONE_MAX}
 					onChange={(e) =>
-						setFormData({
-							...formData,
-							phoneNumber: e.target.value,
-						})
+						setPhone(e.target.value)
 					}
 				/>
 			</div>
@@ -177,12 +162,7 @@ export default function FormRegister() {
 					id="rfc"
 					placeholder="XAXX010101000"
 					value={formData.rfc}
-					onChange={(e) =>
-						setFormData({
-							...formData,
-							rfc: e.target.value,
-						})
-					}
+					onChange={(e) => setRFC(e.target.value)}
 				/>
 			</div>
 			<div className="space-y-2">
@@ -195,10 +175,7 @@ export default function FormRegister() {
 					placeholder="correo@ejemplo.com"
 					value={formData.email}
 					onChange={(e) =>
-						setFormData({
-							...formData,
-							email: e.target.value,
-						})
+						setEmail(e.target.value)
 					}
 				/>
 			</div>
@@ -207,10 +184,7 @@ export default function FormRegister() {
 					id="terms"
 					checked={formData.acceptTerms}
 					onCheckedChange={(checked) =>
-						setFormData({
-							...formData,
-							acceptTerms: checked as boolean,
-						})
+						setAcceptTerms(checked as boolean)
 					}
 				/>
 				<label

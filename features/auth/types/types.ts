@@ -11,7 +11,7 @@ export interface RegisterProps {
 	storeAddress: string
 	storeLocation: string
 	ownerName: string
-	phoneNumber: string
+	phone: string
 	rfc: string
 	email: string
 	acceptTerms: boolean

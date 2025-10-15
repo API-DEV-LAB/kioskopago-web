@@ -9,10 +9,11 @@ import { InputOTPSlot } from '@/components/ui/input-otp'
 import { CODE_VERIFICATION_MAX, ROUTES_APP } from '@/shared/utils/constants'
 import { validateCodeVerification } from '@/shared/utils/validations'
 import { AuthVerificationPost } from '@/features/auth/api/verification'
+import { useAuthVerificationStore } from '@/features/auth/store/verification'
 
 export default function FormVerification() {
 	const router = useRouter()
-	const [code, setCode] = useState<string>('')
+	const { code, setCode } = useAuthVerificationStore()
 	const [isLoading, setIsLoading] = useState(false)
 	const [countdown, setCountdown] = useState(20)
 	const [canResend, setCanResend] = useState(false)
