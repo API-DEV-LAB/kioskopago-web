@@ -1,7 +1,7 @@
 import { Header } from '@/features/home/components/Header'
-import { RechargeStepper } from '@/components/recharge-stepper'
 import { ServicesContainer } from '@/features/home/components/ServicesContainer'
 import { SearchBar } from '@/features/home/components/SearchBar'
+import { CartContainer } from '@/features/cart/components/CartContainer'
 
 export default function HomePage() {
 	return (
@@ -14,7 +14,7 @@ export default function HomePage() {
 				</div>
 
 				<div className="w-1/2 p-6 overflow-y-auto">
-					<RechargeStepper serviceName={'selectedService'} />
+					<CartContainer />
 				</div>
 			</div>
 		</div>
