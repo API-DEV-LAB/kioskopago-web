@@ -12,5 +12,6 @@ export const ROUTES_APP = {
 } as const
 
 export const PHONE_MAX = 10
+export const PHONE_PLACEHOLDER = '(442) 724 210'
 export const CODE_VERIFICATION_MAX = 6
 export const FIELD_REQUIRED = 'Campo requerido'
