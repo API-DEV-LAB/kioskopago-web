@@ -5,11 +5,11 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { RiArrowRightLine } from '@remixicon/react'
 import { CategoriesResponse } from '@/features/cart/types/types'
 import { CartCategoriesGet } from '@/features/cart/api/categories'
+import StepCategoriesLoading from './StepCategoriesLoading'
 
 export default function StepCategories() {
     const [categories, setCategories] = useState<CategoriesResponse[] | null>(null)
     const [selectedPackage, setSelectedPackage] = useState<CategoriesResponse | null>(null)
-    // TODO => Add loadingComponent for categories
     const [isLoading, setIsLoading] = useState(true)
 	const [_, setError] = useState<string | null>(null)
 
@@ -51,6 +51,11 @@ export default function StepCategories() {
 					className="max-h-[350px] overflow-x-auto"
 				>
 					<div className="space-y-3">
+						{isLoading && (
+							Array.from({ length: 3 }).map((_, index) => (
+								<StepCategoriesLoading key={index} />
+							))
+						)}
 						{categories?.map((pkg) => (
 							<label
 								key={pkg.id}
