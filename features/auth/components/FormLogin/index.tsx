@@ -24,8 +24,8 @@ export default function FormLogin() {
 		setIsLoading(true)
 		try {
 			const response = await AuthLoginPost(phoneNumber)
-			if (response.status === 200) {
-				sessionStorage.setItem('phoneNumber', phoneNumber)
+			// @ts-ignore
+			if (response?.success === true) {
 				router.push(ROUTES_APP.VERIFICATION.path)
 			}
 		} catch (error) {

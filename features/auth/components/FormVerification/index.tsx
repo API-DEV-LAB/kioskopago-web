@@ -27,7 +27,8 @@ export default function FormVerification() {
 		setIsLoading(true)
 		try {
 			const response = await AuthVerificationPost(code)
-			if (response.status === 200) router.push(ROUTES_APP.HOME.path)
+			// @ts-ignore
+			if (response?.success === true) router.push(ROUTES_APP.HOME.path)
 		} catch (error) {
 			console.error('Login error:', error)
 		} finally {
