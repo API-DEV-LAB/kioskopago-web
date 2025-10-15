@@ -30,7 +30,7 @@ export default function FormVerification() {
 			// @ts-ignore
 			if (response?.success === true) router.push(ROUTES_APP.HOME.path)
 		} catch (error) {
-			console.error('Login error:', error)
+			console.error('AuthVerificationPost form::', error)
 		} finally {
 			setIsLoading(false)
 		}

@@ -29,7 +29,7 @@ export default function FormLogin() {
 				router.push(ROUTES_APP.VERIFICATION.path)
 			}
 		} catch (error) {
-			console.error('Login error:', error)
+			console.error('AuthLoginPost form::', error)
 		} finally {
 			setIsLoading(false)
 		}
