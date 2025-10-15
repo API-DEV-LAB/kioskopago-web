@@ -234,7 +234,7 @@ export default function FormRegister() {
 			>
 				{isLoading ? 'Registrando...' : 'Registrar Tienda'}
 			</Button>
-			<p className="text-center text-sm text-muted-foreground">
+			<p className="text-center text-sm text-muted-foreground mb-8 lg:mb-0">
 				¿Ya tienes una cuenta?{' '}
 				<a
 					href={ROUTES_APP.LOGIN.path}

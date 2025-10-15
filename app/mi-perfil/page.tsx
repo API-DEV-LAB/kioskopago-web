@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/card'
 import { RiEditLine } from '@remixicon/react'
 import Header from '@/features/home/components/Header'
+import { PHONE_MAX, PHONE_PLACEHOLDER } from '@/shared/utils/constants'
 
 export default function ProfilePage() {
 	const [isEditing, setIsEditing] = useState(false)
@@ -231,8 +232,9 @@ export default function ProfilePage() {
 									<Input
 										id="phoneNumber"
 										type="tel"
-										placeholder="(123) 456 7890"
+										placeholder={PHONE_PLACEHOLDER}
 										required
+										maxLength={PHONE_MAX}
 										disabled={!isEditing}
 										value={formData.phoneNumber}
 										onChange={(e) =>
@@ -247,7 +249,7 @@ export default function ProfilePage() {
 							</div>
 							<div className="space-y-4 pt-4 border-t">
 								<h3 className="text-lg font-semibold">
-									Información adicional (Opcional)
+									Información adicional
 								</h3>
 								<div className="space-y-2">
 									<Label

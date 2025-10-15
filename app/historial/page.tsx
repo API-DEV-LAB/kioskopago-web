@@ -22,7 +22,6 @@ import {
 import {
 	RiSearchLine,
 	RiFilterLine,
-	RiArrowDropDownLine,
 } from '@remixicon/react'
 
 // Sample sales data
