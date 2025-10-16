@@ -28,7 +28,7 @@ export default function HeaderMenu() {
 
 	if (isLoggedIn) {
 		return (
-			<>
+			<div className='flex gap-2'>
 				<Button variant="ghost" asChild>
 					<Link href={ROUTES_APP.REGISTER.path}>
 						{ROUTES_APP.REGISTER.name}
@@ -39,11 +39,11 @@ export default function HeaderMenu() {
 						{ROUTES_APP.LOGIN.name}
 					</Link>
 				</Button>
-			</>
+			</div>
 		)
 	} else {
 		return (
-			<>
+			<div className='flex'>
 				{menuLoggedIn.map((item) => (
 					<Link
 						key={item.href}
@@ -58,7 +58,7 @@ export default function HeaderMenu() {
 						{item.name}
 					</Link>
 				))}
-			</>
+			</div>
 		)
 	}
 }
