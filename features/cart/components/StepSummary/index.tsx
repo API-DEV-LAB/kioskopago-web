@@ -1,5 +1,4 @@
 'use client'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
 	Card,
@@ -8,11 +7,18 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { formatPhoneNumber, getDateNow } from '@/shared/utils/formats'
+import { formatPhoneNumber, formatPrice, getDateNow } from '@/shared/utils/formats'
+import { useCartStore } from '@/features/cart/store/cart'
 
 export default function StepSummary() {
-    const handleNewRecharge = () => {}
-    const handlePreviousStep = () => {}
+	const { product, categorie, phone, setStep } = useCartStore()
+    const handleConfirm = () => {
+		setStep(0)
+	}
+
+    const handlePreviousStep = () => {
+		setStep(2)
+	}
 
 	return (
 		<div className="space-y-4">
@@ -27,18 +33,10 @@ export default function StepSummary() {
 					<CardContent className="space-y-3">
 						<div className="flex justify-between py-2 border-b">
 							<span className="text-sm text-muted-foreground">
-								Id de compra:
-							</span>
-							<span className="text-sm font-medium">
-								011
-							</span>
-						</div>
-						<div className="flex justify-between py-2 border-b">
-							<span className="text-sm text-muted-foreground">
 								Número de celular:
 							</span>
 							<span className="text-sm font-medium">
-								{formatPhoneNumber('4422331155')}
+								{formatPhoneNumber(phone)}
 							</span>
 						</div>
 						<div className="flex justify-between py-2 border-b">
@@ -54,7 +52,7 @@ export default function StepSummary() {
 								Servicio:
 							</span>
 							<span className="text-sm font-medium">
-								Telcel
+								{product?.name}
 							</span>
 						</div>
 						<div className="flex justify-between py-2 border-b">
@@ -62,34 +60,16 @@ export default function StepSummary() {
 								Paquete:
 							</span>
 							<span className="text-sm font-medium">
-                                Paquete Premium
+                                {categorie?.name}
 							</span>
 						</div>
-						<div className="pt-3 space-y-2">
-							<div className="flex justify-between">
-								<span className="text-sm text-muted-foreground">
-									Subtotal:
-								</span>
-								<span className="text-sm font-medium">
-                                    $ 200.00
-								</span>
-							</div>
-							<div className="flex justify-between">
-								<span className="text-sm text-muted-foreground">
-									Comisión (10%):
-								</span>
-								<span className="text-sm font-medium">
-									$ 200.00
-								</span>
-							</div>
-							<div className="flex justify-between pt-2 border-t-2">
-								<span className="text-base font-semibold">
-									Total:
-								</span>
-								<span className="text-lg font-bold text-primary">
-									$ 200.00
-								</span>
-							</div>
+						<div className="flex justify-between py-2">
+							<span className="text-sm text-muted-foreground">
+								Total:
+							</span>
+							<span className="text-sm font-bold text-primary">
+                                {formatPrice(categorie?.total)}
+							</span>
 						</div>
 					</CardContent>
 				</Card>
@@ -99,12 +79,7 @@ export default function StepSummary() {
 				<Button variant="outline" onClick={handlePreviousStep}>
 					Atrás
 				</Button>
-				<div className="space-x-2">
-					<Button variant="outline" onClick={handleNewRecharge}>
-						Nueva recarga
-					</Button>
-					<Button>Confirmar recarga</Button>
-				</div>
+				<Button onClick={handleConfirm}>Confirmar recarga</Button>
 			</div>
 		</div>
 	)

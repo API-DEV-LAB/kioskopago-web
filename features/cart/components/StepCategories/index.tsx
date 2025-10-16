@@ -4,10 +4,13 @@ import { Button } from '@/components/ui/button'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { RiArrowRightLine } from '@remixicon/react'
 import { CategoriesResponse } from '@/features/cart/types/types'
+import { formatPrice } from '@/shared/utils/formats'
 import { CartCategoriesGet } from '@/features/cart/api/categories'
 import StepCategoriesLoading from './StepCategoriesLoading'
+import { useCartStore } from '@/features/cart/store/cart'
 
 export default function StepCategories() {
+	const { categorie, setStep, setCategorie } = useCartStore()
     const [categories, setCategories] = useState<CategoriesResponse[] | null>(null)
     const [selectedPackage, setSelectedPackage] = useState<CategoriesResponse | null>(null)
     const [isLoading, setIsLoading] = useState(true)
@@ -36,9 +39,14 @@ export default function StepCategories() {
 		const pkg = categories?.find((p) => p.id === packageId)
 		if (pkg) {
 			setSelectedPackage(pkg)
+			setCategorie(pkg)
 		}
 	}
-    const handleNextStep = () => {}
+
+    const handleNextStep = () => {
+		setStep(2)
+	}
+
 	return (
 		<div className="space-y-4">
 			<div>
@@ -60,7 +68,7 @@ export default function StepCategories() {
 							<label
 								key={pkg.id}
 								className={`flex items-start space-x-3 p-4 rounded-lg border-2 cursor-pointer transition-all hover:border-primary/50 ${
-									selectedPackage?.id === pkg.id
+									selectedPackage?.id === pkg.id || categorie?.id === pkg.id
 										? 'border-primary bg-primary/5'
 										: 'border-border'
 								}`}
@@ -76,7 +84,7 @@ export default function StepCategories() {
 											{pkg.name}
 										</p>
 										<p className="text-xl font-bold text-primary">
-											${pkg.total}
+											{formatPrice(pkg.total)}
 										</p>
 									</div>
 									<p className="text-sm text-muted-foreground">

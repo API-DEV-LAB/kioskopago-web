@@ -1,18 +1,23 @@
 'use client'
-import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { PHONE_MAX, PHONE_PLACEHOLDER} from '@/shared/utils/constants'
+import { formatPrice } from '@/shared/utils/formats'
 import { RiArrowRightLine } from '@remixicon/react'
+import { useCartStore } from '@/features/cart/store/cart'
 
 export default function StepPhone() {
-	const [phoneNumber, setPhoneNumber] = useState<string>('')
+	const { product, categorie, phone, setPhone, setStep } = useCartStore()
 
-	const handleNextStep = () => {}
+	const handleNextStep = () => {
+		setStep(4)
+	}
 
-	const handlePreviousStep = () => {}
+	const handlePreviousStep = () => {
+		setStep(0)
+	}
 	return (
 		<div className="space-y-4">
 			<div className="space-y-4">
@@ -24,8 +29,8 @@ export default function StepPhone() {
 						id="phone"
 						type="tel"
 						placeholder={PHONE_PLACEHOLDER}
-						value={phoneNumber}
-						onChange={(e) => setPhoneNumber(e.target.value)}
+						value={phone}
+						onChange={(e) => setPhone(e.target.value)}
 						maxLength={PHONE_MAX}
 					/>
 				</div>
@@ -37,7 +42,7 @@ export default function StepPhone() {
 								Compañia:
 							</span>
 							<span className="text-sm font-medium">
-								Telcel
+								{product?.name}
 							</span>
 						</div>
 						<div className="flex justify-between">
@@ -45,7 +50,7 @@ export default function StepPhone() {
 								Recarga de saldo:
 							</span>
 							<span className="text-sm font-bold text-primary">
-								$200
+								{formatPrice(categorie?.total)}
 							</span>
 						</div>
 						<div className="flex justify-between">
@@ -53,21 +58,21 @@ export default function StepPhone() {
 								Paquete:
 							</span>
 							<span className="text-sm font-medium">
-								Paquete Premium
+								{categorie?.name}
 							</span>
 						</div>
 						<div className="flex justify-between">
 							<span className="text-sm text-muted-foreground">
 								Vigencia:
 							</span>
-							<span className="text-sm font-medium">7 días</span>
+							<span className="text-sm font-medium">{categorie?.expired} días</span>
 						</div>
 						<div className="flex justify-between">
 							<span className="text-sm text-muted-foreground">
 								Descripción:
 							</span>
 							<span className="text-sm font-medium">
-								2 GB + 200 minutos
+								{categorie?.description}
 							</span>
 						</div>
                         <div className='mt-4'>
@@ -89,7 +94,7 @@ export default function StepPhone() {
 				</Button>
 				<Button
 					onClick={handleNextStep}
-					disabled={phoneNumber.length !== PHONE_MAX}
+					disabled={phone.length !== PHONE_MAX}
 				>
 					Continuar
 					<RiArrowRightLine />

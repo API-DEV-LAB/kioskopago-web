@@ -1,18 +1,19 @@
 'use client'
-import { useState } from 'react'
 import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { RiArrowRightLine } from '@remixicon/react'
+import { useCartStore } from '@/features/cart/store/cart'
 
 export default function StepNoService() {
-	const [serviceNumber, setServiceNumber] = useState<string>('')
+	const { reference, setStep, setReference } = useCartStore()
 
-	const handleNextStep = () => {}
+	const handleNextStep = () => {
+		setStep(3)
+	}
 
-	const handlePreviousStep = () => {}
 	return (
 		<div className="space-y-4">
 			<div className="space-y-8">
@@ -24,8 +25,8 @@ export default function StepNoService() {
 						id="phone"
 						type="text"
 						placeholder="000000000000001"
-						value={serviceNumber}
-						onChange={(e) => setServiceNumber(e.target.value)}
+						value={reference}
+						onChange={(e) => setReference(e.target.value)}
 					/>
 				</div>
 
@@ -45,11 +46,8 @@ export default function StepNoService() {
 					</CardContent>
 				</Card>
 			</div>
-			<div className="flex justify-between pt-4">
-				<Button variant="outline" onClick={handlePreviousStep}>
-					Atrás
-				</Button>
-				<Button onClick={handleNextStep}>
+			<div className="flex justify-end pt-4">
+				<Button onClick={handleNextStep} disabled={reference.length <= 0}>
 					Continuar
 					<RiArrowRightLine />
 				</Button>

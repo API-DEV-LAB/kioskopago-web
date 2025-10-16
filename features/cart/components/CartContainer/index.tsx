@@ -1,8 +1,4 @@
-import StepCategories from '../StepCategories'
-import StepPhone from '../StepPhone'
-import StepSummary from '../StepSummary'
-import StepNoService from '../StepNoService'
-import StepAmount from '../StepAmount'
+import StepContainer from '../StepContainer'
 
 export default function CartContainer() {
 	return (
@@ -11,13 +7,7 @@ export default function CartContainer() {
 			<p className="text-base text-muted-foreground mb-8">
 				Sigue los pasos para realizar tu recarga
 			</p>
-			<div className="min-h-[400px]">
-                <StepAmount />
-				<StepCategories />
-				<StepNoService />
-				<StepPhone />
-				<StepSummary />
-			</div>
+			<StepContainer />
 		</div>
 	)
 }

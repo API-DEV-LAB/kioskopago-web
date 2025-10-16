@@ -4,9 +4,11 @@ import { ServicesItem } from '@/features/home/components/ServicesItem'
 import { HomeServicesGet } from '@/features/home/api/services'
 import { Service } from '@/features/home/types/types'
 import ServicesContainerLoading from './ServicesContainerLoading'
+import { useCartStore } from '@/features/cart/store/cart'
 
 export default function ServicesContainer() {
-	const [selectedService, setSelectedService] = useState<string | null>(null)
+	const { setType, setProduct, setStep } = useCartStore()
+	const [selectedService, setSelectedService] = useState<Service | null>(null)
 	const [services, setServices] = useState<Service[]>([])
 	const [isLoading, setIsLoading] = useState(true)
 	const [_, setError] = useState<string | null>(null)
@@ -29,6 +31,14 @@ export default function ServicesContainer() {
 		fetchServices()
 	}, [])
 
+	const handleSelectedService = (service: Service ) => {
+		setSelectedService(service)
+		setProduct(service)
+		setType(service.type)
+		if (service.type === 'SERVICE') setStep(1)
+		else setStep(0)
+	}
+
 	if (isLoading) {
 		return (
 			<div className="grid grid-cols-4 gap-4">
@@ -41,14 +51,14 @@ export default function ServicesContainer() {
 
 	return (
 		<div className="grid grid-cols-4 gap-4">
-			{services?.map(({ id, name, image }) => (
+			{services?.map((s:Service) => (
 				<ServicesItem
-					key={id}
-					id={id.toString()}
-					name={name}
-					image={image}
-					selectedService={selectedService}
-					setSelectedService={setSelectedService}
+					key={s?.id}
+					id={s?.id.toString()}
+					name={s?.name}
+					image={s?.image}
+					selectedService={selectedService?.name}
+					setSelectedService={() => handleSelectedService(s)}
 				/>
 			))}
 		</div>

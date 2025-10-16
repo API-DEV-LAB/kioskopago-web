@@ -1,0 +1,48 @@
+import { create } from 'zustand'
+import { Service } from '@/features/home/types/types'
+import { CategoriesResponse } from '@/features/cart/types/types'
+
+interface CartState {
+	product: Service | null
+	type: string
+	categorie: CategoriesResponse | null
+	total: string
+	phone: string
+	reference: string
+	step: number | null
+    setProduct: (service: Service) => void
+    setType: (type: string) => void
+    setCategorie: (categorie: CategoriesResponse) => void
+    setTotal: (total: string) => void
+    setPhone: (phone: string) => void
+    setReference: (reference: string) => void
+    setStep: (step: number) => void
+	reset: () => void
+}
+
+export const useCartStore = create<CartState>((set) => ({
+	product: null,
+	type: '',
+	categorie: null,
+	total: '',
+	phone: '',
+	reference: '',
+	step: 0,
+    setProduct: (product: Service) => set({ product }),
+    setType: (type) => set({ type }),
+    setCategorie: (categorie: CategoriesResponse) => set({ categorie }),
+    setTotal: (total) => set({ total }),
+    setPhone: (phone) => set({ phone }),
+    setReference: (reference) => set({ reference }),
+    setStep: (step) => set({ step }),
+	reset: () =>
+		set({
+			product: null,
+			type: '',
+			categorie: null,
+			total: '',
+			phone: '',
+			reference: '',
+			step: null,
+		}),
+}))

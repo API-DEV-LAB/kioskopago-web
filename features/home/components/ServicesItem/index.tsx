@@ -5,7 +5,7 @@ interface ServicesItemProps {
 	name: string
 	image: string
 	setSelectedService: (e: string) => void
-	selectedService: string | null
+	selectedService: string | null | undefined
 }
 
 export default function ServicesItem({
@@ -17,7 +17,6 @@ export default function ServicesItem({
 	return (
 		<div
 			onClick={() => {
-				sessionStorage.setItem('serviceName', name)
 				setSelectedService(name)
 			}}
 			className={`group cursor-pointer transition-all hover:shadow-md ${

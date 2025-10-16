@@ -1,23 +1,27 @@
 'use client'
-import { useState } from 'react'
 import PriceInput from '@/components/ui/input-price'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { RiArrowRightLine } from '@remixicon/react'
+import { useCartStore } from '@/features/cart/store/cart'
 
 export default function StepAmount() {
-	const [amount, setAmount] = useState<string>('')
+	const { total, setStep, setTotal } = useCartStore()
 
-	const handleNextStep = () => {}
+	const handleNextStep = () => {
+		setStep(4)
+	}
 
-	const handlePreviousStep = () => {}
+	const handlePreviousStep = () => {
+		setStep(1)
+	}
 	return (
 		<div className="space-y-4">
 			<div className="space-y-8">
 				<PriceInput
 					label="Ingresa el monto a pagar"
-					value={amount}
-					onChange={setAmount}
+					value={total}
+					onChange={setTotal}
 					required
 					helperText="Debes ingresar la cantidad exacta a pagar, incluyendo centavos."
 				/>
