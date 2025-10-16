@@ -7,7 +7,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { formatPhoneNumber, formatPrice, getDateNow } from '@/shared/utils/formats'
+import { formatPhone, formatPrice, getDateNow } from '@/shared/utils/formats'
 import { useCartStore } from '@/features/cart/store/cart'
 
 export default function StepSummary() {
@@ -36,7 +36,7 @@ export default function StepSummary() {
 								Número de celular:
 							</span>
 							<span className="text-sm font-medium">
-								{formatPhoneNumber(phone)}
+								{formatPhone(phone)}
 							</span>
 						</div>
 						<div className="flex justify-between py-2 border-b">
