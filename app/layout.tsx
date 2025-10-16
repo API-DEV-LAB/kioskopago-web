@@ -17,7 +17,7 @@ const _sourceSerif_4 = V0_Font_Source_Serif_4({
 })
 
 export const metadata: Metadata = {
-	title: 'Es más - Paga todo en un solo lugar',
+	title: 'Kioskopago - Paga todo en un solo lugar',
 	description:
 		'Paga todos tus servicios desde un solo lugar. Recarga tiempo aire, paga luz y agua. Rápido, seguro y sin complicaciones.',
 }
