@@ -64,7 +64,7 @@ export default function FormLogin() {
 				>
 					{isLoading ? 'Enviando código...' : 'Continuar'}
 				</Button>
-				<p className="text-center text-sm text-muted-foreground mx-0 my-0 mb-4">
+				<p className="text-center text-sm text-muted-foreground mx-0 my-0 mt-8">
 					¿No tienes una cuenta?{' '}
 					<a
 						href={ROUTES_APP.REGISTER.path}

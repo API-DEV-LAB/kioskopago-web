@@ -8,7 +8,7 @@ export default function AuthLayout({
     return (
         <html lang="es">
             <body className={`font-sans overflow-x-hidden`}>
-                <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col">
+                <div className="min-h-screen bg-white flex flex-col">
                     <Header withMenu={false} />
                     <div className="min-h-screen flex items-center justify-center">
                         {children}
