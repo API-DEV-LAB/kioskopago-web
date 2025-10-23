@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import { useSheetOpenStore } from '@/features/services/store/sheetOpen'
+import { WIDTH_BREAKPOINT_MD } from '@/shared/utils/constants'
 
 interface ServicesItemProps {
 	id: string
@@ -14,14 +16,17 @@ export default function ServicesItem({
 	setSelectedService,
 	selectedService,
 }: ServicesItemProps) {
+	const { setIsSheetOpen } = useSheetOpenStore()
 	return (
 		<div
 			onClick={() => {
 				setSelectedService(name)
+				if (window.innerWidth < WIDTH_BREAKPOINT_MD) {
+					setIsSheetOpen(true)
+				}
 			}}
-			className={`group cursor-pointer transition-all hover:shadow-md ${
-				selectedService === name ? 'ring-2 ring-primary' : ''
-			}`}
+			className={`group cursor-pointer transition-all hover:shadow-md ${selectedService === name ? 'ring-2 ring-primary' : ''
+				}`}
 		>
 			<div className="aspect-square relative mb-3 overflow-hidden rounded-md">
 				<Image

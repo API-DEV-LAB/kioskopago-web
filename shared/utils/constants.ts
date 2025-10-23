@@ -20,3 +20,4 @@ export const MENU_LOGGED_IN = [
 	{ name: ROUTES_APP.HISTORIAL.name, href: ROUTES_APP.HISTORIAL.path },
 	{ name: ROUTES_APP.PROFILE.name, href: ROUTES_APP.PROFILE.path },
 ]
+export const WIDTH_BREAKPOINT_MD = 768
