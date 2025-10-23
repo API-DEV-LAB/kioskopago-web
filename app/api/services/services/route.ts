@@ -61,7 +61,7 @@ export async function GET(): Promise<NextResponse> {
 		)
 
 	} catch (error) {
-		console.error('API.HOME.SERVICES.GET::error', error)
+		console.error('API.SERVICES.SERVICES.GET::error', error)
 		return NextResponse.json(
 			{
 				success: false,

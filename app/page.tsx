@@ -1,5 +1,5 @@
 import { Header } from '@/features/home/components/Header'
-import { ServicesContainer } from '@/features/home/components/ServicesContainer'
+import { ServicesContainer } from '@/features/services/components/ServicesContainer'
 import { SearchBar } from '@/features/home/components/SearchBar'
 import { CartContainer } from '@/features/cart/components/CartContainer'
 
