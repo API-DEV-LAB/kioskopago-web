@@ -1,8 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { ServicesItem } from '@/features/home/components/ServicesItem'
-import { HomeServicesGet } from '@/features/home/api/services'
-import { Service } from '@/features/home/types/types'
+import { ServicesItem } from '@/features/services/components/ServicesItem'
+import { ServicesServicesGet } from '@/features/services/api/services'
+import { Service } from '@/features/services/types/types'
 import ServicesContainerLoading from './ServicesContainerLoading'
 import { useCartStore } from '@/features/cart/store/cart'
 
@@ -17,7 +17,7 @@ export default function ServicesContainer() {
 		const fetchServices = async () => {
 			try {
 				setIsLoading(true)
-				const response = await HomeServicesGet()
+				const response = await ServicesServicesGet()
 				// @ts-ignore
 				setServices(response)
 			} catch (error) {
@@ -31,7 +31,7 @@ export default function ServicesContainer() {
 		fetchServices()
 	}, [])
 
-	const handleSelectedService = (service: Service ) => {
+	const handleSelectedService = (service: Service) => {
 		setSelectedService(service)
 		setProduct(service)
 		setType(service.type)
@@ -51,7 +51,7 @@ export default function ServicesContainer() {
 
 	return (
 		<div className="grid grid-cols-4 gap-4">
-			{services?.map((s:Service) => (
+			{services?.map((s: Service) => (
 				<ServicesItem
 					key={s?.id}
 					id={s?.id.toString()}

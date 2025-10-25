@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { ROUTES_APP } from '@/shared/utils/constants'
+import { ROUTES_APP, MENU_LOGGED_IN } from '@/shared/utils/constants'
 import { Button } from '@/components/ui/button'
 
-export default function HeaderMenu() {
+export default function DesktopNavigation() {
 	const pathname = usePathname()
 	const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
 
@@ -19,12 +19,6 @@ export default function HeaderMenu() {
 			setIsLoggedIn(true)
 		}
 	}, [])
-
-	const menuLoggedIn = [
-		{ name: ROUTES_APP.HOME.name, href: ROUTES_APP.HOME.path },
-		{ name: ROUTES_APP.HISTORIAL.name, href: ROUTES_APP.HISTORIAL.path },
-		{ name: ROUTES_APP.PROFILE.name, href: ROUTES_APP.PROFILE.path },
-	]
 
 	if (isLoggedIn) {
 		return (
@@ -44,7 +38,7 @@ export default function HeaderMenu() {
 	} else {
 		return (
 			<div className='flex'>
-				{menuLoggedIn.map((item) => (
+				{MENU_LOGGED_IN.map((item) => (
 					<Link
 						key={item.href}
 						href={item.href}
@@ -62,3 +56,5 @@ export default function HeaderMenu() {
 		)
 	}
 }
+
+export { DesktopNavigation }
