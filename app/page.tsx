@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ROUTES_APP } from "@/shared/utils/constants"
-import { RiSmartphoneLine, RiCheckboxCircleLine } from "@remixicon/react"
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { ROUTES_APP } from '@/shared/utils/constants'
+import { RiSmartphoneLine, RiCheckboxCircleLine } from '@remixicon/react'
 
 export default function IndexPage() {
 	return (
@@ -32,7 +32,9 @@ export default function IndexPage() {
 						</a>
 					</nav>
 					<Button asChild size="sm" className="rounded-full">
-						<Link href={ROUTES_APP.REGISTER.path}>Registrar mi tienda</Link>
+						<Link href={ROUTES_APP.REGISTER.path}>
+							Registrar mi tienda
+						</Link>
 					</Button>
 				</div>
 			</header>
@@ -58,7 +60,9 @@ export default function IndexPage() {
 								size="lg"
 								className="rounded-full bg-transparent"
 							>
-								<Link href={ROUTES_APP.LOGIN.path}>Ya tengo cuenta</Link>
+								<Link href={ROUTES_APP.LOGIN.path}>
+									Ya tengo cuenta
+								</Link>
 							</Button>
 						</div>
 					</div>
@@ -295,7 +299,9 @@ export default function IndexPage() {
 								variant="outline"
 								className="rounded-full bg-transparent text-primary-foreground border-primary-foreground/20 hover:bg-primary-foreground/10"
 							>
-								<Link href={ROUTES_APP.LOGIN.path}>Ya tengo cuenta</Link>
+								<Link href={ROUTES_APP.LOGIN.path}>
+									Ya tengo cuenta
+								</Link>
 							</Button>
 						</div>
 					</div>

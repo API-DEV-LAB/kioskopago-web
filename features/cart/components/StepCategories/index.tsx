@@ -11,12 +11,15 @@ import { useCartStore } from '@/features/cart/store/cart'
 
 export default function StepCategories() {
 	const { categorie, setStep, setCategorie } = useCartStore()
-    const [categories, setCategories] = useState<CategoriesResponse[] | null>(null)
-    const [selectedPackage, setSelectedPackage] = useState<CategoriesResponse | null>(null)
-    const [isLoading, setIsLoading] = useState(true)
+	const [categories, setCategories] = useState<CategoriesResponse[] | null>(
+		null,
+	)
+	const [selectedPackage, setSelectedPackage] =
+		useState<CategoriesResponse | null>(null)
+	const [isLoading, setIsLoading] = useState(true)
 	const [_, setError] = useState<string | null>(null)
 
-    useEffect(() => {
+	useEffect(() => {
 		const fetchCategories = async () => {
 			try {
 				setIsLoading(true)
@@ -34,8 +37,7 @@ export default function StepCategories() {
 		fetchCategories()
 	}, [])
 
-
-    const handlePackageSelect = (packageId: string) => {
+	const handlePackageSelect = (packageId: string) => {
 		const pkg = categories?.find((p) => p.id === packageId)
 		if (pkg) {
 			setSelectedPackage(pkg)
@@ -43,7 +45,7 @@ export default function StepCategories() {
 		}
 	}
 
-    const handleNextStep = () => {
+	const handleNextStep = () => {
 		setStep(2)
 	}
 
@@ -59,16 +61,16 @@ export default function StepCategories() {
 					className="max-h-[350px] overflow-x-auto"
 				>
 					<div className="space-y-3">
-						{isLoading && (
+						{isLoading &&
 							Array.from({ length: 3 }).map((_, index) => (
 								<StepCategoriesLoading key={index} />
-							))
-						)}
+							))}
 						{categories?.map((pkg) => (
 							<label
 								key={pkg.id}
 								className={`flex items-start space-x-3 p-4 rounded-lg border-2 cursor-pointer transition-all hover:border-primary/50 ${
-									selectedPackage?.id === pkg.id || categorie?.id === pkg.id
+									selectedPackage?.id === pkg.id ||
+									categorie?.id === pkg.id
 										? 'border-primary bg-primary/5'
 										: 'border-border'
 								}`}

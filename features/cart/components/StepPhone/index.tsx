@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { PHONE_MAX, PHONE_PLACEHOLDER} from '@/shared/utils/constants'
+import { PHONE_MAX, PHONE_PLACEHOLDER } from '@/shared/utils/constants'
 import { formatPrice } from '@/shared/utils/formats'
 import { RiArrowRightLine } from '@remixicon/react'
 import { useCartStore } from '@/features/cart/store/cart'
@@ -65,7 +65,9 @@ export default function StepPhone() {
 							<span className="text-sm text-muted-foreground">
 								Vigencia:
 							</span>
-							<span className="text-sm font-medium">{categorie?.expired} días</span>
+							<span className="text-sm font-medium">
+								{categorie?.expired} días
+							</span>
 						</div>
 						<div className="flex justify-between">
 							<span className="text-sm text-muted-foreground">
@@ -75,16 +77,16 @@ export default function StepPhone() {
 								{categorie?.description}
 							</span>
 						</div>
-                        <div className='mt-4'>
-							<a href='https://www.telcel.com/' target='_blank'>
-							<span className="text-sm text-muted-foreground">
-                                Dudas o aclaraciones *264. Saldo de regalo $2,
-                                Vigencia de saldo 7 días, Whatsapp llimitado, 500 MB
-                                redes sociales (5 días), Mas información
-                                https://www.telcel.com/
-                            </span>
+						<div className="mt-4">
+							<a href="https://www.telcel.com/" target="_blank">
+								<span className="text-sm text-muted-foreground">
+									Dudas o aclaraciones *264. Saldo de regalo
+									$2, Vigencia de saldo 7 días, Whatsapp
+									llimitado, 500 MB redes sociales (5 días),
+									Mas información https://www.telcel.com/
+								</span>
 							</a>
-                        </div>
+						</div>
 					</CardContent>
 				</Card>
 			</div>

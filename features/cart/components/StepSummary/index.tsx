@@ -12,11 +12,11 @@ import { useCartStore } from '@/features/cart/store/cart'
 
 export default function StepSummary() {
 	const { product, categorie, phone, setStep } = useCartStore()
-    const handleConfirm = () => {
+	const handleConfirm = () => {
 		setStep(0)
 	}
 
-    const handlePreviousStep = () => {
+	const handlePreviousStep = () => {
 		setStep(2)
 	}
 
@@ -60,7 +60,7 @@ export default function StepSummary() {
 								Paquete:
 							</span>
 							<span className="text-sm font-medium">
-                                {categorie?.name}
+								{categorie?.name}
 							</span>
 						</div>
 						<div className="flex justify-between py-2">
@@ -68,7 +68,7 @@ export default function StepSummary() {
 								Total:
 							</span>
 							<span className="text-sm font-bold text-primary">
-                                {formatPrice(categorie?.total)}
+								{formatPrice(categorie?.total)}
 							</span>
 						</div>
 					</CardContent>

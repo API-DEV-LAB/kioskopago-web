@@ -5,7 +5,11 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
-import { ROUTES_APP, PHONE_MAX, PHONE_PLACEHOLDER } from '@/shared/utils/constants'
+import {
+	ROUTES_APP,
+	PHONE_MAX,
+	PHONE_PLACEHOLDER,
+} from '@/shared/utils/constants'
 import { AuthRegisterPost } from '@/features/auth/api/register'
 import { useAuthRegisterStore } from '@/features/auth/store/register'
 
@@ -89,9 +93,7 @@ export default function FormRegister() {
 					placeholder="Calle Principal #123, Colonia Centro"
 					required
 					value={formData.storeAddress}
-					onChange={(e) =>
-						setStoreAddress(e.target.value)
-					}
+					onChange={(e) => setStoreAddress(e.target.value)}
 				/>
 			</div>
 			<div className="space-y-2">
@@ -108,9 +110,7 @@ export default function FormRegister() {
 						required
 						disabled
 						value={formData.storeLocation}
-						onChange={(e) =>
-							setStoreLocation(e.target.value)
-						}
+						onChange={(e) => setStoreLocation(e.target.value)}
 					/>
 					<Button
 						type="button"
@@ -130,9 +130,7 @@ export default function FormRegister() {
 					placeholder="Juan Pérez"
 					required
 					value={formData.ownerName}
-					onChange={(e) =>
-						setOwnerName(e.target.value)
-					}
+					onChange={(e) => setOwnerName(e.target.value)}
 				/>
 			</div>
 			<div className="space-y-2">
@@ -149,9 +147,7 @@ export default function FormRegister() {
 					required
 					value={formData.phone}
 					maxLength={PHONE_MAX}
-					onChange={(e) =>
-						setPhone(e.target.value)
-					}
+					onChange={(e) => setPhone(e.target.value)}
 				/>
 			</div>
 			<div className="space-y-2">
@@ -174,9 +170,7 @@ export default function FormRegister() {
 					type="email"
 					placeholder="correo@ejemplo.com"
 					value={formData.email}
-					onChange={(e) =>
-						setEmail(e.target.value)
-					}
+					onChange={(e) => setEmail(e.target.value)}
 				/>
 			</div>
 			<div className="flex items-start space-x-2 pt-2">

@@ -4,7 +4,11 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { PHONE_MAX, PHONE_PLACEHOLDER, ROUTES_APP } from '@/shared/utils/constants'
+import {
+	PHONE_MAX,
+	PHONE_PLACEHOLDER,
+	ROUTES_APP,
+} from '@/shared/utils/constants'
 import { AuthLoginPost } from '@/features/auth/api/login'
 import { validatePhone } from '@/shared/utils/validations'
 import { useAuthLoginStore } from '@/features/auth/store/login'

@@ -28,9 +28,12 @@ export default function StepAmount() {
 
 				<Card className="rounded-lg">
 					<CardContent className="space-y-2">
-						<p className="text-sm font-semibold text-muted-foreground">Observaciones</p>
+						<p className="text-sm font-semibold text-muted-foreground">
+							Observaciones
+						</p>
 						<span className="text-sm text-muted-foreground">
-							Los recibos vencidos no son aceptados. El pago se vera aplicado en 72 horas.
+							Los recibos vencidos no son aceptados. El pago se
+							vera aplicado en 72 horas.
 						</span>
 					</CardContent>
 				</Card>

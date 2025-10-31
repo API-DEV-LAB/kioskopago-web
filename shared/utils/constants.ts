@@ -5,6 +5,7 @@ export const ROUTES_APP = {
 	VERIFICATION: { path: '/verificacion', name: 'Verificación' },
 	PROFILE: { path: '/mi-perfil', name: 'Mi perfil' },
 	HISTORIAL: { path: '/historial', name: 'Historial' },
+	DASHBOARD: { path: '/dashboard', name: 'Inicio' },
 	TERMSANDCONDITIONS: {
 		path: '/terminos-y-condiciones',
 		name: 'Términos y condiciones',

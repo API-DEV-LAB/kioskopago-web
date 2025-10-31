@@ -35,7 +35,7 @@ export default function StepNoService() {
 						<p className="text-sm font-semibold text-muted-foreground">
 							Encuentra aqui el número de recibo o referencia
 						</p>
-						<div className='flex justify-center mt-4'>
+						<div className="flex justify-center mt-4">
 							<Image
 								src="https://res.cloudinary.com/dtstx7rhx/image/upload/v1752637388/cea_reference.png"
 								width={250}
@@ -47,7 +47,10 @@ export default function StepNoService() {
 				</Card>
 			</div>
 			<div className="flex justify-end pt-4">
-				<Button onClick={handleNextStep} disabled={reference.length <= 0}>
+				<Button
+					onClick={handleNextStep}
+					disabled={reference.length <= 0}
+				>
 					Continuar
 					<RiArrowRightLine />
 				</Button>

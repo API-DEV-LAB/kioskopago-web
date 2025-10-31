@@ -25,10 +25,11 @@ export default function ServicesItem({
 					setIsSheetOpen(true)
 				}
 			}}
-			className={`group cursor-pointer transition-all hover:shadow-md ${selectedService === name ? 'ring-2 ring-primary' : ''
-				}`}
+			className={`group cursor-pointer transition-all hover:shadow-md ${
+				selectedService === name ? 'ring-2 ring-primary' : ''
+			}`}
 		>
-			<div className="aspect-square relative mb-3 overflow-hidden rounded-md">
+			<div className="aspect-square relative mb-3 overflow-hidden rounded-lg">
 				<Image
 					src={image}
 					alt={name}
