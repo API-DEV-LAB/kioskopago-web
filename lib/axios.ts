@@ -23,7 +23,10 @@ API.interceptors.response.use(
 	(error) => {
 		const err = error as AxiosError<{ message?: string }>
 		if (err.response?.status === 401) {
-			console.warn('Unauthorized, redirecting...')
+			if (typeof window !== 'undefined') {
+				localStorage.removeItem('token')
+				window.location.href = '/'
+			}
 		}
 		console.error(err.response?.data?.message || err.message)
 		return Promise.reject(err)

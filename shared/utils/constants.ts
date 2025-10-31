@@ -25,3 +25,5 @@ export const PATH_CART = {
 	AMOUNT: 4,
 	SUMMARY: 5
 }
+export const PUBLIC_ROUTES = ['/', '/inicia-sesion', '/registro-de-tienda', '/recupera-contrasena', '/verificacion']
+export const AUTH_ROUTES = ['/inicia-sesion', '/registro-de-tienda']
