@@ -17,7 +17,7 @@ export default function SalesList() {
 				setIsLoading(true)
 				const response = await OrderSalesGet()
 				// @ts-ignore
-				setSales(response)
+				setSales([])
 			} catch (error) {
 				console.error('Error fetching sales:', error)
 				setError('Error al cargar el historial')
@@ -51,7 +51,7 @@ export default function SalesList() {
 				/>
 			))}
 			{sales?.length === 0 && (
-				<Card>
+				<Card className="border-dashed rounded-lg shadow-sm">
 					<CardContent className="p-12 text-center">
 						<div className="w-16 h-16 bg-muted rounded-full mx-auto mb-4 flex items-center justify-center">
 							<RiAlarmLine className="w-8 h-8 text-muted-foreground" />

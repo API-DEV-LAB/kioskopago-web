@@ -16,3 +16,18 @@ export interface RegisterProps {
 	email: string
 	acceptTerms: boolean
 }
+
+export interface ProfileProps {
+	id?: number | null
+	name: string | null
+	fatherLastname: string | null
+	motherLastname: string | null
+	email: string | null
+	phone?: string | null
+	onboardingStatus?: string | null
+	createdAt?: string | null
+	updatedAt?: string | null
+	termsAndConditions?: boolean
+	privacyPolicy?: boolean
+}
+

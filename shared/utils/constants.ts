@@ -11,14 +11,9 @@ export const ROUTES_APP = {
 		name: 'Términos y condiciones',
 	},
 } as const
-
+export const TYPE_SERVICE = 'SERVICE'
 export const PHONE_MAX = 10
 export const PHONE_PLACEHOLDER = '(442) 724 210'
 export const CODE_VERIFICATION_MAX = 6
 export const FIELD_REQUIRED = 'Campo requerido'
-export const MENU_LOGGED_IN = [
-	{ name: ROUTES_APP.HOME.name, href: ROUTES_APP.HOME.path },
-	{ name: ROUTES_APP.HISTORIAL.name, href: ROUTES_APP.HISTORIAL.path },
-	{ name: ROUTES_APP.PROFILE.name, href: ROUTES_APP.PROFILE.path },
-]
 export const WIDTH_BREAKPOINT_MD = 768
