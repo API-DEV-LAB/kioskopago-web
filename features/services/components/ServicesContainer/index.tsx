@@ -43,7 +43,7 @@ export default function ServicesContainer() {
 	if (isLoading) {
 		return (
 			<div className="space-y-6 mt-4">
-				{Array.from({ length: 4 }).map((_, index) => (
+				{Array.from({ length: 5 }).map((_, index) => (
 					<ServicesContainerLoading key={index} />
 				))}
 			</div>

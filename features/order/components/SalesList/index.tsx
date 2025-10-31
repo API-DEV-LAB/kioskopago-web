@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
+import { Skeleton } from "@/components/ui/skeleton"
 import { RiAlarmLine } from '@remixicon/react'
 import { Sale } from '@/features/order/types/types'
 import { OrderSalesGet } from '@/features/order/api/sales'
@@ -33,9 +34,9 @@ export default function SalesList() {
 		<div className="space-y-3 mt-8 mb-[60px]">
 			{isLoading &&
 				Array.from({ length: 4 }).map((_, index) => (
-					<div
+					<Skeleton
 						key={index}
-						className="w-full h-[108px] bg-gray-200 rounded-lg animate-pulse"
+						className="w-full h-[108px] rounded-lg"
 					/>
 				))}
 			{sales?.map((sale: Sale) => (

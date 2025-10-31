@@ -1,5 +1,7 @@
+import { Skeleton } from "@/components/ui/skeleton"
+
 export default function ServicesContainerLoading() {
-	return <div className="h-24 bg-gray-200 rounded-lg animate-pulse" />
+	return <Skeleton className="h-24 rounded-lg" />
 }
 
 export { ServicesContainerLoading }
