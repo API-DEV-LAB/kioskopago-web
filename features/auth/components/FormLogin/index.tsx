@@ -68,7 +68,7 @@ export default function FormLogin() {
 				>
 					{isLoading ? 'Enviando código...' : 'Continuar'}
 				</Button>
-				<p className="text-center text-sm text-muted-foreground mx-0 my-0 mt-8">
+				<p className="text-center text-sm text-muted-foreground mx-0 my-0 mt-4">
 					¿No tienes una cuenta?{' '}
 					<a
 						href={ROUTES_APP.REGISTER.path}
@@ -77,6 +77,9 @@ export default function FormLogin() {
 						Regístrate aquí
 					</a>
 				</p>
+				<div className="text-center mx-0 my-0 mt-2">
+					<a className="text-sm text-primary hover:underline" href={ROUTES_APP.RECOVERPASSWORD.path}>¿Olvidaste tu contraseña?</a>
+				</div>
 			</form>
 		</>
 	)

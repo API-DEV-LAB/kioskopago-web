@@ -10,6 +10,10 @@ export const ROUTES_APP = {
 		path: '/terminos-y-condiciones',
 		name: 'Términos y condiciones',
 	},
+	RECOVERPASSWORD: {
+		path: '/recupera-contrasena',
+		name: 'Recuperar contraseña',
+	}
 } as const
 export const TYPE_SERVICE = 'SERVICE'
 export const PHONE_MAX = 10
