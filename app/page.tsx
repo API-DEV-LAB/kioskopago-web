@@ -66,7 +66,7 @@ export default function IndexPage() {
 							</Button>
 						</div>
 					</div>
-					<div className="relative">
+					<div className="relative hidden lg:block">
 						<div className="aspect-square bg-primary/10 rounded-3xl flex items-center justify-center p-8">
 							<div className="w-full h-full bg-primary/20 rounded-2xl flex items-center justify-center">
 								<RiSmartphoneLine className="w-32 h-32 text-primary" />
