@@ -5,7 +5,7 @@ import { ServicesServicesGet } from '@/features/services/api/services'
 import { ServiceCategory, Company } from '@/features/services/types/types'
 import ServicesContainerLoading from './ServicesContainerLoading'
 import { useCartStore } from '@/features/cart/store/cart'
-import { TYPE_SERVICE } from '@/shared/utils/constants'
+import { TYPE_SERVICE, PATH_CART } from '@/shared/utils/constants'
 
 export default function ServicesContainer() {
 	const { setType, setProduct, setStep } = useCartStore()
@@ -36,14 +36,14 @@ export default function ServicesContainer() {
 		setSelectedService(service)
 		setProduct(service)
 		setType(service.type)
-		if (service.type === TYPE_SERVICE) setStep(1)
-		else setStep(0)
+		if (service.type === TYPE_SERVICE) setStep(PATH_CART.NOSERVICE)
+		else setStep(PATH_CART.CATEGORIES)
 	}
 
 	if (isLoading) {
 		return (
 			<div className="space-y-6 mt-4">
-				{Array.from({ length: 12 }).map((_, index) => (
+				{Array.from({ length: 4 }).map((_, index) => (
 					<ServicesContainerLoading key={index} />
 				))}
 			</div>
@@ -51,7 +51,7 @@ export default function ServicesContainer() {
 	}
 
 	return (
-		<div className="space-y-6 mt-4">
+		<div className="space-y-6 mt-4 mb-[60px]">
 			{services?.map(({ id, name, companies }: ServiceCategory) => (
 				<section key={id} className="space-y-3">
 					{name && <h2 className="text-lg font-semibold">{name}</h2>}

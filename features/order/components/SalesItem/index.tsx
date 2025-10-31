@@ -44,7 +44,9 @@ export default function SalesItem({
 							<h3 className="font-semibold text-slate-900 text-base">
 								{company}
 							</h3>
-							<p className="text-sm text-slate-600">{formatPhone(phone)}</p>
+							<p className="text-sm text-slate-600">
+								{formatPhone(phone)}
+							</p>
 						</div>
 						<div className="text-right flex-shrink-0">
 							<p className="font-bold text-lg text-slate-900">

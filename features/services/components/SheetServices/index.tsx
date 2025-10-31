@@ -8,7 +8,7 @@ import {
 	SheetTitle,
 } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
-import { CartContainer } from '@/features/cart/components/CartContainer'
+import { StepContainer } from '@/features/cart/components/StepContainer'
 import { useCartStore } from '@/features/cart/store/cart'
 
 export default function SheetServices() {
@@ -22,22 +22,22 @@ export default function SheetServices() {
 
 	return (
 		<Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-			<SheetContent side="bottom" className="h-[90vh] p-0">
+			<SheetContent side="bottom" className="h-[85vh] p-0">
 				<div className="h-full overflow-y-auto">
 					<SheetHeader className="sticky top-0 bg-background border-b p-4 z-10">
 						<div className="flex items-center justify-between">
-							<SheetTitle>Recarga de</SheetTitle>
+							<SheetTitle></SheetTitle>
 							<Button
 								variant="ghost"
 								size="icon"
 								onClick={handleSheetClose}
 							>
-								<RiCloseLine className="h-4 w-4" />
+								<RiCloseLine className="h-5 w-5" />
 							</Button>
 						</div>
 					</SheetHeader>
 					<div className="p-4">
-						<CartContainer />
+						<StepContainer />
 					</div>
 				</div>
 			</SheetContent>

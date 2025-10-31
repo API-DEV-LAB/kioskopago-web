@@ -17,3 +17,11 @@ export const PHONE_PLACEHOLDER = '(442) 724 210'
 export const CODE_VERIFICATION_MAX = 6
 export const FIELD_REQUIRED = 'Campo requerido'
 export const WIDTH_BREAKPOINT_MD = 768
+export const PATH_CART = {
+	EMPTY: 0,
+	CATEGORIES: 1,
+	NOSERVICE: 2,
+	PHONE: 3,
+	AMOUNT: 4,
+	SUMMARY: 5
+}

@@ -8,6 +8,7 @@ import { formatPrice } from '@/shared/utils/formats'
 import { CartCategoriesGet } from '@/features/cart/api/categories'
 import StepCategoriesLoading from './StepCategoriesLoading'
 import { useCartStore } from '@/features/cart/store/cart'
+import { PATH_CART } from '@/shared/utils/constants'
 
 export default function StepCategories() {
 	const { categorie, setStep, setCategorie } = useCartStore()
@@ -46,11 +47,15 @@ export default function StepCategories() {
 	}
 
 	const handleNextStep = () => {
-		setStep(2)
+		setStep(PATH_CART.PHONE)
 	}
 
 	return (
 		<div className="space-y-4">
+			<h2 className="text-2xl font-bold mb-1">Completa tu recarga</h2>
+			<p className="text-base text-muted-foreground mb-8">
+				Sigue los pasos para realizar tu recarga
+			</p>
 			<div>
 				<h3 className="text-sm font-semibold mb-4">
 					Selecciona un paquete

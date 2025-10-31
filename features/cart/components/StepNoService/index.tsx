@@ -16,6 +16,10 @@ export default function StepNoService() {
 
 	return (
 		<div className="space-y-4">
+			<h2 className="text-2xl font-bold mb-1">Completa tu pago</h2>
+			<p className="text-base text-muted-foreground mb-8">
+				Sigue los pasos para realizar tu pago
+			</p>
 			<div className="space-y-8">
 				<div className="space-y-2">
 					<Label htmlFor="phone">

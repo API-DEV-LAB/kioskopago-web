@@ -3,7 +3,11 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { PHONE_MAX, PHONE_PLACEHOLDER } from '@/shared/utils/constants'
+import {
+	PHONE_MAX,
+	PHONE_PLACEHOLDER,
+	PATH_CART,
+} from '@/shared/utils/constants'
 import { formatPrice } from '@/shared/utils/formats'
 import { RiArrowRightLine } from '@remixicon/react'
 import { useCartStore } from '@/features/cart/store/cart'
@@ -12,14 +16,18 @@ export default function StepPhone() {
 	const { product, categorie, phone, setPhone, setStep } = useCartStore()
 
 	const handleNextStep = () => {
-		setStep(4)
+		setStep(PATH_CART.SUMMARY)
 	}
 
 	const handlePreviousStep = () => {
-		setStep(0)
+		setStep(PATH_CART.CATEGORIES)
 	}
 	return (
 		<div className="space-y-4">
+			<h2 className="text-2xl font-bold mb-1">Completa tu recarga</h2>
+			<p className="text-base text-muted-foreground mb-8">
+				Sigue los pasos para realizar tu recarga
+			</p>
 			<div className="space-y-4">
 				<div className="space-y-2">
 					<Label htmlFor="phone">

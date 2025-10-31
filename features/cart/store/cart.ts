@@ -1,16 +1,17 @@
 import { create } from 'zustand'
-import { Service } from '@/features/services/types/types'
+import { Company } from '@/features/services/types/types'
 import { CategoriesResponse } from '@/features/cart/types/types'
+import { PATH_CART } from '@/shared/utils/constants'
 
 interface CartState {
-	product: Service | null
+	product: Company | null
 	type: string
 	categorie: CategoriesResponse | null
 	total: string
 	phone: string
 	reference: string
 	step: number | null
-	setProduct: (service: Service) => void
+	setProduct: (service: Company) => void
 	setType: (type: string) => void
 	setCategorie: (categorie: CategoriesResponse) => void
 	setTotal: (total: string) => void
@@ -27,8 +28,8 @@ export const useCartStore = create<CartState>((set) => ({
 	total: '',
 	phone: '',
 	reference: '',
-	step: 0,
-	setProduct: (product: Service) => set({ product }),
+	step: PATH_CART.EMPTY,
+	setProduct: (product: Company) => set({ product }),
 	setType: (type) => set({ type }),
 	setCategorie: (categorie: CategoriesResponse) => set({ categorie }),
 	setTotal: (total) => set({ total }),
