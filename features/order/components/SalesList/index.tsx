@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from '@/components/ui/skeleton'
 import { RiAlarmLine } from '@remixicon/react'
 import { Sale } from '@/features/order/types/types'
 import { OrderSalesGet } from '@/features/order/api/sales'

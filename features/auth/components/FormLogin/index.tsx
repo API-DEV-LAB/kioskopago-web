@@ -78,7 +78,12 @@ export default function FormLogin() {
 					</a>
 				</p>
 				<div className="text-center mx-0 my-0 mt-2">
-					<a className="text-sm text-primary hover:underline" href={ROUTES_APP.RECOVERPASSWORD.path}>¿Olvidaste tu contraseña?</a>
+					<a
+						className="text-sm text-primary hover:underline"
+						href={ROUTES_APP.RECOVERPASSWORD.path}
+					>
+						¿Olvidaste tu contraseña?
+					</a>
 				</div>
 			</form>
 		</>
