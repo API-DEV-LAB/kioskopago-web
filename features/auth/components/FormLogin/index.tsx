@@ -4,10 +4,10 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { PHONE_MAX, PHONE_PLACEHOLDER, ROUTES_APP, IS_DEV, DEV_OTP_HINT } from '@/shared/utils/constants'
-import { requestOtp } from '@/features/auth/api/otp'
+import { PHONE_MAX, PHONE_PLACEHOLDER, ROUTES_APP, DEV_OTP_HINT } from '@/shared/utils/constants'
 import { validatePhone } from '@/shared/utils/validations'
 import { useAuthLoginStore } from '@/features/auth/store/login'
+import { requestOtp } from '@/features/auth/api/otp'
 
 export default function FormLogin() {
   const router = useRouter()
@@ -50,9 +50,9 @@ export default function FormLogin() {
         {error && <p className="text-sm text-destructive">{error}</p>}
       </div>
 
-      {IS_DEV && (
-        <p className="text-xs text-muted-foreground bg-muted rounded px-3 py-2">
-          🛠 Modo desarrollo — código de verificación: <strong>{DEV_OTP_HINT}</strong>
+      {DEV_OTP_HINT && (
+        <p className="text-xs text-center text-muted-foreground bg-muted rounded p-2">
+          🛠 Modo desarrollo — el código siempre es <strong>{DEV_OTP_HINT}</strong>
         </p>
       )}
 
@@ -66,12 +66,6 @@ export default function FormLogin() {
           Regístrate aquí
         </a>
       </p>
-
-      <div className="text-center mt-2">
-        <a href={ROUTES_APP.ADMIN_LOGIN.path} className="text-xs text-muted-foreground hover:underline">
-          Acceso administrador
-        </a>
-      </div>
     </form>
   )
 }

@@ -6,9 +6,9 @@ export default function AdminLoginPage() {
     <Card className="w-full max-w-md border-none shadow-none rounded-lg">
       <CardHeader className="space-y-1 text-center mb-8">
         <CardTitle className="text-2xl font-bold mt-4">Administrador</CardTitle>
-        <CardDescription>Ingresa tu correo y contraseña para acceder al panel.</CardDescription>
+        <CardDescription>Ingresa con tu correo y contraseña</CardDescription>
       </CardHeader>
-      <CardContent className="px-none">
+      <CardContent>
         <FormAdminLogin />
       </CardContent>
     </Card>

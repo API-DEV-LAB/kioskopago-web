@@ -4,7 +4,7 @@ import { RegisterProps } from '@/features/auth/types/types'
 export async function POST(request: NextRequest): Promise<NextResponse> {
 	try {
 		const body: RegisterProps = await request.json()
-		const { storeName, storeAddress, storeLocation, ownerName, phoneNumber, rfc, email, acceptTerms } = body
+		const { storeName, storeAddress, storeLocation, ownerName, phone, rfc, email, acceptTerms } = body
 		return NextResponse.json(
 			{
 				success: true,

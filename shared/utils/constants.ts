@@ -7,7 +7,10 @@ export const ROUTES_APP = {
   PROFILE: { path: '/mi-perfil', name: 'Mi perfil' },
   HISTORIAL: { path: '/historial', name: 'Historial' },
   DASHBOARD: { path: '/dashboard', name: 'Inicio' },
-  ADMIN_DASHBOARD: { path: '/admin/dashboard', name: 'Admin Dashboard' },
+  ADMIN_DASHBOARD: { path: '/admin/dashboard', name: 'Dashboard Admin' },
+  ADMIN_TIENDAS: { path: '/admin/tiendas', name: 'Tiendas' },
+  ADMIN_USUARIOS: { path: '/admin/usuarios', name: 'Usuarios' },
+  ADMIN_TRANSACCIONES: { path: '/admin/transacciones', name: 'Transacciones' },
   TERMSANDCONDITIONS: { path: '/terminos-y-condiciones', name: 'Términos y condiciones' },
   RECOVERPASSWORD: { path: '/recupera-contrasena', name: 'Recuperar contraseña' },
 } as const
@@ -18,6 +21,8 @@ export const PHONE_PLACEHOLDER = '(442) 724 2100'
 export const CODE_VERIFICATION_MAX = 6
 export const FIELD_REQUIRED = 'Campo requerido'
 export const WIDTH_BREAKPOINT_MD = 768
+export const DEV_OTP_HINT = process.env.NODE_ENV === 'development' ? '123456' : null
+
 export const PATH_CART = {
   EMPTY: 0,
   CATEGORIES: 1,
@@ -26,17 +31,6 @@ export const PATH_CART = {
   AMOUNT: 4,
   SUMMARY: 5,
 }
-export const PUBLIC_ROUTES = [
-  '/',
-  '/inicia-sesion',
-  '/admin',
-  '/registro-de-tienda',
-  '/recupera-contrasena',
-  '/verificacion',
-]
-export const AUTH_ROUTES = ['/inicia-sesion', '/registro-de-tienda', '/admin']
-export const ADMIN_ROUTES = ['/admin/dashboard', '/admin/tiendas', '/admin/usuarios', '/admin/transacciones']
-export const GROCER_ROUTES = ['/dashboard', '/historial', '/mi-perfil']
 
-export const IS_DEV = process.env.NODE_ENV === 'development'
-export const DEV_OTP_HINT = '123456'
+export const PUBLIC_ROUTES = ['/', '/inicia-sesion', '/admin', '/registro-de-tienda', '/recupera-contrasena', '/verificacion']
+export const AUTH_ROUTES = ['/inicia-sesion', '/admin', '/registro-de-tienda']

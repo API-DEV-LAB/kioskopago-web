@@ -25,34 +25,32 @@ export interface CreateUserDto {
 
 export interface UpdateUserDto {
   name?: string
-  fatherLastname?: string
-  motherLastname?: string
   phone?: string
   status?: 'ENABLED' | 'DISABLED'
   role?: 'ADMIN' | 'GROCER'
 }
 
-export async function listUsers(params?: { page?: number; limit?: number; role?: string; search?: string }) {
-  const response = await API.get<{ items: User[]; total: number }>('/users', { params })
+export interface ListUsersResponse {
+  items: User[]
+  total: number
+}
+
+export async function listUsers(params?: { page?: number; limit?: number; search?: string; role?: string }): Promise<ListUsersResponse> {
+  const response = await API.get<ListUsersResponse>('/users', { params })
   return response.data
 }
 
-export async function getUser(id: string) {
-  const response = await API.get<User>(`/users/${id}`)
-  return response.data
-}
-
-export async function createUser(data: CreateUserDto) {
+export async function createUser(data: CreateUserDto): Promise<User> {
   const response = await API.post<User>('/users', data)
   return response.data
 }
 
-export async function updateUser(id: string, data: UpdateUserDto) {
+export async function updateUser(id: string, data: UpdateUserDto): Promise<User> {
   const response = await API.patch<User>(`/users/${id}`, data)
   return response.data
 }
 
-export async function deleteUser(id: string) {
-  const response = await API.delete(`/users/${id}`)
+export async function deleteUser(id: string): Promise<{ message: string }> {
+  const response = await API.delete<{ message: string }>(`/users/${id}`)
   return response.data
 }
