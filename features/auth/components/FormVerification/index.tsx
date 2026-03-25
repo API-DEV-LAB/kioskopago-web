@@ -10,10 +10,12 @@ import { CODE_VERIFICATION_MAX, ROUTES_APP } from '@/shared/utils/constants'
 import { validateCodeVerification } from '@/shared/utils/validations'
 import { AuthVerificationPost } from '@/features/auth/api/verification'
 import { useAuthVerificationStore } from '@/features/auth/store/verification'
+import { useAuthLoginStore } from '@/features/auth/store/login'
 
 export default function FormVerification() {
 	const router = useRouter()
 	const { code, setCode } = useAuthVerificationStore()
+	const { phone } = useAuthLoginStore()
 	const [isLoading, setIsLoading] = useState(false)
 	const [countdown, setCountdown] = useState(20)
 	const [canResend, setCanResend] = useState(false)
@@ -27,11 +29,18 @@ export default function FormVerification() {
 		}
 		setIsLoading(true)
 		try {
-			const response = await AuthVerificationPost(code)
-			// @ts-ignore
-			if (response?.success === true) router.push(ROUTES_APP.HOME.path)
+			// API verifyOtp expects { phoneNumber, otp }
+			// accessToken is stored in localStorage by the axios interceptor (lib/axios.ts)
+			const response = await AuthVerificationPost(phone, code)
+			if (response?.accessToken) {
+				if (typeof window !== 'undefined') {
+					localStorage.setItem('token', response.accessToken)
+				}
+				router.push(ROUTES_APP.HOME.path)
+			}
 		} catch (error) {
 			console.error('AuthVerificationPost form::', error)
+			alert('Código incorrecto o expirado. Intenta de nuevo.')
 		} finally {
 			setIsLoading(false)
 		}

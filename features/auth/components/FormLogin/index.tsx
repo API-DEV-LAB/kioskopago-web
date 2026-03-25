@@ -29,12 +29,13 @@ export default function FormLogin() {
 		setIsLoading(true)
 		try {
 			const response = await AuthLoginPost(phone)
-			// @ts-ignore
-			if (response?.success === true) {
+			// API returns { message: 'OTP sent', expiresIn: 600 } on success
+			if (response?.message) {
 				router.push(ROUTES_APP.VERIFICATION.path)
 			}
 		} catch (error) {
 			console.error('AuthLoginPost form::', error)
+			alert('No se pudo enviar el código. Verifica tu número e intenta de nuevo.')
 		} finally {
 			setIsLoading(false)
 		}
