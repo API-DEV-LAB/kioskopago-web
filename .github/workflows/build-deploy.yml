@@ -62,7 +62,7 @@ jobs:
             rm -f /tmp/deploy.tar.gz
 
             echo "🚀 Restarting with PM2..."
-            pm2 restart kiosko-web || pm2 start ecosystem.config.js --only kiosko-web
+            pm2 restart kiosko-web || pm2 start /home/app/ecosystem.config.js --only kiosko-web
 
             echo "✅ kiosko-web deployed successfully"
             pm2 status kiosko-web
