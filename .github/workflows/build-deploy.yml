@@ -27,7 +27,23 @@ jobs:
         env:
           NEXT_PUBLIC_API_URL: https://dev.apidevlab.com/kiosko-api
 
-      - name: Deploy to server
+      - name: Create standalone deployment package
+        run: |
+          # Next.js standalone output includes only necessary files
+          cp -r public .next/standalone/
+          cp -r .next/static .next/standalone/.next/
+          tar -czf deploy.tar.gz -C .next/standalone .
+
+      - name: Upload artifact to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          source: deploy.tar.gz
+          target: /tmp/
+
+      - name: Deploy on server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.DEPLOY_HOST }}
@@ -37,19 +53,16 @@ jobs:
             set -e
             APP_DIR=/home/app/kiosko_web
 
-            echo "📦 Updating repo..."
+            echo "📦 Extracting standalone build..."
+            # Backup current deploy
+            [ -d "$APP_DIR/.next" ] && rm -rf "$APP_DIR/.next_backup" && mv "$APP_DIR/.next" "$APP_DIR/.next_backup" || true
+            
             cd $APP_DIR
-            git fetch origin
-            git checkout dev
-            git pull origin dev
-
-            echo "📚 Installing dependencies..."
-            yarn install --frozen-lockfile
-
-            echo "🔨 Building app..."
-            NEXT_PUBLIC_API_URL=https://dev.apidevlab.com/kiosko-api yarn build
+            tar -xzf /tmp/deploy.tar.gz
+            rm -f /tmp/deploy.tar.gz
 
             echo "🚀 Restarting with PM2..."
             pm2 restart kiosko-web || pm2 start ecosystem.config.js --only kiosko-web
 
             echo "✅ kiosko-web deployed successfully"
+            pm2 status kiosko-web
