@@ -1,0 +1,55 @@
+name: Build and Deploy - Kiosko Web
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+        env:
+          NEXT_PUBLIC_API_URL: https://dev.apidevlab.com/kiosko-api
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: |
+            set -e
+            APP_DIR=/home/app/kiosko_web
+
+            echo "📦 Updating repo..."
+            cd $APP_DIR
+            git fetch origin
+            git checkout dev
+            git pull origin dev
+
+            echo "📚 Installing dependencies..."
+            yarn install --frozen-lockfile
+
+            echo "🔨 Building app..."
+            NEXT_PUBLIC_API_URL=https://dev.apidevlab.com/kiosko-api yarn build
+
+            echo "🚀 Restarting with PM2..."
+            pm2 restart kiosko-web || pm2 start ecosystem.config.js --only kiosko-web
+
+            echo "✅ kiosko-web deployed successfully"
