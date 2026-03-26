@@ -20,21 +20,22 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Build
         run: yarn build
         env:
           NEXT_PUBLIC_API_URL: https://dev.apidevlab.com/kiosko-api
 
-      - name: Create standalone deployment package
+      - name: Package build artifacts
         run: |
-          # Copy public assets and static files into standalone output
+          # standalone ya incluye server.js + node_modules trimmed + .next/server
+          # copiamos public y static para que queden completos
           cp -r public .next/standalone/
-          cp -r .next/static .next/standalone/.next/
+          cp -r .next/static .next/standalone/.next/static
           tar -czf deploy.tar.gz -C .next/standalone .
 
-      - name: Upload artifact to server
+      - name: Upload to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.DEPLOY_HOST }}
@@ -52,21 +53,24 @@ jobs:
           script: |
             set -e
             APP_DIR=/home/app/kiosko_web
+            TMP_DIR=/tmp/kiosko_web_deploy
 
-            echo "📦 Deploying standalone build..."
-
-            # Backup current deploy
-            rm -rf "$APP_DIR.backup"
-            cp -r "$APP_DIR" "$APP_DIR.backup" || true
-
-            # Clear app dir and extract fresh standalone
-            rm -rf "$APP_DIR"
-            mkdir -p "$APP_DIR"
-            tar -xzf /tmp/deploy.tar.gz -C "$APP_DIR"
+            echo "📦 Extracting build..."
+            rm -rf $TMP_DIR
+            mkdir -p $TMP_DIR
+            tar -xzf /tmp/deploy.tar.gz -C $TMP_DIR
             rm -f /tmp/deploy.tar.gz
 
-            echo "🚀 Restarting with PM2..."
+            echo "🔄 Swapping artifacts..."
+            rm -rf $APP_DIR/.next $APP_DIR/server.js $APP_DIR/node_modules $APP_DIR/public
+            mv $TMP_DIR/.next $APP_DIR/.next
+            mv $TMP_DIR/server.js $APP_DIR/server.js
+            mv $TMP_DIR/node_modules $APP_DIR/node_modules
+            mv $TMP_DIR/public $APP_DIR/public
+            rm -rf $TMP_DIR
+
+            echo "🚀 Restarting PM2..."
             pm2 restart kiosko-web || pm2 start /home/app/ecosystem.config.js --only kiosko-web
 
-            echo "✅ kiosko-web deployed successfully"
+            echo "✅ Done"
             pm2 status kiosko-web
