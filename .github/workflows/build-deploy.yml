@@ -6,35 +6,71 @@ on:
       - dev
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+        env:
+          NEXT_PUBLIC_API_URL: https://dev.apidevlab.com/kiosko-api
+
+      - name: Package build artifacts
+        run: |
+          # standalone ya incluye server.js + node_modules trimmed + .next/server
+          # copiamos public y static para que queden completos
+          cp -r public .next/standalone/
+          cp -r .next/static .next/standalone/.next/static
+          tar -czf deploy.tar.gz -C .next/standalone .
+
+      - name: Upload to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          source: deploy.tar.gz
+          target: /tmp/
+
       - name: Deploy on server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
-          command_timeout: 10m
           script: |
             set -e
             APP_DIR=/home/app/kiosko_web
+            TMP_DIR=/tmp/kiosko_web_deploy
 
-            echo "📥 Pulling latest code..."
-            cd $APP_DIR
-            git fetch origin dev
-            git checkout -- package-lock.json yarn.lock 2>/dev/null || true
-            git reset --hard origin/dev
+            echo "📦 Extracting build..."
+            rm -rf $TMP_DIR
+            mkdir -p $TMP_DIR
+            tar -xzf /tmp/deploy.tar.gz -C $TMP_DIR
+            rm -f /tmp/deploy.tar.gz
 
-            echo "📦 Installing dependencies..."
-            yarn install --frozen-lockfile
+            echo "🔄 Swapping artifacts..."
+            rm -rf $APP_DIR/.next $APP_DIR/server.js $APP_DIR/node_modules $APP_DIR/public
+            mv $TMP_DIR/.next $APP_DIR/.next
+            mv $TMP_DIR/server.js $APP_DIR/server.js
+            mv $TMP_DIR/node_modules $APP_DIR/node_modules
+            mv $TMP_DIR/public $APP_DIR/public
+            rm -rf $TMP_DIR
 
-            echo "🔨 Building..."
-            NEXT_PUBLIC_API_URL=https://dev.apidevlab.com/kiosko-api yarn build
-
-            echo "🚀 Restarting with PM2..."
+            echo "🚀 Restarting PM2..."
             pm2 restart kiosko-web || pm2 start /home/app/ecosystem.config.js --only kiosko-web
 
-            echo "✅ kiosko-web deployed successfully"
+            echo "✅ Done"
             pm2 status kiosko-web
