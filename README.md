@@ -43,7 +43,8 @@ yarn format
 
 ## URLs
 
-| Ambiente | URL                              |
-| -------- | -------------------------------- |
-| Prod     |                                  |
-| Dev      | https://dev.apidevlab.com/kiosko |
+| Ambiente | URL                                       |
+| -------- | ----------------------------------------- |
+| Prod     |                                           |
+| Dev      | https://dev.apidevlab.com/kiosko          |
+| Docs     | https://dev.apidevlab.com/kiosko-api/docs |
