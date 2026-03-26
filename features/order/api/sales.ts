@@ -4,11 +4,10 @@ import { SaleResponse } from '@/features/order/types/types'
 
 export async function OrderSalesGet(): Promise<AxiosResponse<SaleResponse>> {
     try {
-        const response = await API.get(`${process.env.NEXT_PUBLIC_API_URL}/order/sales`)
-        const data: AxiosResponse = await response.data.data
-        return data
+        const response = await API.get('/order/sales')
+        return response.data.data
     } catch (error) {
-        console.error('HomeServicesGet::error', error)
+        console.error('OrderSalesGet::error', error)
         throw error
     }
 }

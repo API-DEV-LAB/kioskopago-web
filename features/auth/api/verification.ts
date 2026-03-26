@@ -1,17 +1,9 @@
 import API from '@/lib/axios'
-import { AxiosResponse } from 'axios'
-import { VerificationProps } from '@/features/auth/types/types'
 
-export async function AuthVerificationPost(code: string): Promise<AxiosResponse> {
-	const requestBody: VerificationProps = {
-		code
-	}
+export async function AuthVerificationPost(phoneNumber: string, otp: string): Promise<{ accessToken: string; refreshToken: string; expiresIn: number; user: object }> {
 	try {
-		const response = await API.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/verify`, {
-			data: JSON.stringify(requestBody),
-		})
-		const data: AxiosResponse = await response.data
-		return data
+		const response = await API.post('/auth/otp/verify', { phoneNumber, otp })
+		return response.data
 	} catch (error) {
 		console.error('AuthVerificationPost::error', error)
 		throw error
