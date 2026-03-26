@@ -1,9 +1,14 @@
+# WORKFLOW DESHABILITADO — el frontend se desplegará en otro servidor
+# Para reactivar, descomentar el bloque "on:" y el job completo
+
 name: Build and Deploy - Kiosko Web
 
-on:
-  push:
-    branches:
-      - dev
+# on:
+#   push:
+#     branches:
+#       - dev
+
+on: workflow_dispatch
 
 jobs:
   build-and-deploy:
