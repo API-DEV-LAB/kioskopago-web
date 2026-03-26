@@ -6,64 +6,32 @@ on:
       - dev
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Build
-        run: yarn build
-        env:
-          NEXT_PUBLIC_API_URL: https://dev.apidevlab.com/kiosko-api
-
-      - name: Create standalone deployment package
-        run: |
-          # Copy public assets and static files into standalone output
-          cp -r public .next/standalone/
-          cp -r .next/static .next/standalone/.next/
-          tar -czf deploy.tar.gz -C .next/standalone .
-
-      - name: Upload artifact to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          source: deploy.tar.gz
-          target: /tmp/
-
       - name: Deploy on server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
+          command_timeout: 10m
           script: |
             set -e
             APP_DIR=/home/app/kiosko_web
 
-            echo "📦 Deploying standalone build..."
+            echo "📥 Pulling latest code..."
+            cd $APP_DIR
+            git fetch origin dev
+            git checkout -- package-lock.json yarn.lock 2>/dev/null || true
+            git reset --hard origin/dev
 
-            # Backup current deploy
-            rm -rf "$APP_DIR.backup"
-            cp -r "$APP_DIR" "$APP_DIR.backup" || true
+            echo "📦 Installing dependencies..."
+            yarn install --frozen-lockfile
 
-            # Clear app dir and extract fresh standalone
-            rm -rf "$APP_DIR"
-            mkdir -p "$APP_DIR"
-            tar -xzf /tmp/deploy.tar.gz -C "$APP_DIR"
-            rm -f /tmp/deploy.tar.gz
+            echo "🔨 Building..."
+            NEXT_PUBLIC_API_URL=https://dev.apidevlab.com/kiosko-api yarn build
 
             echo "🚀 Restarting with PM2..."
             pm2 restart kiosko-web || pm2 start /home/app/ecosystem.config.js --only kiosko-web
