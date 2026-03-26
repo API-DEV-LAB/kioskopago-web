@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Nunito_Sans } from 'next/font/google'
-import { AuthGuard } from '@/shared/components/AuthGuard'
 
 const nunitoSans = Nunito_Sans({
 	subsets: ['latin'],
@@ -24,7 +23,7 @@ export default function RootLayout({
 			<body
 				className={`${nunitoSans.className} font-sans overflow-x-hidden`}
 			>
-				<AuthGuard>{children}</AuthGuard>
+				{children}{' '}
 			</body>
 		</html>
 	)
