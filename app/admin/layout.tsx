@@ -1,31 +1,12 @@
 'use client'
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ROUTES_APP } from '@/shared/utils/constants'
-import { getUserRole, clearTokens } from '@/shared/utils/auth'
 
 export default function AdminLayout({
 	children,
 }: {
 	children: React.ReactNode
 }) {
-	const router = useRouter()
-
-	useEffect(() => {
-		const role = getUserRole()
-		if (!role) {
-			router.replace(ROUTES_APP.HOME.path)
-		} else if (role !== 'ADMIN') {
-			router.replace(ROUTES_APP.DASHBOARD.path)
-		}
-	}, [router])
-
-	const handleLogout = () => {
-		clearTokens()
-		router.push(ROUTES_APP.HOME.path)
-	}
-
 	return (
 		<div className="min-h-screen bg-background flex">
 			{/* Sidebar */}
@@ -64,7 +45,7 @@ export default function AdminLayout({
 				</nav>
 				<div className="p-4 border-t">
 					<button
-						onClick={handleLogout}
+						onClick={() => {}}
 						className="w-full text-left px-3 py-2 rounded-md text-sm text-destructive hover:bg-accent transition-colors"
 					>
 						Cerrar sesión
