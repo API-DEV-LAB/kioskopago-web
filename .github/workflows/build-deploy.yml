@@ -29,7 +29,7 @@ jobs:
 
       - name: Create standalone deployment package
         run: |
-          # Next.js standalone output includes only necessary files
+          # Copy public assets and static files into standalone output
           cp -r public .next/standalone/
           cp -r .next/static .next/standalone/.next/
           tar -czf deploy.tar.gz -C .next/standalone .
@@ -53,16 +53,20 @@ jobs:
             set -e
             APP_DIR=/home/app/kiosko_web
 
-            echo "📦 Extracting standalone build..."
+            echo "📦 Deploying standalone build..."
+
             # Backup current deploy
-            [ -d "$APP_DIR/.next" ] && rm -rf "$APP_DIR/.next_backup" && mv "$APP_DIR/.next" "$APP_DIR/.next_backup" || true
-            
-            cd $APP_DIR
-            tar -xzf /tmp/deploy.tar.gz
+            rm -rf "$APP_DIR.backup"
+            cp -r "$APP_DIR" "$APP_DIR.backup" || true
+
+            # Clear app dir and extract fresh standalone
+            rm -rf "$APP_DIR"
+            mkdir -p "$APP_DIR"
+            tar -xzf /tmp/deploy.tar.gz -C "$APP_DIR"
             rm -f /tmp/deploy.tar.gz
 
             echo "🚀 Restarting with PM2..."
-            pm2 restart kiosko-web || pm2 start /home/app/ecosystem.config.js --only kiosko-web
+            pm2 restart kiosko-web || pm2 start node --name kiosko-web -- "$APP_DIR/server.js" --env PORT=3003
 
             echo "✅ kiosko-web deployed successfully"
             pm2 status kiosko-web
