@@ -1,54 +1,57 @@
+'use client'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { ROUTES_APP } from '@/shared/utils/constants'
+import { clearTokens, setTokens, getUserRole, isTokenExpired } from '@/shared/utils/auth'
 
 export const useAuth = () => {
-    const router = useRouter()
-    const [isLoading, setIsLoading] = useState(true)
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [role, setRole] = useState<'ADMIN' | 'GROCER' | null>(null)
 
-    useEffect(() => {
-        checkAuth()
-    }, [])
+  useEffect(() => {
+    checkAuth()
+  }, [])
 
-    const checkAuth = () => {
-        if (typeof window === 'undefined') return false
-        try {
-            const token = localStorage.getItem('token')
-            setIsAuthenticated(!!token)
-        } catch (error) {
-            console.error('Error accessing localStorage:', error)
-            setIsAuthenticated(false)
-        } finally {
-            setIsLoading(false)
-        }
+  const checkAuth = () => {
+    if (typeof window === 'undefined') return
+    try {
+      if (isTokenExpired()) {
+        clearTokens()
+        setIsAuthenticated(false)
+        setRole(null)
+      } else {
+        const userRole = getUserRole()
+        setIsAuthenticated(true)
+        setRole(userRole)
+      }
+    } catch {
+      setIsAuthenticated(false)
+      setRole(null)
+    } finally {
+      setIsLoading(false)
     }
+  }
 
-    const login = (token: string) => {
-        try {
-            localStorage.setItem('token', token)
-            setIsAuthenticated(true)
-            router.push(ROUTES_APP.DASHBOARD.path)
-        } catch (error) {
-            console.error('Error storing token:', error)
-        }
+  const login = (accessToken: string, refreshToken: string) => {
+    setTokens(accessToken, refreshToken)
+    const userRole = getUserRole()
+    setIsAuthenticated(true)
+    setRole(userRole)
+    if (userRole === 'ADMIN') {
+      router.push(ROUTES_APP.ADMIN_DASHBOARD.path)
+    } else {
+      router.push(ROUTES_APP.DASHBOARD.path)
     }
+  }
 
-    const logout = () => {
-        try {
-            localStorage.removeItem('token')
-            setIsAuthenticated(false)
-            router.push(ROUTES_APP.HOME.path)
-        } catch (error) {
-            console.error('Error removing token:', error)
-        }
-    }
+  const logout = () => {
+    clearTokens()
+    setIsAuthenticated(false)
+    setRole(null)
+    router.push(ROUTES_APP.HOME.path)
+  }
 
-    return {
-        isAuthenticated,
-        isLoading,
-        login,
-        logout,
-        checkAuth
-    }
+  return { isAuthenticated, isLoading, role, login, logout, checkAuth }
 }
