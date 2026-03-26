@@ -2,11 +2,10 @@ import axios, { AxiosError } from 'axios'
 
 const API = axios.create({
 	baseURL: process.env.NEXT_PUBLIC_API_URL,
-	timeout: 10000,
+	timeout: 30000, // 30s — Mantarys puede tardar hasta 20s
 	headers: {
 		'Content-Type': 'application/json',
 		Accept: 'application/json',
-		'App-Version': 'v1.0.0',
 	},
 })
 
@@ -25,10 +24,10 @@ API.interceptors.response.use(
 		if (err.response?.status === 401) {
 			if (typeof window !== 'undefined') {
 				localStorage.removeItem('token')
+				localStorage.removeItem('refreshToken')
 				window.location.href = '/'
 			}
 		}
-		console.error(err.response?.data?.message || err.message)
 		return Promise.reject(err)
 	},
 )
