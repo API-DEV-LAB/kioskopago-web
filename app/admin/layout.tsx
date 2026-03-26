@@ -15,7 +15,7 @@ export default function AdminLayout({
 	useEffect(() => {
 		const role = getUserRole()
 		if (!role) {
-			router.replace(ROUTES_APP.ADMIN_LOGIN.path)
+			router.replace(ROUTES_APP.HOME.path)
 		} else if (role !== 'ADMIN') {
 			router.replace(ROUTES_APP.DASHBOARD.path)
 		}
@@ -23,7 +23,7 @@ export default function AdminLayout({
 
 	const handleLogout = () => {
 		clearTokens()
-		router.push(ROUTES_APP.ADMIN_LOGIN.path)
+		router.push(ROUTES_APP.HOME.path)
 	}
 
 	return (
