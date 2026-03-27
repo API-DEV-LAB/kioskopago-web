@@ -9,11 +9,26 @@ import {
 } from '@/components/ui/card'
 import { formatPhone, formatPrice, getDateNow } from '@/shared/utils/formats'
 import { useCartStore } from '@/features/cart/store/cart'
+import { PayPost } from '@/features/cart/api/categories'
 
 export default function StepSummary() {
 	const { product, categorie, phone, setStep } = useCartStore()
-	const handleConfirm = () => {
-		setStep(0)
+
+	const handleConfirm = async () => {
+		try {
+			const response = await PayPost({
+				id: categorie?.id || '',
+				phone: phone,
+			})
+			alert('TRANSACCION EXITOSA')
+			if (response.status === 201) {
+				setStep(0)
+			}
+		} catch (error) {
+			console.error('Error fetching categories:', error)
+			alert('TRANSACCION NO EXITOSA, INTENTE DE NUEVO')
+		} finally {
+		}
 	}
 
 	const handlePreviousStep = () => {
@@ -68,7 +83,7 @@ export default function StepSummary() {
 								Total:
 							</span>
 							<span className="text-sm font-bold text-primary">
-								{formatPrice(categorie?.total)}
+								{formatPrice(categorie?.amount)}
 							</span>
 						</div>
 					</CardContent>

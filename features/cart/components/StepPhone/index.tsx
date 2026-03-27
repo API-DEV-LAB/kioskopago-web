@@ -58,7 +58,7 @@ export default function StepPhone() {
 								Recarga de saldo:
 							</span>
 							<span className="text-sm font-bold text-primary">
-								{formatPrice(categorie?.total)}
+								{formatPrice(categorie?.amount)}
 							</span>
 						</div>
 						<div className="flex justify-between">

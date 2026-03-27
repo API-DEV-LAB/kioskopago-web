@@ -9,7 +9,7 @@ import { TYPE_SERVICE, PATH_CART } from '@/shared/utils/constants'
 
 export default function ServicesContainer() {
 	const { setType, setProduct, setStep } = useCartStore()
-	const [selectedService, setSelectedService] = useState<Company | null>(null)
+	const [selectedService, setSelectedService] = useState<ServiceCategory>()
 	const [services, setServices] = useState<ServiceCategory[]>([])
 	const [isLoading, setIsLoading] = useState(true)
 	const [_, setError] = useState<string | null>(null)
@@ -32,12 +32,10 @@ export default function ServicesContainer() {
 		fetchServices()
 	}, [])
 
-	const handleSelectedService = (service: Company) => {
+	const handleSelectedService = (service: ServiceCategory) => {
 		setSelectedService(service)
 		setProduct(service)
-		setType(service.type)
-		if (service.type === TYPE_SERVICE) setStep(PATH_CART.NOSERVICE)
-		else setStep(PATH_CART.CATEGORIES)
+		setStep(PATH_CART.CATEGORIES)
 	}
 
 	if (isLoading) {
@@ -52,25 +50,20 @@ export default function ServicesContainer() {
 
 	return (
 		<div className="space-y-6 mt-4 mb-[60px]">
-			{services?.map(({ id, name, companies }: ServiceCategory) => (
-				<section key={id} className="space-y-3">
-					{name && <h2 className="text-lg font-semibold">{name}</h2>}
-					<div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-						{companies?.map((service: Company) => (
-							<ServicesItem
-								key={service.id}
-								id={service.id}
-								name={service?.name}
-								image={service?.icon}
-								selectedService={selectedService?.name}
-								setSelectedService={() =>
-									handleSelectedService(service)
-								}
-							/>
-						))}
-					</div>
-				</section>
-			))}
+			<div className="grid grid-cols-3 gap-4">
+				{services?.map((service: ServiceCategory) => (
+					<ServicesItem
+						key={service.id}
+						id={service.id}
+						name={service.name}
+						image={service.icon}
+						selectedService={selectedService?.name}
+						setSelectedService={() =>
+							handleSelectedService(service)
+						}
+					/>
+				))}
+			</div>
 		</div>
 	)
 }

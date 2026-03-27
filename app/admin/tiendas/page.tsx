@@ -190,7 +190,7 @@ export default function TiendasPage() {
 										{s.address}
 									</td>
 									<td className="px-4 py-3 text-right">
-										${s.balance ?? 0}
+										${s.balance.currentBalance ?? 0}
 									</td>
 									<td className="px-4 py-3 text-right">
 										{s.bonusPercentage}%

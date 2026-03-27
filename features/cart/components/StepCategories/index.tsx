@@ -11,7 +11,7 @@ import { useCartStore } from '@/features/cart/store/cart'
 import { PATH_CART } from '@/shared/utils/constants'
 
 export default function StepCategories() {
-	const { categorie, setStep, setCategorie } = useCartStore()
+	const { product, categorie, setStep, setCategorie } = useCartStore()
 	const [categories, setCategories] = useState<CategoriesResponse[] | null>(
 		null,
 	)
@@ -24,7 +24,7 @@ export default function StepCategories() {
 		const fetchCategories = async () => {
 			try {
 				setIsLoading(true)
-				const response = await CartCategoriesGet()
+				const response = await CartCategoriesGet(product.id)
 				// @ts-ignore
 				setCategories(response)
 			} catch (error) {
@@ -36,7 +36,7 @@ export default function StepCategories() {
 		}
 
 		fetchCategories()
-	}, [])
+	}, [product])
 
 	const handlePackageSelect = (packageId: string) => {
 		const pkg = categories?.find((p) => p.id === packageId)
@@ -91,14 +91,18 @@ export default function StepCategories() {
 											{pkg.name}
 										</p>
 										<p className="text-xl font-bold text-primary">
-											{formatPrice(pkg.total)}
+											{pkg.type === 'TAE'
+												? formatPrice(pkg.amount)
+												: '-'}
 										</p>
 									</div>
 									<p className="text-sm text-muted-foreground">
 										{pkg.description}
 									</p>
 									<p className="text-xs text-muted-foreground">
-										{`Vigencia de ${pkg.expired} días`}
+										{pkg?.details?.term
+											? `Vigencia de ${pkg?.details?.term} días`
+											: ''}
 									</p>
 								</div>
 							</label>
