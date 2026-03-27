@@ -25,7 +25,7 @@ API.interceptors.response.use(
 			if (typeof window !== 'undefined') {
 				localStorage.removeItem('token')
 				localStorage.removeItem('refreshToken')
-				window.location.href = '/'
+				// window.location.href = '/'
 			}
 		}
 		return Promise.reject(err)

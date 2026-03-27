@@ -103,7 +103,7 @@ export default function UsuariosPage() {
 							<th className="px-4 py-3 text-left">Email</th>
 							<th className="px-4 py-3 text-left">Teléfono</th>
 							<th className="px-4 py-3 text-left">Rol</th>
-							<th className="px-4 py-3 text-left">Status</th>
+							<th className="px-4 py-3 text-left">Estatus</th>
 							<th className="px-4 py-3 text-right">Acciones</th>
 						</tr>
 					</thead>
@@ -134,7 +134,9 @@ export default function UsuariosPage() {
 										<span
 											className={`text-xs font-medium px-2 py-1 rounded-full ${u.role === 'ADMIN' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'}`}
 										>
-											{u.role}
+											{u.role === 'ADMIN'
+												? 'ADMINISTRADOR'
+												: 'TIENDA'}
 										</span>
 									</td>
 									<td className="px-4 py-3">

@@ -23,7 +23,7 @@ export default function RootLayout({
 			<body
 				className={`${nunitoSans.className} font-sans overflow-x-hidden`}
 			>
-				{children}{' '}
+				{children}
 			</body>
 		</html>
 	)

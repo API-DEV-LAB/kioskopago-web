@@ -39,7 +39,15 @@ export default function FormVerification() {
 		try {
 			const response = await verifyOtp({ phone, code })
 			setTokens(response.accessToken, response.refreshToken)
-			router.push(ROUTES_APP.DASHBOARD.path)
+			if (response.user.status === 'ENABLED') {
+				if (response.user.role === 'ADMIN') {
+					router.push(ROUTES_APP.ADMIN_DASHBOARD.path)
+				} else {
+					router.push(ROUTES_APP.DASHBOARD.path)
+				}
+			} else {
+				setError('Usuario desactivado.')
+			}
 		} catch {
 			setError('Código incorrecto o expirado. Intenta de nuevo.')
 		} finally {

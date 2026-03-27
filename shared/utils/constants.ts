@@ -6,7 +6,7 @@ export const ROUTES_APP = {
 	PROFILE: { path: '/tienda/mi-perfil', name: 'Mi perfil' },
 	HISTORIAL: { path: '/tienda/historial', name: 'Historial' },
 	DASHBOARD: { path: '/tienda', name: 'Inicio' },
-	ADMIN_DASHBOARD: { path: '/admin/dashboard', name: 'Dashboard Admin' },
+	ADMIN_DASHBOARD: { path: '/admin', name: 'Dashboard Admin' },
 	ADMIN_TIENDAS: { path: '/admin/tiendas', name: 'Tiendas' },
 	ADMIN_USUARIOS: { path: '/admin/usuarios', name: 'Usuarios' },
 	ADMIN_TRANSACCIONES: {

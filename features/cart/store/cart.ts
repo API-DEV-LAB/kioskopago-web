@@ -4,14 +4,14 @@ import { CategoriesResponse } from '@/features/cart/types/types'
 import { PATH_CART } from '@/shared/utils/constants'
 
 interface CartState {
-	product: Company | null
+	product: any
 	type: string
 	categorie: CategoriesResponse | null
 	total: string
 	phone: string
 	reference: string
 	step: number | null
-	setProduct: (service: Company) => void
+	setProduct: (service: any) => void
 	setType: (type: string) => void
 	setCategorie: (categorie: CategoriesResponse) => void
 	setTotal: (total: string) => void

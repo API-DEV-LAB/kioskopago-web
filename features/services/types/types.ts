@@ -14,6 +14,7 @@ export interface ServiceCategory {
 	id: number
 	name: string
 	order: number
+	icon: string
 	createdAt: string
 	updatedAt: string
 	companies: Company[]
