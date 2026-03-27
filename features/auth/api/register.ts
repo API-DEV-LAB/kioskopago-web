@@ -1,12 +1,14 @@
 import API from '@/lib/axios'
 import { RegisterProps } from '@/features/auth/types/types'
 
-export async function AuthRegisterPost(registerData: RegisterProps): Promise<{ message: string; expiresIn: number }> {
+export async function AuthRegisterPost(
+	registerData: RegisterProps,
+): Promise<{ message: string; expiresIn: number }> {
 	const requestBody = {
 		name: registerData.ownerName,
 		fatherLastname: '',
 		motherLastname: '',
-		phone: registerData.phone,
+		phone: '+52' + registerData.phone,
 		storeName: registerData.storeName,
 		storeAddress: registerData.storeAddress,
 		latitude: 0,
