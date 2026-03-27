@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { ROUTES_APP } from '@/shared/utils/constants'
 
 export default function AdminLayout({
@@ -7,6 +8,7 @@ export default function AdminLayout({
 }: {
 	children: React.ReactNode
 }) {
+	const router = useRouter()
 	return (
 		<div className="min-h-screen bg-background flex">
 			{/* Sidebar */}
@@ -45,7 +47,9 @@ export default function AdminLayout({
 				</nav>
 				<div className="p-4 border-t">
 					<button
-						onClick={() => {}}
+						onClick={() => {
+							router.push('/')
+						}}
 						className="w-full text-left px-3 py-2 rounded-md text-sm text-destructive hover:bg-accent transition-colors"
 					>
 						Cerrar sesión
