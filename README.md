@@ -9,7 +9,7 @@
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/efrencodes/sports-league-manager
+git clone git@github.com:API-DEV-LAB/kioskopago-web.git
 
 # Instalar dependencias
 yarn install
@@ -46,5 +46,5 @@ yarn format
 | Ambiente | URL                                       |
 | -------- | ----------------------------------------- |
 | Prod     |                                           |
-| Dev      | https://dev.apidevlab.com/kiosko          |
+| Dev      | https://kioskopago-web.vercel.app/        |
 | Docs     | https://dev.apidevlab.com/kiosko-api/docs |
