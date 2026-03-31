@@ -21,30 +21,42 @@ export default function ServicesSection() {
 							</p>
 						</div>
 						<ul className="space-y-2">
-							{['Telcel', 'AT&T', 'Movistar', 'Y más de 6 operadores'].map(
-								(item) => (
-									<li key={item} className="flex items-center gap-2 text-sm">
-										<RiCheckboxCircleLine className="w-4 h-4 text-primary flex-shrink-0" />
-										<span>{item}</span>
-									</li>
-								),
-							)}
+							{[
+								'Telcel',
+								'AT&T',
+								'Movistar',
+								'Y más de 6 operadores',
+							].map((item) => (
+								<li
+									key={item}
+									className="flex items-center gap-2 text-sm"
+								>
+									<RiCheckboxCircleLine className="w-4 h-4 text-primary flex-shrink-0" />
+									<span>{item}</span>
+								</li>
+							))}
 						</ul>
 					</div>
 					<div className="bg-card rounded-lg p-8 space-y-6 border">
 						<div className="space-y-3">
 							<h3 className="text-xl font-bold">Servicios</h3>
 							<p className="text-muted-foreground text-sm">
-								Paga todos tus servicios básicos sin salir de casa
+								Paga todos tus servicios básicos sin salir de
+								casa
 							</p>
 						</div>
 						<ul className="space-y-2">
-							{['CFE', 'CEA', 'Internet', 'Y más servicios'].map((item) => (
-								<li key={item} className="flex items-center gap-2 text-sm">
-									<RiCheckboxCircleLine className="w-4 h-4 text-primary flex-shrink-0" />
-									<span>{item}</span>
-								</li>
-							))}
+							{['CFE', 'CEA', 'Internet', 'Y más servicios'].map(
+								(item) => (
+									<li
+										key={item}
+										className="flex items-center gap-2 text-sm"
+									>
+										<RiCheckboxCircleLine className="w-4 h-4 text-primary flex-shrink-0" />
+										<span>{item}</span>
+									</li>
+								),
+							)}
 						</ul>
 					</div>
 					<div className="bg-card rounded-lg p-8 space-y-6 border">
@@ -57,14 +69,20 @@ export default function ServicesSection() {
 							</p>
 						</div>
 						<ul className="space-y-2">
-							{['Netflix', 'Xbox', 'Spotify', 'Y más plataformas'].map(
-								(item) => (
-									<li key={item} className="flex items-center gap-2 text-sm">
-										<RiCheckboxCircleLine className="w-4 h-4 text-primary flex-shrink-0" />
-										<span>{item}</span>
-									</li>
-								),
-							)}
+							{[
+								'Netflix',
+								'Xbox',
+								'Spotify',
+								'Y más plataformas',
+							].map((item) => (
+								<li
+									key={item}
+									className="flex items-center gap-2 text-sm"
+								>
+									<RiCheckboxCircleLine className="w-4 h-4 text-primary flex-shrink-0" />
+									<span>{item}</span>
+								</li>
+							))}
 						</ul>
 					</div>
 				</div>

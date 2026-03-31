@@ -11,12 +11,19 @@ export default function CtaSection() {
 						¿Listo para simplificar tus pagos?&nbsp;
 					</h2>
 					<p className="text-lg text-primary-foreground/90 text-pretty max-w-2xl mx-auto">
-						Únete a cientos de tiendas que ya confían en Kioskopago para sus
-						operaciones diarias
+						Únete a cientos de tiendas que ya confían en Kioskopago
+						para sus operaciones diarias
 					</p>
 					<div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-						<Button asChild size="lg" variant="secondary" className="rounded-full">
-							<Link href={ROUTES_APP.REGISTER.path}>Registrar mi tienda</Link>
+						<Button
+							asChild
+							size="lg"
+							variant="secondary"
+							className="rounded-full"
+						>
+							<Link href={ROUTES_APP.REGISTER.path}>
+								Registrar mi tienda
+							</Link>
 						</Button>
 						<Button
 							asChild
@@ -24,7 +31,9 @@ export default function CtaSection() {
 							variant="outline"
 							className="rounded-full bg-transparent text-primary-foreground border-primary-foreground/20 hover:bg-primary-foreground/10"
 						>
-							<Link href={ROUTES_APP.LOGIN.path}>Ya tengo cuenta</Link>
+							<Link href={ROUTES_APP.LOGIN.path}>
+								Ya tengo cuenta
+							</Link>
 						</Button>
 					</div>
 				</div>

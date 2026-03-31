@@ -35,7 +35,9 @@ export default function BenefitsSection() {
 									<RiCheckboxCircleLine className="w-5 h-5 text-primary" />
 								</div>
 								<div className="space-y-1">
-									<h3 className="font-semibold">{benefit.title}</h3>
+									<h3 className="font-semibold">
+										{benefit.title}
+									</h3>
 									<p className="text-sm text-muted-foreground leading-relaxed">
 										{benefit.description}
 									</p>
