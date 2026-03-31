@@ -3,13 +3,13 @@ import { Button } from '@/components/ui/button'
 import { ROUTES_APP } from '@/shared/utils/constants'
 import { RiStore3Line } from '@remixicon/react'
 
-export default function DashboardHeader() {
+export default function AdminHeader() {
 	return (
 		<header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
 			<div className="container mx-auto px-4 h-16 flex items-center justify-between">
 				<div className="flex items-center gap-3">
 					<Link
-						href={ROUTES_APP.DASHBOARD.path}
+						href={ROUTES_APP.ADMIN_DASHBOARD.path}
 						className="flex items-center gap-3"
 					>
 						<div className="w-10 h-10 bg-foreground/10 rounded-lg flex items-center justify-center">
@@ -17,7 +17,7 @@ export default function DashboardHeader() {
 						</div>
 						<div>
 							<h1 className="font-semibold text-sm md:text-base">
-								Mi tienda.com
+								Dashboard
 							</h1>
 						</div>
 					</Link>
@@ -25,7 +25,7 @@ export default function DashboardHeader() {
 				<nav className="hidden md:flex items-center gap-1">
 					<Button variant="ghost" size="sm" asChild>
 						<Link
-							href={ROUTES_APP.DASHBOARD.path}
+							href={ROUTES_APP.ADMIN_DASHBOARD.path}
 							className="flex items-center gap-2"
 						>
 							Inicio
@@ -33,18 +33,26 @@ export default function DashboardHeader() {
 					</Button>
 					<Button variant="ghost" size="sm" asChild>
 						<Link
-							href={ROUTES_APP.HISTORIAL.path}
+							href={ROUTES_APP.ADMIN_TIENDAS.path}
 							className="flex items-center gap-2"
 						>
-							Historial
+							Tiendas
 						</Link>
 					</Button>
 					<Button variant="ghost" size="sm" asChild>
 						<Link
-							href={ROUTES_APP.PROFILE.path}
+							href={ROUTES_APP.ADMIN_USUARIOS.path}
 							className="flex items-center gap-2"
 						>
-							Perfil
+							Usuarios
+						</Link>
+					</Button>
+					<Button variant="ghost" size="sm" asChild>
+						<Link
+							href={ROUTES_APP.ADMIN_TRANSACCIONES.path}
+							className="flex items-center gap-2"
+						>
+							Transacciones
 						</Link>
 					</Button>
 				</nav>
@@ -53,4 +61,4 @@ export default function DashboardHeader() {
 	)
 }
 
-export { DashboardHeader }
+export { AdminHeader }

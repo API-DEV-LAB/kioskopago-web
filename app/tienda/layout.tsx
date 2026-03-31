@@ -1,5 +1,5 @@
-import { DashboardHeader } from '@/features/home/components/DashboardHeader'
-import { MobileNavigation } from '@/features/home/components/MobileNavigation'
+import { GrocerHeader } from '@/features/dashboard/components/GrocerHeader'
+import { MobileNavigation } from '@/features/dashboard/components/MobileNavigation'
 
 export default function DashboardLayout({
 	children,
@@ -8,7 +8,7 @@ export default function DashboardLayout({
 }>) {
 	return (
 		<div className="min-h-screen bg-background flex flex-col">
-			<DashboardHeader />
+			<GrocerHeader />
 			{children}
 			<MobileNavigation />
 		</div>
