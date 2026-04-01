@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios'
+import { getCookie, clearCookies } from '@/shared/utils/cookies'
 
 const API = axios.create({
 	baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -11,7 +12,7 @@ const API = axios.create({
 
 API.interceptors.request.use((config) => {
 	if (typeof window !== 'undefined') {
-		const token = localStorage.getItem('token')
+		const token = getCookie('access_token')
 		if (token) config.headers.Authorization = `Bearer ${token}`
 	}
 	return config
@@ -23,8 +24,7 @@ API.interceptors.response.use(
 		const err = error as AxiosError<{ message?: string }>
 		if (err.response?.status === 401) {
 			if (typeof window !== 'undefined') {
-				localStorage.removeItem('token')
-				localStorage.removeItem('refreshToken')
+				clearCookies()
 				// window.location.href = '/'
 			}
 		}

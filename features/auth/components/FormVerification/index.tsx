@@ -38,7 +38,7 @@ export default function FormVerification() {
 		setIsLoading(true)
 		try {
 			const response = await verifyOtp({ phone, code })
-			setTokens(response.accessToken, response.refreshToken)
+			setTokens(response.accessToken, response.refreshToken, response.user.role)
 			if (response.user.status === 'ENABLED') {
 				if (response.user.role === 'ADMIN') {
 					router.push(ROUTES_APP.ADMIN_DASHBOARD.path)

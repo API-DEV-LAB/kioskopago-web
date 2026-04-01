@@ -21,7 +21,7 @@ export default function FormAdminLogin() {
 		setIsLoading(true)
 		try {
 			const response = await adminLogin({ identifier, password })
-			setTokens(response.accessToken, response.refreshToken)
+			setTokens(response.accessToken, response.refreshToken, response.user.role)
 			router.push(ROUTES_APP.ADMIN_DASHBOARD.path)
 		} catch {
 			setError('Credenciales incorrectas. Intenta de nuevo.')
