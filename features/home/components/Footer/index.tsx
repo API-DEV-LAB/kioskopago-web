@@ -1,3 +1,6 @@
+import Link from 'next/link'
+import { ROUTES_APP } from '@/shared/utils/constants'
+
 export default function Footer() {
 	const date = new Date()
 	return (
@@ -14,28 +17,28 @@ export default function Footer() {
 						<h4 className="font-semibold">Legal</h4>
 						<ul className="space-y-2 text-sm text-muted-foreground">
 							<li>
-								<a
-									href="#"
+								<Link
+									href={ROUTES_APP.TERMSANDCONDITIONS.path}
 									className="hover:text-foreground transition-colors"
 								>
-									Términos y condiciones
-								</a>
+									{ROUTES_APP.TERMSANDCONDITIONS.name}
+								</Link>
 							</li>
 							<li>
-								<a
-									href="#"
+								<Link
+									href={ROUTES_APP.PRIVACY_NOTICE.path}
 									className="hover:text-foreground transition-colors"
 								>
-									Aviso de privacidad
-								</a>
+									{ROUTES_APP.PRIVACY_NOTICE.name}
+								</Link>
 							</li>
 							<li>
-								<a
-									href="#"
+								<Link
+									href={ROUTES_APP.FAQ.path}
 									className="hover:text-foreground transition-colors"
 								>
-									Preguntas frecuentes
-								</a>
+									{ROUTES_APP.FAQ.name}
+								</Link>
 							</li>
 						</ul>
 					</div>
