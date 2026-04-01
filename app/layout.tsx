@@ -1,6 +1,7 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { Nunito_Sans } from 'next/font/google'
+import { METADATA } from '@/shared/utils/metadata'
 
 const nunitoSans = Nunito_Sans({
 	subsets: ['latin'],
@@ -8,9 +9,65 @@ const nunitoSans = Nunito_Sans({
 })
 
 export const metadata: Metadata = {
-	title: 'Kioskopago - Paga todo en un solo lugar',
-	description:
-		'Paga todos tus servicios desde un solo lugar. Recarga tiempo aire, paga luz y agua.',
+	metadataBase: new URL(METADATA.URL),
+	title: {
+		default: METADATA.TITLE,
+		template: '%s | Kioskopago',
+	},
+	description: METADATA.DESCRIPTION,
+	keywords: METADATA.KEYWORDS,
+	robots: {
+		index: true,
+		follow: true,
+		googleBot: {
+			index: true,
+			follow: true,
+			'max-video-preview': -1,
+			'max-image-preview': 'large',
+			'max-snippet': -1,
+		},
+	},
+	alternates: {
+		canonical: METADATA.URL,
+	},
+	openGraph: {
+		title: METADATA.TITLE,
+		description: METADATA.DESCRIPTION,
+		url: METADATA.URL,
+		siteName: 'Kioskopago',
+		locale: 'es_MX',
+		type: 'website',
+		images: [
+			{
+				url: METADATA.IMAGE,
+				width: 1200,
+				height: 630,
+				alt: METADATA.DESCRIPTION,
+			},
+		],
+	},
+	twitter: {
+		card: 'summary_large_image',
+		title: METADATA.TITLE,
+		description: METADATA.DESCRIPTION,
+		images: [METADATA.IMAGE],
+	},
+	// PWA
+	manifest: '/manifest.json',
+	appleWebApp: {
+		capable: true,
+		statusBarStyle: 'default',
+		title: 'Kioskopago',
+	},
+	icons: {
+		apple: '/icons/apple-touch-icon.png',
+	},
+}
+
+export const viewport: Viewport = {
+	themeColor: '#000000',
+	width: 'device-width',
+	initialScale: 1,
 }
 
 export default function RootLayout({
