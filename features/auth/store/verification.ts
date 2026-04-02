@@ -6,8 +6,10 @@ interface AuthVerificationState {
 	reset: () => void
 }
 
-export const useAuthVerificationStore = create<AuthVerificationState>((set) => ({
-	code: '',
-	setCode: (code) => set({ code }),
-	reset: () => set({ code: '' }),
-}))
+export const useAuthVerificationStore = create<AuthVerificationState>(
+	(set) => ({
+		code: '',
+		setCode: (code) => set({ code }),
+		reset: () => set({ code: '' }),
+	}),
+)

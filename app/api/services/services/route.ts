@@ -19,7 +19,7 @@ const dummyData: ServiceCategory[] = [
 				createdAt: '2025-01-01T10:00:00Z',
 				updatedAt: '2025-01-01T10:00:00Z',
 				abbreviation: 'BA',
-				type: 'TAE'
+				type: 'TAE',
 			},
 			{
 				id: 11,
@@ -31,7 +31,7 @@ const dummyData: ServiceCategory[] = [
 				createdAt: '2025-01-02T09:30:00Z',
 				updatedAt: '2025-01-02T09:30:00Z',
 				abbreviation: 'CM',
-				type: 'TAE'
+				type: 'TAE',
 			},
 			{
 				id: 12,
@@ -43,7 +43,7 @@ const dummyData: ServiceCategory[] = [
 				createdAt: '2025-01-02T09:30:00Z',
 				updatedAt: '2025-01-02T09:30:00Z',
 				abbreviation: 'CM',
-				type: 'TAE'
+				type: 'TAE',
 			},
 			{
 				id: 13,
@@ -55,7 +55,7 @@ const dummyData: ServiceCategory[] = [
 				createdAt: '2025-01-02T09:30:00Z',
 				updatedAt: '2025-01-02T09:30:00Z',
 				abbreviation: 'CM',
-				type: 'TAE'
+				type: 'TAE',
 			},
 			{
 				id: 14,
@@ -67,7 +67,7 @@ const dummyData: ServiceCategory[] = [
 				createdAt: '2025-01-02T09:30:00Z',
 				updatedAt: '2025-01-02T09:30:00Z',
 				abbreviation: 'CM',
-				type: 'TAE'
+				type: 'TAE',
 			},
 			{
 				id: 15,
@@ -79,7 +79,7 @@ const dummyData: ServiceCategory[] = [
 				createdAt: '2025-01-02T09:30:00Z',
 				updatedAt: '2025-01-02T09:30:00Z',
 				abbreviation: 'CM',
-				type: 'TAE'
+				type: 'TAE',
 			},
 		],
 	},
@@ -100,7 +100,7 @@ const dummyData: ServiceCategory[] = [
 				createdAt: '2025-01-05T12:00:00Z',
 				updatedAt: '2025-01-05T12:00:00Z',
 				abbreviation: 'SV',
-				type: 'SERVICE'
+				type: 'SERVICE',
 			},
 			{
 				id: 21,
@@ -112,7 +112,7 @@ const dummyData: ServiceCategory[] = [
 				createdAt: '2025-01-05T12:00:00Z',
 				updatedAt: '2025-01-05T12:00:00Z',
 				abbreviation: 'SV',
-				type: 'SERVICE'
+				type: 'SERVICE',
 			},
 		],
 	},

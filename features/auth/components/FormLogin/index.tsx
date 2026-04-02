@@ -83,3 +83,5 @@ export default function FormLogin() {
 		</form>
 	)
 }
+
+export { FormLogin }
