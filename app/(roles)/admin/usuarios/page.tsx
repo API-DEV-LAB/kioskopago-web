@@ -1,5 +1,7 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { toast } from 'sonner'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -8,72 +10,59 @@ import {
 	listUsers,
 	createUser,
 	updateUser,
-	deleteUser,
 	User,
 } from '@/features/admin/api/users'
 
+const INITIAL_FORM = {
+	name: '',
+	fatherLastname: '',
+	motherLastname: '',
+	email: '',
+	password: '',
+	phone: '',
+	role: 'GROCER' as 'ADMIN' | 'GROCER',
+}
+
 export default function UsuariosPage() {
-	const [users, setUsers] = useState<User[]>([])
-	const [total, setTotal] = useState(0)
+	const queryClient = useQueryClient()
 	const [page, setPage] = useState(1)
 	const [search, setSearch] = useState('')
 	const [modal, setModal] = useState<'create' | null>(null)
-	const [isLoading, setIsLoading] = useState(false)
-	const [form, setForm] = useState({
-		name: '',
-		fatherLastname: '',
-		motherLastname: '',
-		email: '',
-		password: '',
-		phone: '',
-		role: 'GROCER' as 'ADMIN' | 'GROCER',
+	const [form, setForm] = useState(INITIAL_FORM)
+
+	const { data } = useQuery({
+		queryKey: ['users', page, search],
+		queryFn: () =>
+			listUsers({ page, limit: 15, search: search || undefined }),
+	})
+	const users = data?.items ?? []
+	const total = data?.total ?? 0
+
+	const invalidate = () =>
+		queryClient.invalidateQueries({ queryKey: ['users'] })
+
+	const createMutation = useMutation({
+		mutationFn: createUser,
+		onSuccess: () => {
+			setModal(null)
+			setForm(INITIAL_FORM)
+			invalidate()
+		},
+		onError: () => toast.error('Error al crear usuario'),
 	})
 
-	const load = async () => {
-		const r = await listUsers({
-			page,
-			limit: 15,
-			search: search || undefined,
-		})
-		setUsers(r.items)
-		setTotal(r.total)
-	}
+	const toggleStatusMutation = useMutation({
+		mutationFn: (u: User) =>
+			updateUser(u.id, {
+				status: u.status === 'ENABLED' ? 'DISABLED' : 'ENABLED',
+			}),
+		onSuccess: () => invalidate(),
+		onError: () => toast.error('Error al actualizar usuario'),
+	})
 
-	useEffect(() => {
-		load()
-	}, [page, search])
-
-	const handleCreate = async (e: React.FormEvent) => {
+	const handleCreate = (e: React.FormEvent) => {
 		e.preventDefault()
-		setIsLoading(true)
-		try {
-			await createUser(form)
-			setModal(null)
-			setForm({
-				name: '',
-				fatherLastname: '',
-				motherLastname: '',
-				email: '',
-				password: '',
-				phone: '',
-				role: 'GROCER',
-			})
-			load()
-		} catch {
-			alert('Error al crear usuario')
-		} finally {
-			setIsLoading(false)
-		}
-	}
-
-	const toggleStatus = async (u: User) => {
-		const newStatus = u.status === 'ENABLED' ? 'DISABLED' : 'ENABLED'
-		try {
-			await updateUser(u.id, { status: newStatus })
-			load()
-		} catch {
-			alert('Error al actualizar usuario')
-		}
+		createMutation.mutate(form)
 	}
 
 	return (
@@ -150,7 +139,12 @@ export default function UsuariosPage() {
 										<Button
 											size="sm"
 											variant="outline"
-											onClick={() => toggleStatus(u)}
+											disabled={
+												toggleStatusMutation.isPending
+											}
+											onClick={() =>
+												toggleStatusMutation.mutate(u)
+											}
 										>
 											{u.status === 'ENABLED'
 												? 'Deshabilitar'
@@ -193,7 +187,10 @@ export default function UsuariosPage() {
 							<CardTitle>Nuevo usuario</CardTitle>
 						</CardHeader>
 						<CardContent>
-							<form onSubmit={handleCreate} className="space-y-4">
+							<form
+								onSubmit={handleCreate}
+								className="space-y-4"
+							>
 								<div>
 									<Label>Nombre</Label>
 									<Input
@@ -302,8 +299,13 @@ export default function UsuariosPage() {
 									>
 										Cancelar
 									</Button>
-									<Button type="submit" disabled={isLoading}>
-										{isLoading ? 'Creando...' : 'Crear'}
+									<Button
+										type="submit"
+										disabled={createMutation.isPending}
+									>
+										{createMutation.isPending
+											? 'Creando...'
+											: 'Crear'}
 									</Button>
 								</div>
 							</form>

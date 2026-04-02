@@ -1,15 +1,13 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
 	listTransactions,
-	Transaction,
 } from '@/features/admin/api/transactions'
 
 export default function TransaccionesPage() {
-	const [transactions, setTransactions] = useState<Transaction[]>([])
-	const [total, setTotal] = useState(0)
 	const [page, setPage] = useState(1)
 	const [filters, setFilters] = useState({
 		type: '',
@@ -17,21 +15,19 @@ export default function TransaccionesPage() {
 		storeId: '',
 	})
 
-	const load = async () => {
-		const r = await listTransactions({
-			page,
-			limit: 15,
-			type: filters.type || undefined,
-			status: filters.status || undefined,
-			storeId: filters.storeId || undefined,
-		})
-		setTransactions(r.transactions)
-		setTotal(r.total)
-	}
-
-	useEffect(() => {
-		load()
-	}, [page, filters])
+	const { data } = useQuery({
+		queryKey: ['transactions', page, filters.type, filters.status, filters.storeId],
+		queryFn: () =>
+			listTransactions({
+				page,
+				limit: 15,
+				type: filters.type || undefined,
+				status: filters.status || undefined,
+				storeId: filters.storeId || undefined,
+			}),
+	})
+	const transactions = data?.transactions ?? []
+	const total = data?.total ?? 0
 
 	return (
 		<div className="space-y-6">
@@ -71,7 +67,10 @@ export default function TransaccionesPage() {
 					className="max-w-xs"
 					value={filters.storeId}
 					onChange={(e) => {
-						setFilters((f) => ({ ...f, storeId: e.target.value }))
+						setFilters((f) => ({
+							...f,
+							storeId: e.target.value,
+						}))
 						setPage(1)
 					}}
 				/>
@@ -108,7 +107,9 @@ export default function TransaccionesPage() {
 									<td className="px-4 py-3 font-mono text-xs">
 										{t.folio}
 									</td>
-									<td className="px-4 py-3">{t.storeName}</td>
+									<td className="px-4 py-3">
+										{t.storeName}
+									</td>
 									<td className="px-4 py-3">
 										<span
 											className={`text-xs font-medium px-2 py-1 rounded-full ${

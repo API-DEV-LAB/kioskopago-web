@@ -2,6 +2,8 @@
 
 import type React from 'react'
 import { useState, useEffect } from 'react'
+import { toast } from 'sonner'
+import { useMutation } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -9,7 +11,6 @@ import { Card, CardContent } from '@/components/ui/card'
 import { PHONE_MAX, PHONE_PLACEHOLDER } from '@/shared/utils/constants'
 
 export default function ProfilePage() {
-	const [isSaving, setIsSaving] = useState(false)
 	const [formData, setFormData] = useState({
 		storeName: '',
 		storeAddress: '',
@@ -22,7 +23,6 @@ export default function ProfilePage() {
 
 	// Load profile data on mount (simulated)
 	useEffect(() => {
-		// Simulate loading profile data from API
 		const loadProfileData = async () => {
 			await new Promise((resolve) => setTimeout(resolve, 500))
 
@@ -41,12 +41,17 @@ export default function ProfilePage() {
 		loadProfileData()
 	}, [])
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	const { mutate, isPending } = useMutation({
+		mutationFn: async (data: typeof formData) => {
+			await new Promise((resolve) => setTimeout(resolve, 1000))
+			return data
+		},
+		onSuccess: () => toast.success('Perfil actualizado exitosamente'),
+	})
+
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
-		setIsSaving(true)
-		await new Promise((resolve) => setTimeout(resolve, 1000))
-		setIsSaving(false)
-		alert('Perfil actualizado exitosamente')
+		mutate(formData)
 	}
 
 	const handleGetLocation = () => {
@@ -57,13 +62,13 @@ export default function ProfilePage() {
 					setFormData({ ...formData, storeLocation: location })
 				},
 				(error) => {
-					alert(
+					toast.error(
 						'No se pudo obtener la ubicación. Por favor, ingrésala manualmente.',
 					)
 				},
 			)
 		} else {
-			alert('Tu navegador no soporta geolocalización')
+			toast.error('Tu navegador no soporta geolocalización')
 		}
 	}
 
@@ -248,9 +253,9 @@ export default function ProfilePage() {
 							<Button
 								type="submit"
 								className="flex-1"
-								disabled={isSaving}
+								disabled={isPending}
 							>
-								{isSaving ? 'Guardando...' : 'Guardar Cambios'}
+								{isPending ? 'Guardando...' : 'Guardar Cambios'}
 							</Button>
 						</div>
 					</form>

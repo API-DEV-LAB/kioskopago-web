@@ -1,5 +1,7 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
+import { toast } from 'sonner'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -15,37 +17,29 @@ import {
 
 type ModalType = 'create' | 'topup' | 'edit' | null
 
+const INITIAL_FORM = { name: '', address: '', phone: '', bonusPercentage: '' }
+
 export default function TiendasPage() {
-	const [stores, setStores] = useState<Store[]>([])
-	const [total, setTotal] = useState(0)
+	const queryClient = useQueryClient()
 	const [page, setPage] = useState(1)
 	const [search, setSearch] = useState('')
 	const [modal, setModal] = useState<ModalType>(null)
 	const [selectedStore, setSelectedStore] = useState<Store | null>(null)
 	const [balances, setBalances] = useState<Record<string, number>>({})
-	const [isLoading, setIsLoading] = useState(false)
-
-	// Create form
-	const [form, setForm] = useState({
-		name: '',
-		address: '',
-		phone: '',
-		bonusPercentage: '',
-	})
-	// Topup form
+	const [form, setForm] = useState(INITIAL_FORM)
 	const [topupAmount, setTopupAmount] = useState('')
 	const [topupRef, setTopupRef] = useState('')
 
-	const load = async () => {
-		const r = await listStores({
-			page,
-			limit: 10,
-			search: search || undefined,
-		})
-		setStores(r.items)
-		setTotal(r.total)
-		// fetch balances
-		r.items.forEach((s) => {
+	const { data } = useQuery({
+		queryKey: ['stores', page, search],
+		queryFn: () =>
+			listStores({ page, limit: 10, search: search || undefined }),
+	})
+	const stores = data?.items ?? []
+	const total = data?.total ?? 0
+
+	useEffect(() => {
+		stores.forEach((s) => {
 			getStoreBalance(s.id)
 				.then((b) =>
 					setBalances((prev) => ({
@@ -55,75 +49,83 @@ export default function TiendasPage() {
 				)
 				.catch(() => {})
 		})
-	}
+	}, [stores])
 
-	useEffect(() => {
-		load()
-	}, [page, search])
+	const invalidate = () =>
+		queryClient.invalidateQueries({ queryKey: ['stores'] })
 
-	const handleCreate = async (e: React.FormEvent) => {
-		e.preventDefault()
-		setIsLoading(true)
-		try {
-			await createStore({
-				name: form.name,
-				address: form.address,
-				phone: form.phone || undefined,
-				bonusPercentage: form.bonusPercentage
-					? Number(form.bonusPercentage)
-					: undefined,
-			})
+	const createMutation = useMutation({
+		mutationFn: createStore,
+		onSuccess: () => {
 			setModal(null)
-			setForm({ name: '', address: '', phone: '', bonusPercentage: '' })
-			load()
-		} catch {
-			alert('Error al crear tienda')
-		} finally {
-			setIsLoading(false)
-		}
-	}
+			setForm(INITIAL_FORM)
+			invalidate()
+		},
+		onError: () => toast.error('Error al crear tienda'),
+	})
 
-	const handleTopup = async (e: React.FormEvent) => {
-		e.preventDefault()
-		if (!selectedStore) return
-		setIsLoading(true)
-		try {
-			await topupStore({
-				storeId: selectedStore.id,
-				amount: Number(topupAmount),
-				reference: topupRef || undefined,
-			})
+	const editMutation = useMutation({
+		mutationFn: ({ id, data }: { id: string; data: Parameters<typeof updateStore>[1] }) =>
+			updateStore(id, data),
+		onSuccess: () => {
+			setModal(null)
+			invalidate()
+		},
+		onError: () => toast.error('Error al actualizar tienda'),
+	})
+
+	const topupMutation = useMutation({
+		mutationFn: topupStore,
+		onSuccess: () => {
 			setModal(null)
 			setTopupAmount('')
 			setTopupRef('')
-			load()
-		} catch {
-			alert('Error al cargar saldo')
-		} finally {
-			setIsLoading(false)
-		}
+			invalidate()
+		},
+		onError: () => toast.error('Error al cargar saldo'),
+	})
+
+	const isLoading =
+		createMutation.isPending ||
+		editMutation.isPending ||
+		topupMutation.isPending
+
+	const handleCreate = (e: React.FormEvent) => {
+		e.preventDefault()
+		createMutation.mutate({
+			name: form.name,
+			address: form.address,
+			phone: form.phone || undefined,
+			bonusPercentage: form.bonusPercentage
+				? Number(form.bonusPercentage)
+				: undefined,
+		})
 	}
 
-	const handleEdit = async (e: React.FormEvent) => {
+	const handleTopup = (e: React.FormEvent) => {
 		e.preventDefault()
 		if (!selectedStore) return
-		setIsLoading(true)
-		try {
-			await updateStore(selectedStore.id, {
+		topupMutation.mutate({
+			storeId: selectedStore.id,
+			amount: Number(topupAmount),
+			reference: topupRef || undefined,
+		})
+	}
+
+	const handleEdit = (e: React.FormEvent) => {
+		e.preventDefault()
+		if (!selectedStore) return
+		editMutation.mutate({
+			id: selectedStore.id,
+			data: {
 				name: form.name,
 				address: form.address,
 				phone: form.phone || undefined,
 				bonusPercentage: form.bonusPercentage
 					? Number(form.bonusPercentage)
 					: undefined,
-			})
-			setModal(null)
-			load()
-		} catch {
-			alert('Error al actualizar tienda')
-		} finally {
-			setIsLoading(false)
-		}
+			},
+		})
 	}
 
 	const openEdit = (s: Store) => {
@@ -325,7 +327,10 @@ export default function TiendasPage() {
 									>
 										Cancelar
 									</Button>
-									<Button type="submit" disabled={isLoading}>
+									<Button
+										type="submit"
+										disabled={isLoading}
+									>
 										{isLoading ? 'Guardando...' : 'Guardar'}
 									</Button>
 								</div>
@@ -345,7 +350,10 @@ export default function TiendasPage() {
 							</CardTitle>
 						</CardHeader>
 						<CardContent>
-							<form onSubmit={handleTopup} className="space-y-4">
+							<form
+								onSubmit={handleTopup}
+								className="space-y-4"
+							>
 								<div>
 									<Label>Monto ($)</Label>
 									<Input
@@ -377,7 +385,10 @@ export default function TiendasPage() {
 									>
 										Cancelar
 									</Button>
-									<Button type="submit" disabled={isLoading}>
+									<Button
+										type="submit"
+										disabled={isLoading}
+									>
 										{isLoading
 											? 'Cargando...'
 											: 'Cargar saldo'}

@@ -1,26 +1,17 @@
 'use client'
-import { useEffect, useState } from 'react'
-import {
-	listTransactions,
-	Transaction,
-} from '@/features/admin/api/transactions'
+import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { listTransactions } from '@/features/admin/api/transactions'
 
 export default function HistorialPage() {
-	const [transactions, setTransactions] = useState<Transaction[]>([])
-	const [total, setTotal] = useState(0)
 	const [page, setPage] = useState(1)
-	const [isLoading, setIsLoading] = useState(true)
 
-	useEffect(() => {
-		setIsLoading(true)
-		listTransactions({ page, limit: 10 })
-			.then((r) => {
-				setTransactions(r.transactions)
-				setTotal(r.total)
-			})
-			.catch(() => {})
-			.finally(() => setIsLoading(false))
-	}, [page])
+	const { data, isLoading } = useQuery({
+		queryKey: ['my-transactions', page],
+		queryFn: () => listTransactions({ page, limit: 10 }),
+	})
+	const transactions = data?.transactions ?? []
+	const total = data?.total ?? 0
 
 	return (
 		<div className="container mx-auto px-4 py-8">
@@ -82,9 +73,9 @@ export default function HistorialPage() {
 											</td>
 											<td className="px-4 py-3 text-right font-medium">
 												$
-												{Number(t.totalAmount).toFixed(
-													2,
-												)}
+												{Number(
+													t.totalAmount,
+												).toFixed(2)}
 											</td>
 											<td className="px-4 py-3">
 												<span

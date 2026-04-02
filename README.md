@@ -48,3 +48,11 @@ yarn format
 | Prod     |                                           |
 | Dev      | https://kioskopago-web.vercel.app/        |
 | Docs     | https://dev.apidevlab.com/kiosko-api/docs |
+
+## Run react doctor
+
+- (https://github.com/millionco/react-doctor)[https://github.com/millionco/react-doctor]
+
+```bash
+NEXT_PUBLIC_API_URL=
+```
