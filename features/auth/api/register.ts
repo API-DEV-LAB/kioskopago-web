@@ -1,5 +1,5 @@
 import API from '@/lib/axios'
-import { RegisterProps } from '@/features/auth/types/types'
+import { RegisterProps } from '@/features/auth/types'
 
 export async function AuthRegisterPost(
 	registerData: RegisterProps,

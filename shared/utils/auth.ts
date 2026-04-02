@@ -1,4 +1,4 @@
-import { JwtPayload } from '@/features/auth/types/types'
+import { JwtPayload } from '@/features/auth/types'
 
 export function getToken(): string | null {
 	if (typeof window === 'undefined') return null

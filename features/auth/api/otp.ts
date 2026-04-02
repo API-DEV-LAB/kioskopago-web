@@ -4,7 +4,7 @@ import {
 	OtpVerifyProps,
 	AuthResponse,
 	OtpRequestResponse,
-} from '@/features/auth/types/types'
+} from '@/features/auth/types'
 
 export async function requestOtp(
 	data: OtpRequestProps,
