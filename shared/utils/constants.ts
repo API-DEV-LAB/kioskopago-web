@@ -17,6 +17,14 @@ export const ROUTES_APP = {
 		path: '/terminos-y-condiciones',
 		name: 'Términos y condiciones',
 	},
+	PRIVACY_NOTICE: {
+		path: '/aviso-de-privacidad',
+		name: 'Aviso de privacidad',
+	},
+	FAQ: {
+		path: '/preguntas-frecuentes',
+		name: 'Preguntas frecuentes',
+	},
 	RECOVERPASSWORD: {
 		path: '/recupera-contrasena',
 		name: 'Recuperar contraseña',
@@ -46,5 +54,8 @@ export const PUBLIC_ROUTES = [
 	'/registro-de-tienda',
 	'/recupera-contrasena',
 	'/verificacion',
+	'/terminos-y-condiciones',
+	'/aviso-de-privacidad',
+	'/preguntas-frecuentes',
 ]
 export const AUTH_ROUTES = ['/tienda', '/admin']
