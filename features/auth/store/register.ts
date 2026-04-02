@@ -7,8 +7,6 @@ interface AuthRegisterState {
 		storeLocation: string
 		ownerName: string
 		phone: string
-		rfc: string
-		email: string
 		acceptTerms: boolean
 	}
 	setStoreName: (storeName: string) => void
@@ -16,8 +14,6 @@ interface AuthRegisterState {
 	setStoreLocation: (storeLocation: string) => void
 	setOwnerName: (ownerName: string) => void
 	setPhone: (phone: string) => void
-	setRFC: (rfc: string) => void
-	setEmail: (email: string) => void
 	setAcceptTerms: (acceptTerms: boolean) => void
 	reset: () => void
 }
@@ -29,8 +25,6 @@ export const useAuthRegisterStore = create<AuthRegisterState>((set) => ({
 		storeLocation: '',
 		ownerName: '',
 		phone: '',
-		rfc: '',
-		email: '',
 		acceptTerms: false,
 	},
 	setStoreName: (storeName) =>
@@ -42,8 +36,6 @@ export const useAuthRegisterStore = create<AuthRegisterState>((set) => ({
 	setOwnerName: (ownerName) =>
 		set((s) => ({ formData: { ...s.formData, ownerName } })),
 	setPhone: (phone) => set((s) => ({ formData: { ...s.formData, phone } })),
-	setRFC: (rfc) => set((s) => ({ formData: { ...s.formData, rfc } })),
-	setEmail: (email) => set((s) => ({ formData: { ...s.formData, email } })),
 	setAcceptTerms: (acceptTerms) =>
 		set((s) => ({ formData: { ...s.formData, acceptTerms } })),
 	reset: () =>
@@ -54,8 +46,6 @@ export const useAuthRegisterStore = create<AuthRegisterState>((set) => ({
 				storeLocation: '',
 				ownerName: '',
 				phone: '',
-				rfc: '',
-				email: '',
 				acceptTerms: false,
 			},
 		}),

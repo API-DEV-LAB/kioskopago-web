@@ -1,6 +1,7 @@
 'use client'
-import { useState } from 'react'
+import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import { useMutation } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -22,32 +23,32 @@ export default function FormRegister() {
 		setStoreLocation,
 		setOwnerName,
 		setPhone,
-		setRFC,
-		setEmail,
 		setAcceptTerms,
 	} = useAuthRegisterStore()
-	const [isLoading, setIsLoading] = useState(false)
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault()
-
-		if (!formData.acceptTerms) {
-			alert('Debes aceptar los términos y condiciones')
-			return
-		}
-
-		setIsLoading(true)
-		try {
-			const response = await AuthRegisterPost(formData)
+	const { mutate, isPending } = useMutation({
+		mutationFn: AuthRegisterPost,
+		onSuccess: (response) => {
 			// @ts-ignore
 			if (response?.success === true) {
 				router.push(ROUTES_APP.HOME.path)
+				toast.success('Tienda registrado correctamente')
 			}
-		} catch (error) {
+		},
+		onError: (error) => {
 			console.error('AuthRegisterPost form::', error)
-		} finally {
-			setIsLoading(false)
+		},
+	})
+
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault()
+
+		if (!formData.acceptTerms) {
+			toast.error('Debes aceptar los términos y condiciones')
+			return
 		}
+
+		mutate(formData)
 	}
 
 	const handleGetLocation = () => {
@@ -58,24 +59,24 @@ export default function FormRegister() {
 					setStoreLocation(location)
 				},
 				(error) => {
-					alert(
+					toast.error(
 						'No se pudo obtener la ubicación. Por favor, ingrésala manualmente.',
 					)
 				},
 			)
 		} else {
-			alert('Tu navegador no soporta geolocalización')
+			toast.error('Tu navegador no soporta geolocalización')
 		}
 	}
 	return (
 		<form onSubmit={handleSubmit} className="space-y-4">
 			<div className="space-y-2">
 				<Label htmlFor="storeName" className="flex items-center gap-2">
-					Nombre de la tienda*
+					Nombre de la tienda *
 				</Label>
 				<Input
 					id="storeName"
-					placeholder="Mi Tienda"
+					placeholder=""
 					required
 					value={formData.storeName}
 					onChange={(e) => setStoreName(e.target.value)}
@@ -86,11 +87,11 @@ export default function FormRegister() {
 					htmlFor="storeAddress"
 					className="flex items-center gap-2"
 				>
-					Dirección de la tienda*
+					Dirección de la tienda *
 				</Label>
 				<Input
 					id="storeAddress"
-					placeholder="Calle Principal #123, Colonia Centro"
+					placeholder=""
 					required
 					value={formData.storeAddress}
 					onChange={(e) => setStoreAddress(e.target.value)}
@@ -106,7 +107,7 @@ export default function FormRegister() {
 				<div className="flex gap-2">
 					<Input
 						id="storeLocation"
-						placeholder="Latitud, Longitud"
+						placeholder=""
 						required
 						disabled
 						value={formData.storeLocation}
@@ -123,11 +124,11 @@ export default function FormRegister() {
 			</div>
 			<div className="space-y-2">
 				<Label htmlFor="ownerName" className="flex items-center gap-2">
-					Nombre del dueño*
+					Nombre del dueño *
 				</Label>
 				<Input
 					id="ownerName"
-					placeholder="Juan Pérez"
+					placeholder=""
 					required
 					value={formData.ownerName}
 					onChange={(e) => setOwnerName(e.target.value)}
@@ -138,7 +139,7 @@ export default function FormRegister() {
 					htmlFor="phoneNumber"
 					className="flex items-center gap-2"
 				>
-					Número de celular*
+					Número de celular *
 				</Label>
 				<Input
 					id="phoneNumber"
@@ -148,29 +149,6 @@ export default function FormRegister() {
 					value={formData.phone}
 					maxLength={PHONE_MAX}
 					onChange={(e) => setPhone(e.target.value)}
-				/>
-			</div>
-			<div className="space-y-2">
-				<Label htmlFor="rfc" className="flex items-center gap-2">
-					RFC (opcional)
-				</Label>
-				<Input
-					id="rfc"
-					placeholder="XAXX010101000"
-					value={formData.rfc}
-					onChange={(e) => setRFC(e.target.value)}
-				/>
-			</div>
-			<div className="space-y-2">
-				<Label htmlFor="email" className="flex items-center gap-2">
-					Correo electrónico (opcional)
-				</Label>
-				<Input
-					id="email"
-					type="email"
-					placeholder="correo@ejemplo.com"
-					value={formData.email}
-					onChange={(e) => setEmail(e.target.value)}
 				/>
 			</div>
 			<div className="flex items-start space-x-2 pt-2">
@@ -198,9 +176,9 @@ export default function FormRegister() {
 				type="submit"
 				className="w-full"
 				size="lg"
-				disabled={isLoading}
+				disabled={isPending}
 			>
-				{isLoading ? 'Registrando...' : 'Registrar Tienda'}
+				{isPending ? 'Registrando...' : 'Registrar Tienda'}
 			</Button>
 			<p className="text-center text-sm text-muted-foreground mt-8 lg:mb-0">
 				¿Ya tienes una cuenta?{' '}
@@ -214,3 +192,5 @@ export default function FormRegister() {
 		</form>
 	)
 }
+
+export { FormRegister }

@@ -1,24 +1,16 @@
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from '@/components/ui/card'
-import FormRegister from '@/features/auth/components/FormRegister'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { FormRegister } from '@/features/auth/components/FormRegister'
 
 export default function RegisterPage() {
 	return (
-		<Card className="w-full max-w-md border-none shadow-none rounded-lg">
+		<Card className="w-full max-w-[400px] border-none shadow-none">
 			<CardHeader className="space-y-1 text-center mb-8">
-				<CardTitle className="text-2xl font-bold mt-8 lg:mt-0">
-					Registra tu tienda
-				</CardTitle>
-				<CardDescription>
+				<h1 className="text-2xl font-bold">Registra tu tienda</h1>
+				<h2 className="text-muted-foreground text-sm leading-relaxed">
 					Completa la información para comenzar a vender
-				</CardDescription>
+				</h2>
 			</CardHeader>
-			<CardContent>
+			<CardContent className="px-none">
 				<FormRegister />
 			</CardContent>
 		</Card>

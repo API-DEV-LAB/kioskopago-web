@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useMutation } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -17,27 +18,27 @@ import { requestOtp } from '@/features/auth/api/otp'
 export default function FormLogin() {
 	const router = useRouter()
 	const { phone, setPhone } = useAuthLoginStore()
-	const [isLoading, setIsLoading] = useState(false)
-	const [error, setError] = useState<string | null>(null)
+	const [validationError, setValidationError] = useState<string | null>(null)
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	const { mutate, isPending, isError } = useMutation({
+		mutationFn: requestOtp,
+		onSuccess: () => router.push(ROUTES_APP.VERIFICATION.path),
+	})
+
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
-		setError(null)
-		const validationError = validatePhone(phone)
-		if (validationError) {
-			setError(validationError)
+		setValidationError(null)
+		const phoneError = validatePhone(phone)
+		if (phoneError) {
+			setValidationError(phoneError)
 			return
 		}
-		setIsLoading(true)
-		try {
-			await requestOtp({ phone })
-			router.push(ROUTES_APP.VERIFICATION.path)
-		} catch {
-			setError('No se pudo enviar el código. Intenta de nuevo.')
-		} finally {
-			setIsLoading(false)
-		}
+		mutate({ phone })
 	}
+
+	const error =
+		validationError ??
+		(isError ? 'No se pudo enviar el código. Intenta de nuevo.' : null)
 
 	return (
 		<form onSubmit={handleSubmit} className="space-y-6">
@@ -66,9 +67,9 @@ export default function FormLogin() {
 				type="submit"
 				className="w-full"
 				size="lg"
-				disabled={isLoading}
+				disabled={isPending}
 			>
-				{isLoading ? 'Enviando código...' : 'Continuar'}
+				{isPending ? 'Enviando código...' : 'Continuar'}
 			</Button>
 
 			<p className="text-center text-sm text-muted-foreground mt-4">

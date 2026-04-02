@@ -1,6 +1,8 @@
 'use client'
+import { toast } from 'sonner'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useMutation } from '@tanstack/react-query'
 import { Button } from '@/components/ui/button'
 import {
 	InputOTP,
@@ -17,7 +19,6 @@ export default function FormVerification() {
 	const router = useRouter()
 	const { phone } = useAuthLoginStore()
 	const { code, setCode } = useAuthVerificationStore()
-	const [isLoading, setIsLoading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 	const [countdown, setCountdown] = useState(60)
 	const [canResend, setCanResend] = useState(false)
@@ -31,13 +32,9 @@ export default function FormVerification() {
 		return () => clearTimeout(timer)
 	}, [countdown])
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault()
-		if (code.length !== CODE_VERIFICATION_MAX) return
-		setError(null)
-		setIsLoading(true)
-		try {
-			const response = await verifyOtp({ phone, code })
+	const verifyMutation = useMutation({
+		mutationFn: verifyOtp,
+		onSuccess: (response) => {
 			setTokens(response.accessToken, response.refreshToken)
 			if (response.user.status === 'ENABLED') {
 				if (response.user.role === 'ADMIN') {
@@ -46,28 +43,36 @@ export default function FormVerification() {
 					router.push(ROUTES_APP.DASHBOARD.path)
 				}
 			} else {
-				setError('Usuario desactivado.')
+				toast.error('Usuario desactivado')
 			}
-		} catch {
-			setError('Código incorrecto o expirado. Intenta de nuevo.')
-		} finally {
-			setIsLoading(false)
-		}
-	}
+		},
+		onError: () =>
+			setError('Código incorrecto o expirado. Intenta de nuevo.'),
+	})
 
-	const handleResend = async () => {
-		if (!canResend) return
-		setIsLoading(true)
-		try {
-			await resendOtp({ phone })
+	const resendMutation = useMutation({
+		mutationFn: resendOtp,
+		onSuccess: () => {
 			setCanResend(false)
 			setCountdown(60)
 			setCode('')
-		} catch {
-			setError('No se pudo reenviar el código.')
-		} finally {
-			setIsLoading(false)
-		}
+		},
+		onError: () => setError('No se pudo reenviar el código.'),
+	})
+
+	const isPending = verifyMutation.isPending || resendMutation.isPending
+
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault()
+		if (code.length !== CODE_VERIFICATION_MAX) return
+		setError(null)
+		verifyMutation.mutate({ phone, code })
+	}
+
+	const handleResend = () => {
+		if (!canResend) return
+		setError(null)
+		resendMutation.mutate({ phone })
 	}
 
 	return (
@@ -99,7 +104,7 @@ export default function FormVerification() {
 							type="button"
 							onClick={handleResend}
 							className="text-primary hover:underline font-medium"
-							disabled={isLoading}
+							disabled={isPending}
 						>
 							Reenviar código
 						</button>
@@ -113,9 +118,9 @@ export default function FormVerification() {
 				type="submit"
 				className="w-full"
 				size="lg"
-				disabled={isLoading || code.length !== CODE_VERIFICATION_MAX}
+				disabled={isPending || code.length !== CODE_VERIFICATION_MAX}
 			>
-				{isLoading ? 'Verificando...' : 'Verificar'}
+				{verifyMutation.isPending ? 'Verificando...' : 'Verificar'}
 			</Button>
 
 			<p className="text-center text-sm text-muted-foreground">
@@ -129,3 +134,5 @@ export default function FormVerification() {
 		</form>
 	)
 }
+
+export { FormVerification }

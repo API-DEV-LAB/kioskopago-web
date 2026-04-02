@@ -4,15 +4,14 @@ import { RegisterProps } from '@/features/auth/types/types'
 export async function AuthRegisterPost(
 	registerData: RegisterProps,
 ): Promise<{ message: string; expiresIn: number }> {
+	const arrLocation = registerData.storeLocation.split(',')
 	const requestBody = {
 		name: registerData.ownerName,
-		fatherLastname: '',
-		motherLastname: '',
-		phone: '+52' + registerData.phone,
+		phone: `+52${registerData.phone}`,
 		storeName: registerData.storeName,
 		storeAddress: registerData.storeAddress,
-		latitude: 0,
-		longitude: 0,
+		latitude: arrLocation[0],
+		longitude: arrLocation[1],
 	}
 
 	try {

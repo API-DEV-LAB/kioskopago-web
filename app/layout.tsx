@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { Nunito_Sans } from 'next/font/google'
 import { METADATA } from '@/shared/utils/metadata'
+import { Toaster } from '@/components/ui/sonner'
+import { Providers } from './provider'
 
 const nunitoSans = Nunito_Sans({
 	subsets: ['latin'],
@@ -90,7 +92,8 @@ export default function RootLayout({
 				/>
 			</head>
 			<body className={`${nunitoSans.className} overflow-x-hidden`}>
-				{children}
+				<Toaster />
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	)

@@ -10,3 +10,5 @@ export default function TitlePhone() {
 		</div>
 	)
 }
+
+export { TitlePhone }
