@@ -6,6 +6,7 @@ import { METADATA } from '@/shared/utils/metadata'
 const nunitoSans = Nunito_Sans({
 	subsets: ['latin'],
 	weight: ['400', '500', '600', '700', '800'],
+	display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -52,16 +53,6 @@ export const metadata: Metadata = {
 		description: METADATA.DESCRIPTION,
 		images: [METADATA.IMAGE],
 	},
-	// PWA
-	manifest: '/manifest.json',
-	appleWebApp: {
-		capable: true,
-		statusBarStyle: 'default',
-		title: 'Kioskopago',
-	},
-	icons: {
-		apple: '/icons/apple-touch-icon.png',
-	},
 }
 
 export const viewport: Viewport = {
@@ -77,9 +68,28 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="es">
-			<body
-				className={`${nunitoSans.className} font-sans overflow-x-hidden`}
-			>
+			<head>
+				<link rel="icon" type="image/png" href="" sizes="96x96" />
+				<link rel="icon" type="image/svg+xml" href="" />
+				<link rel="shortcut icon" href="" />
+				<link rel="apple-touch-icon" sizes="180x180" href="" />
+				<link rel="manifest" href="/manifest.json" />
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify({
+							'@context': 'https://schema.org',
+							'@type': 'SportsOrganization',
+							name: 'Kioskopago',
+							url: METADATA.URL,
+							logo: METADATA.IMAGE,
+							description: METADATA.DESCRIPTION,
+							sameAs: [],
+						}),
+					}}
+				/>
+			</head>
+			<body className={`${nunitoSans.className} overflow-x-hidden`}>
 				{children}
 			</body>
 		</html>
