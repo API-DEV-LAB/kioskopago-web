@@ -46,13 +46,8 @@ export default function Footer() {
 						<h4 className="font-semibold">Dirección</h4>
 						<ul className="space-y-2 text-sm text-muted-foreground">
 							<li>
-								<a
-									href="#"
-									className="hover:text-foreground transition-colors"
-								>
-									Real de Carretas 104-502, Fracc. Milenio
-									III, C.P. 76060, Querétaro, Qro.
-								</a>
+								Real de Carretas 104-502, Fracc. Milenio III,
+								C.P. 76060, Querétaro, Qro.
 							</li>
 						</ul>
 					</div>
@@ -61,7 +56,7 @@ export default function Footer() {
 						<ul className="space-y-2 text-sm text-muted-foreground">
 							<li>
 								<a
-									href="#"
+									href="https://wa.me/4422222222"
 									className="hover:text-foreground transition-colors"
 								>
 									44 22 22 22 22

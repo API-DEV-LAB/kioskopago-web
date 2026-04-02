@@ -1,5 +1,4 @@
-import { LandingHeader } from '@/features/home/components/LandingHeader'
-import { Footer } from '@/features/home/components/Footer'
+import { WrapperHeaderFooter } from '@/features/home/components/WrapperHeaderFooter'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -8,8 +7,7 @@ export const metadata: Metadata = {
 
 export default function PreguntasFrecuentesPage() {
 	return (
-		<div className="min-h-screen bg-background">
-			<LandingHeader />
+		<WrapperHeaderFooter>
 			<main className="container mx-auto px-4 py-16 max-w-3xl">
 				<h1 className="text-3xl font-bold mb-8">
 					Preguntas frecuentes
@@ -105,7 +103,6 @@ export default function PreguntasFrecuentesPage() {
 					</div>
 				</section>
 			</main>
-			<Footer />
-		</div>
+		</WrapperHeaderFooter>
 	)
 }

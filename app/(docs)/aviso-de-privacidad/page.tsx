@@ -1,5 +1,4 @@
-import { LandingHeader } from '@/features/home/components/LandingHeader'
-import { Footer } from '@/features/home/components/Footer'
+import { WrapperHeaderFooter } from '@/features/home/components/WrapperHeaderFooter'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -8,12 +7,9 @@ export const metadata: Metadata = {
 
 export default function AvisoDePrivacidadPage() {
 	return (
-		<div className="min-h-screen bg-background">
-			<LandingHeader />
+		<WrapperHeaderFooter>
 			<main className="container mx-auto px-4 py-16 max-w-3xl">
-				<h1 className="text-3xl font-bold mb-8">
-					Aviso de privacidad
-				</h1>
+				<h1 className="text-3xl font-bold mb-8">Aviso de privacidad</h1>
 
 				<section className="space-y-6 text-muted-foreground leading-relaxed">
 					<div className="space-y-3">
@@ -91,7 +87,6 @@ export default function AvisoDePrivacidadPage() {
 					</div>
 				</section>
 			</main>
-			<Footer />
-		</div>
+		</WrapperHeaderFooter>
 	)
 }

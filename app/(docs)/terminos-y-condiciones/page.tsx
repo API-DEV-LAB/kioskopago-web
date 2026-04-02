@@ -1,5 +1,4 @@
-import { LandingHeader } from '@/features/home/components/LandingHeader'
-import { Footer } from '@/features/home/components/Footer'
+import { WrapperHeaderFooter } from '@/features/home/components/WrapperHeaderFooter'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -8,8 +7,7 @@ export const metadata: Metadata = {
 
 export default function TerminosYCondicionesPage() {
 	return (
-		<div className="min-h-screen bg-background">
-			<LandingHeader />
+		<WrapperHeaderFooter>
 			<main className="container mx-auto px-4 py-16 max-w-3xl">
 				<h1 className="text-3xl font-bold mb-8">
 					Términos y condiciones
@@ -35,10 +33,10 @@ export default function TerminosYCondicionesPage() {
 						</h2>
 						<p>
 							Kioskopago es una plataforma B2B que permite a
-							tiendas de conveniencia ofrecer servicios de recargas
-							de tiempo aire y pago de servicios a sus clientes
-							finales. El administrador carga saldo a las tiendas,
-							quienes a su vez prestan los servicios.
+							tiendas de conveniencia ofrecer servicios de
+							recargas de tiempo aire y pago de servicios a sus
+							clientes finales. El administrador carga saldo a las
+							tiendas, quienes a su vez prestan los servicios.
 						</p>
 					</div>
 
@@ -74,10 +72,10 @@ export default function TerminosYCondicionesPage() {
 							5. Modificaciones
 						</h2>
 						<p>
-							Nos reservamos el derecho de modificar estos términos
-							en cualquier momento. Las modificaciones entrarán en
-							vigor inmediatamente después de su publicación en la
-							plataforma.
+							Nos reservamos el derecho de modificar estos
+							términos en cualquier momento. Las modificaciones
+							entrarán en vigor inmediatamente después de su
+							publicación en la plataforma.
 						</p>
 					</div>
 
@@ -93,7 +91,6 @@ export default function TerminosYCondicionesPage() {
 					</div>
 				</section>
 			</main>
-			<Footer />
-		</div>
+		</WrapperHeaderFooter>
 	)
 }

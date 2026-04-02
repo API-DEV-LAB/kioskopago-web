@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 		title: METADATA.TITLE,
 		description: METADATA.DESCRIPTION,
 		url: METADATA.URL,
-		siteName: 'Kioskopago',
+		siteName: METADATA.TITLE_SHORT,
 		locale: 'es_MX',
 		type: 'website',
 		images: [
