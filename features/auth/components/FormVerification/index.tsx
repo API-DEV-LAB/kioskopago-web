@@ -13,7 +13,11 @@ import { CODE_VERIFICATION_MAX, ROUTES_APP } from '@/shared/utils/constants'
 import { useAuthLoginStore } from '@/features/auth/store/login'
 import { useAuthVerificationStore } from '@/features/auth/store/verification'
 import { verifyOtp, resendOtp } from '@/features/auth/api/otp'
-import { setTokens } from '@/shared/utils/auth'
+import {
+	setAccessToken,
+	setRefreshToken,
+	setUserRole,
+} from '@/shared/utils/cookies'
 
 export default function FormVerification() {
 	const router = useRouter()
@@ -35,7 +39,9 @@ export default function FormVerification() {
 	const verifyMutation = useMutation({
 		mutationFn: verifyOtp,
 		onSuccess: (response) => {
-			setTokens(response.accessToken, response.refreshToken)
+			setAccessToken(response.accessToken)
+			setRefreshToken(response.refreshToken)
+			setUserRole(response.user.role)
 			if (response.user.status === 'ENABLED') {
 				if (response.user.role === 'ADMIN') {
 					router.push(ROUTES_APP.ADMIN_DASHBOARD.path)

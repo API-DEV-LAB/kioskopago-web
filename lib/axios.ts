@@ -1,4 +1,6 @@
 import axios, { AxiosError } from 'axios'
+import { getAccessToken, clearAuthTokens } from '@/shared/utils/cookies'
+import { ROUTES_APP } from '@/shared/utils/constants'
 
 const API = axios.create({
 	baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -9,26 +11,41 @@ const API = axios.create({
 	},
 })
 
-API.interceptors.request.use((config) => {
-	if (typeof window !== 'undefined') {
-		const token = localStorage.getItem('token')
-		if (token) config.headers.Authorization = `Bearer ${token}`
-	}
-	return config
-})
-
-API.interceptors.response.use(
-	(res) => res,
-	(error) => {
-		const err = error as AxiosError<{ message?: string }>
-		if (err.response?.status === 401) {
-			if (typeof window !== 'undefined') {
-				localStorage.removeItem('token')
-				localStorage.removeItem('refreshToken')
-				// window.location.href = '/'
+API.interceptors.request.use(
+	(config) => {
+		if (typeof window !== 'undefined') {
+			const token = getAccessToken()
+			if (token) {
+				config.headers.Authorization = `Bearer ${token}`
 			}
 		}
-		return Promise.reject(err)
+		return config
+	},
+	(error) => {
+		return Promise.reject(error)
+	},
+)
+
+API.interceptors.response.use(
+	(response) => response,
+	(error: AxiosError) => {
+		if (error.response?.status === 401) {
+			clearAuthTokens()
+			if (typeof window !== 'undefined') {
+				const currentPath = window.location.pathname
+				if (currentPath !== ROUTES_APP.LOGIN.path) {
+					sessionStorage.setItem('redirectAfterLogin', currentPath)
+				}
+				window.location.href = ROUTES_APP.LOGIN.path
+			}
+		}
+
+		if (!error.response) {
+			console.error(
+				'🌐 Error de red - No se pudo conectar con el servidor',
+			)
+		}
+		return Promise.reject(error)
 	},
 )
 
