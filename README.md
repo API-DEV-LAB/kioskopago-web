@@ -46,7 +46,7 @@ yarn format
 | Ambiente | URL                                       |
 | -------- | ----------------------------------------- |
 | Prod     |                                           |
-| Dev      | https://kioskopago-web.vercel.app/        |
+| Dev      | https://kioskopago.vercel.app/            |
 | Docs     | https://dev.apidevlab.com/kiosko-api/docs |
 
 ## Run react doctor
