@@ -46,8 +46,8 @@ export default function Footer() {
 						<h4 className="font-semibold">Dirección</h4>
 						<ul className="space-y-2 text-sm text-muted-foreground">
 							<li>
-								Real de Carretas 104-502, Fracc. Milenio III,
-								C.P. 76060, Querétaro, Qro.
+								Asia #125, Col. Continental, Santa Rosa
+								Jáuregui, Querétaro, Qro., C.P. 76220.
 							</li>
 						</ul>
 					</div>
