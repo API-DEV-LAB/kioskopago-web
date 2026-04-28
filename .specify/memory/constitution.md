@@ -25,7 +25,7 @@ TODOs pendientes:
 Toda la lógica de negocio DEBE organizarse por dominio de funcionalidad bajo `features/`,
 no por capa técnica. Cada feature agrupa únicamente los subdirectorios que necesita; no
 se crean carpetas vacías. Las utilidades compartidas entre features pertenecen a `shared/`;
-los primitivos de UI globales(shadcn/ui) pertenecen a `components/`.
+los primitivos de UI globales(shadcn/ui) pertenecen a `components/ui`.
 
 Ningún feature PUEDE importar desde los módulos internos de otro feature. La comunicación
 entre features DEBE realizarse a través de contratos en `shared/` o navegación por URL.
@@ -194,7 +194,7 @@ Todas las rutas están clasificadas en `shared/utils/constants.ts` mediante
 
 | Clasificación | Rutas | Comportamiento |
 |---|---|---|
-| **Pública** | `/`, `/inicia-sesion`, `/registro-de-tienda`, `/verificacion`, `/recupera-contrasena`, `/terminos-y-condiciones`, `/aviso-de-privacidad`, `/preguntas-frecuentes` | Accesible sin sesión |
+| **Pública** | `/`, `/inicia-sesion`, `/registro-de-tienda`, `/verificacion`, `/terminos-y-condiciones`, `/aviso-de-privacidad`, `/preguntas-frecuentes` | Accesible sin sesión |
 | **Protegida GROCER** | `/tienda`, `/tienda/*` | Requiere token + rol `GROCER` |
 | **Protegida ADMIN** | `/admin`, `/admin/*` | Requiere token + rol `ADMIN` |
 
@@ -238,7 +238,8 @@ Las ramas DEBEN nombrarse según el tipo de cambio:
 | Tipo | Patrón | Ejemplo |
 |---|---|---|
 | Nueva funcionalidad | `feature/name_feature` | `feature/payment-history` |
-| Corrección de error | `fix/name_fix` | `fix/login-redirect` |
+| Corrección de error | `fix/name_fix` | `fix/login_redirect` |
+| Documentacion | `docs/name_docs` | `docs/add_docs_sentry` |
 
 El nombre DEBE ser en inglés, en snake_case, descriptivo y conciso. No se permiten
 nombres genéricos como `feature/cambios` o `fix/error`.
